@@ -1,0 +1,8 @@
+{
+    "name": "ifsp/lemonade",
+    "autoload": {
+        "psr-4": {
+            "app\\": "app/"
+        }
+    }
+}
