@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace app\controllers\website;
 
 use app\views\View;
 
@@ -12,7 +12,7 @@ use app\views\View;
  * @package app\controller
  * @since 0.1.0
  */ 
-class PhpLoveController extends PageController {
+class PhpLoveController extends WebsitePageController {
 
     /**
      * Return the content of PhpLove view
@@ -22,7 +22,7 @@ class PhpLoveController extends PageController {
     public static function getPhpLove() {
 
         // PhpLove view
-        $pageContent = View::render('phplove', [
+        $pageContent = View::render('website/phplove', [
             'h1' => 'Why love php?',
             'p' => "It's perfect for beginners but we love it because it's rounded enough to be able to handle large, complex projects. 
             The PHP framework community is extremely strong and the tools used to help you make your projects better are widely available, 

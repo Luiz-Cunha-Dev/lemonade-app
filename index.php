@@ -19,7 +19,7 @@
  * @author     Phelipe Gonçalves Borges
  * @copyright  1997-2005 The PHP Group
  * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    0.1.0 // Project Version
+ * @version    0.2.0 // Project Version
  * @link       https://github.com/Luiz-Cunha-Dev/lemonade-app
 */
 
