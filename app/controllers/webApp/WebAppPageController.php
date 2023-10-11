@@ -1,20 +1,21 @@
 <?php
 
-namespace app\controllers;
+namespace app\controllers\webApp;
 
 use app\views\View;
 
 /**
- * Generic controller to handle pages (website)
+ * Generic controller to handle pages (webapp)
  * 
- * Note, does not include web application pages, only the website
+ * Note, does not include website pages, only the web app
  * 
- * HTML files: ./view/pages/home.html | ./view/pages/header.html | ./view/pages/footer.html
+ * HTML files:
  * 
  * @package app\controller
- * @since 0.1.0
+ * @since 0.2.0
  */ 
-class PageController {
+//TODO Implement
+class WebAppPageController {
 
     /**
      * Return the standardized header
@@ -22,7 +23,7 @@ class PageController {
      * @return string header
      */
     private static function getHeader() {
-        return View::render('header');
+        //return View::render();
     }
 
     /**
@@ -31,7 +32,7 @@ class PageController {
      * @return string footer
      */
     private static function getFooter() {
-        return View::render('footer');
+        //return View::render();
     }
 
     /**
@@ -43,12 +44,14 @@ class PageController {
      * @return string rendered page
      */
     public static function getPage($title, $content) {
+        /*
         return View::render('page', [
             'title' => $title,
             'header' => self::getHeader(),
             'content' => $content,
             'footer' => self::getFooter()
         ]);
+        */
     }
 
 }
