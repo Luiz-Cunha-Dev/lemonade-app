@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+
+  app:
+    build: .
+    container_name: lemonade_app
+    restart: always
+    ports:
+      - '80:80'
+    volumes:
+    - ../:/var/www/html/lemonade:cached
+    - ./apache:/conf/httpd.conf /usr/local/apache2/conf/httpd.conf
+    depends_on:
+      - db
+    links:
+      - db
+  
+  db:
+    container_name: lemonade_db
+    image: mysql:8.1
+    restart: always
+    ports:
+      - '3307:3306'
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=lemonade_db

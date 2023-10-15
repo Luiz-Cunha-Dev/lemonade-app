@@ -1,1 +1,0 @@
-Enable .htaccess file to rewrite path
