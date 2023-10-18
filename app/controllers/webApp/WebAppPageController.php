@@ -17,26 +17,9 @@ use app\views\View;
 //TODO Implement
 class WebAppPageController {
 
+    
     /**
-     * Return the standardized header
-     * 
-     * @return string header
-     */
-    private static function getHeader() {
-        //return View::render();
-    }
-
-    /**
-     * Return the standardized footer
-     * 
-     * @return string footer
-     */
-    private static function getFooter() {
-        //return View::render();
-    }
-
-    /**
-     * Return the content of a generic page with a standardized header and footer
+     * Return the content of a generic webapp page
      *
      * Using $vars: 'css' => your css | 'js' => your javascript
      * 
@@ -48,6 +31,7 @@ class WebAppPageController {
      * 
      * @return string rendered page
      */
+    /*
     public static function getPage($title, $header, $main, $footer, $vars=[]) {
         
         $css =  array_key_exists('css', $vars) ? '<link rel="stylesheet" href="' . $vars['css'] . '">' : '';
@@ -62,5 +46,5 @@ class WebAppPageController {
             'js' => $js
         ]);
     }
-    
+    */
 }

@@ -17,7 +17,7 @@ use app\views\View;
 class WebsitePageController {
 
     /**
-     * Return the content of a generic page
+     * Return the content of a generic website page
      * 
      * Using $vars: 'css' => your css | 'js' => your javascript
      * 
