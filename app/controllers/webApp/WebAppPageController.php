@@ -37,21 +37,30 @@ class WebAppPageController {
 
     /**
      * Return the content of a generic page with a standardized header and footer
-
+     *
+     * Using $vars: 'css' => your css | 'js' => your javascript
+     * 
      * @param string $title page title
-     * @param string $content page content
+     * @param string $header page header
+     * @param string $main page main
+     * @param string $footer page footer
+     * @param array $vars page css and javascript(module)
      * 
      * @return string rendered page
      */
-    public static function getPage($title, $content) {
-        /*
-        return View::render('page', [
+    public static function getPage($title, $header, $main, $footer, $vars=[]) {
+        
+        $css =  array_key_exists('css', $vars) ? '<link rel="stylesheet" href="' . $vars['css'] . '">' : '';
+        $js =  array_key_exists('js', $vars) ? '<script type="module" src="' . $vars['js'] . '"></script>' : '';
+         
+        return View::render('website/page', [
             'title' => $title,
-            'header' => self::getHeader(),
-            'content' => $content,
-            'footer' => self::getFooter()
+            'css' => $css,
+            'header' => $header,
+            'main' => $main,
+            'footer' => $footer,
+            'js' => $js
         ]);
-        */
     }
-
+    
 }
