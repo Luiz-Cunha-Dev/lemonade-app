@@ -7,10 +7,15 @@ services:
     container_name: lemonade_app
     restart: always
     ports:
-      - '80:80'
+      - '$SERVER_PORT:80'
+    environment:
+      - HOST=db
+      - DATABASE=lemonade_db
+      - DATABASE_USER=$DATABASE_USER
+      - DATABASE_PASSWORD=$DATABASE_PASSWORD
     volumes:
     - ../:/var/www/html/lemonade:cached
-    - ./apache:/conf/httpd.conf /usr/local/apache2/conf/httpd.conf
+    - ./apache:/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf
     depends_on:
       - db
     links:
@@ -18,10 +23,17 @@ services:
   
   db:
     container_name: lemonade_db
-    image: mysql:8.1
+    image: mysql:8.0
     restart: always
     ports:
-      - '3307:3306'
+      - '$DATABASE_PORT:3306'
     environment:
-      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_ROOT_PASSWORD=$DATABASE_PASSWORD
       - MYSQL_DATABASE=lemonade_db
+    volumes:
+      - db:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    
+volumes:
+  db:
+    name: lemonade_database
