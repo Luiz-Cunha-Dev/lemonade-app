@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS userType(
 
 CREATE TABLE IF NOT EXISTS city(
 	idCity INT NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(30) NOT NULL,
+    `name` VARCHAR(50) NOT NULL,
     uf CHAR(2) NOT NULL,
     idState INT NOT NULL,
 	CONSTRAINT cityPk PRIMARY KEY (idCity)
@@ -53,6 +53,7 @@ CREATE TABLE IF NOT EXISTS city(
 CREATE TABLE IF NOT EXISTS state(
 	idState INT NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(50) NOT NULL,
+    acronym CHAR(2) NOT NULL,
 	CONSTRAINT statePk PRIMARY KEY (idState)
 );
 
@@ -181,3 +182,25 @@ CREATE TABLE IF NOT EXISTS userPracticeExamQuestionDiscursive(
     CONSTRAINT userPracticeExamQuestionDiscursive_UserPracticeExamFk FOREIGN KEY (idUserPracticeExam) REFERENCES userPracticeExam(idUserPracticeExam),
     CONSTRAINT userPracticeExamQuestionDiscursive_QuestionFk FOREIGN KEY (idQuestion) REFERENCES question(idQuestion)
 );
+
+-- Bulk Insert
+
+-- Table: state
+
+LOAD DATA INFILE '../mysql-files/data/states.csv' INTO TABLE state
+    FIELDS TERMINATED BY ','
+    ENCLOSED BY '"'
+    LINES TERMINATED BY '\n'
+    IGNORE 1 ROWS;
+
+-- Table: city
+
+LOAD DATA INFILE '../mysql-files/data/cities.csv' INTO TABLE city
+    FIELDS TERMINATED BY ','
+    ENCLOSED BY '"'
+    LINES TERMINATED BY '\n'
+    IGNORE 1 ROWS;
+
+-- Table: userType
+
+INSERT INTO userType (`name`) VALUES ('Estudante'), ('Professor');
