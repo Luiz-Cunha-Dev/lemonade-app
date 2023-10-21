@@ -2,9 +2,12 @@
 
 namespace app\db;
 
+use mysqli;
+
 class DatabaseConnection {
 
     private $connection;
+    
 
     public function __construct() {
         $this->connection = new \mysqli($_ENV['HOST'], $_ENV['DATABASE_USER'], $_ENV['DATABASE_PASSWORD'], $_ENV['DATABASE']);
