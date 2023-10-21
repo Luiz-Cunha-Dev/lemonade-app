@@ -10,7 +10,6 @@ use app\views\View;
  * HTML file: ./view/pages/home.html
  * 
  * @package app\controller
- * @since 0.1.0
  */ 
 class HomeController extends WebsitePageController {
 
@@ -35,6 +34,7 @@ class HomeController extends WebsitePageController {
         $footer = View::render('website/html/footer');
 
         // Return page view
+        
         return parent::getPage('Home', $header, $main, $footer);
     }
 

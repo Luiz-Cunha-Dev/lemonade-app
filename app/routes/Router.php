@@ -12,7 +12,6 @@ use http\Response;
  * Directs and validates user requests to appropriate controllers
  * 
  * @package app\routes
- * @since 0.1.0
  */
 class Router {
 
@@ -68,17 +67,23 @@ class Router {
      * @param array $params route methods
      */
     private function addRoute($method, $route, $params = []) {
+
         foreach($params as $key => $value) {
+
             if($value instanceof \Closure) {
+
                 $params['controller'] = $value;
                 unset($params[$key]);
                 continue;
+
             }
+
         }
 
         $patternRoute = '/^' . str_replace('/', '\/',  $route) . '$/';
 
         $this->routes[$patternRoute][$method] = $params;
+
     }
 
     /**
@@ -96,9 +101,7 @@ class Router {
      */
     private function getUri() {
         $uri = $this->request->getUri();
-
         $xUri = strlen($this->prefix) ? explode($this->prefix, $uri) : [$uri];
-
         return end($xUri);
     }
 
@@ -108,6 +111,7 @@ class Router {
      * @return array Returns the current route
      */
     private function getRoute() {
+
         // URI
         $uri = $this->getUri();
 
@@ -132,6 +136,7 @@ class Router {
             }
 
         }
+        
         throw new Exception('Page not found', 404);
     }
 
@@ -141,7 +146,9 @@ class Router {
      * @return Response Returns the controller method passed to the route
      */
     public function serve() {
+
         try { 
+
             $route = $this->getRoute();
 
             // Checks if the controller exists
@@ -157,7 +164,9 @@ class Router {
             return call_user_func_array($route['controller'], $args);
 
         } catch (Exception $e) {
+
             return new http\Response($e->getCode(), 'text/html', $e->getMessage());
+            
         }
     } 
 

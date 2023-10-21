@@ -10,7 +10,6 @@ use app\views\View;
  * HTML file: ./view/pages/phplove.html
  * 
  * @package app\controller
- * @since 0.1.0
  */ 
 class PhpLoveController extends WebsitePageController {
 

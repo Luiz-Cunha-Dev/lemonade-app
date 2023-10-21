@@ -2,47 +2,45 @@
 
 namespace app\models;
 
-use app\db\DatabaseConnection;
+/**
+ * User model
+ * 
+ * Responsible for reading and writing data of user entity
+ * 
+ * @package app\models
+ */ 
+class UserModel extends Model {
 
-class UserModel {
-
+    /**
+     * Get all users
+     * 
+     * @return array users
+     */
     public static function getAllUsers() {
 
-    try {
-        $db = new DatabaseConnection();
-
-        $result = $db->query('SELECT * FROM user');
-
-        if ($result) {
-            $users = $result->fetch_all();
-            $result->free();
-        } else {
-            $users = array(); // Atribuir um array vazio se não houver resultados
+        try {
+            $users = parent::getAllElements('user');
+            return $users;
+        } catch( \Exception $e ) {
+            throw $e;
         }
-
-        $db->close();
-
-        return $users;
-
-    } catch( \Exception $e ) {
-        throw $e;
     }
-}
 
-public static function getUserById($id){
-    try{
-        $sql = "SELECT * FROM user WHERE iduser=?";
-        $db = new DatabaseConnection();
-        $conn = $db->getConnection();
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('i', $id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $user = $result->fetch_assoc();
-        return $user;
+    /**
+     * Get a user by id
+     * 
+     * @param int $idUser id of the user
+     * 
+     * @return array user
+     */
+    public static function getUserById($idUser){
 
-    } catch (\Exception $e){
-        throw $e;
+        try{
+            $user = parent::getElementByParameter('user', 'idUser', $idUser);
+            return $user;
+        } catch (\Exception $e){
+            throw $e;
+        }
     }
-} 
+
 }

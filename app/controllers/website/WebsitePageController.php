@@ -12,7 +12,6 @@ use app\views\View;
  * HTML files: ./view/pages/page.html
  * 
  * @package app\controller
- * @since 0.1.0
  */ 
 class WebsitePageController {
 
