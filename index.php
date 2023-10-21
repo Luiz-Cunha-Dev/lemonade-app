@@ -25,10 +25,13 @@
 
 require __DIR__.'/vendor/autoload.php';
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->safeLoad();
+
 use app\routes\Router;
 use app\views\View;
 
-define('URL', 'http://localhost/lemonade');
+define('URL', $_ENV['SERVER_URL']);
 
 View::start([
        'URL' => URL
