@@ -86,8 +86,11 @@ class Response {
      * Send response to user
      */
     public function sendResponse() {
+
         $this->sendHeaders();
+
         switch ($this->contentType) {
+            
             case 'text/html':
                 echo $this->content;
                 exit;
