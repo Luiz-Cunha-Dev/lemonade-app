@@ -1,17 +1,17 @@
 <?php 
 
-namespace app\models;
+namespace app\services;
 
 use app\db\DatabaseConnection;
 
 /**
- * Generic model
+ * Generic service
  * 
- * Includes all generic functions that a model can use
+ * Includes all generic functions that a service can use
  * 
- * @package app\models
+ * @package app\services
  */ 
-class Model {
+class Service {
 
     /**
      * 
@@ -38,6 +38,8 @@ class Model {
 
     /**
      * Get all elements
+     * 
+     * If it is null, returns an empty array
      * 
      * @param string $tableName table name
      * 
@@ -70,6 +72,9 @@ class Model {
 
     /**
      * Get element by parameter
+     * 
+     * 
+     * If it is null, returns an empty array
      * 
      * @param string $tableName table name
      * 

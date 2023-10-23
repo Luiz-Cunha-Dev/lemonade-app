@@ -4,7 +4,7 @@ namespace app\controllers\website;
 
 use app\controllers\website\WebsitePageController;
 use app\views\View;
-use app\models\UserModel;
+use app\services\UserService;
 
 /**
  * Teste controller
@@ -22,12 +22,12 @@ class TesteController extends WebsitePageController{
      */
     public static function getTeste() {
         
-        $teste = UserModel::getUserById(1);
+        $teste = UserService::getUserById(7);
 
         $header = View::render('website/html/header');
 
         $main = View::render('website/html/teste', [
-            'user' =>  empty($teste['name']) ? 'User not found' : 'Name: ' . $teste['name']
+            'user' =>  empty($teste) ? 'User not found' : 'Name: ' . $teste->getName() . ' ' . $teste->getLastName()
         ]);
 
         $footer = View::render('website/html/footer');
