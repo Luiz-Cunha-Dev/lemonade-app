@@ -10,7 +10,6 @@ use app\views\View;
  * HTML file: ./view/pages/home.html
  * 
  * @package app\controller
- * @since 0.1.0
  */ 
 class HomeController extends WebsitePageController {
 

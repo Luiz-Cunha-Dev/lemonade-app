@@ -12,7 +12,6 @@ use app\views\View;
  * HTML files:
  * 
  * @package app\controller
- * @since 0.2.0
  */ 
 //TODO Implement
 class WebAppPageController {

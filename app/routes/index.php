@@ -15,3 +15,9 @@ $router->get('/', [
 $router->get('/php', [
     fn() => new Response(200, 'text/html', controllers\website\PhpLoveController::getPhpLove())
 ]);
+
+//PhpTeste route
+
+$router->get('/testeUser', [
+    fn() => new Response(200, 'text/html', controllers\website\TesteController::getTeste())
+]);

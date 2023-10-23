@@ -8,10 +8,8 @@ namespace app\views;
  * Render html pages with dynamic content
  * 
  * @package app\view
- * @since 0.1.0
  */ 
 class View {
-
 
     /**
      * 
@@ -54,6 +52,7 @@ class View {
      * @return string rendered page
      */
     public static function render($view, $data = []) {
+
         $contentView = self::getContentView($view);
 
         $data = array_merge(self::$data, $data);
@@ -64,4 +63,5 @@ class View {
 
         return str_replace($keys, array_values($data), $contentView);
     }
+
 }
