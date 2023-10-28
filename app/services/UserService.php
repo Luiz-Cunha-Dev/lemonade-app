@@ -69,4 +69,42 @@ class UserService extends Service {
         }
     }
 
+    public static function insertUser($parameters){
+        try{
+            parent::insertElement('user', $parameters);
+            
+        } catch (\Exception $e){
+            throw $e;
+        }
+    }
+
+    public static function updateUserById($parameters, $idUser){
+
+        try{
+            if(parent::updateElementByParameter('user', $parameters, 'idUser', $idUser)){
+                return true;
+            }else{
+                return false;
+            }
+        }catch (\Exception $e){
+            throw $e;
+        }
+    }
+
+    public static function deleteUserById($idUser){
+        
+        try{
+
+            if(parent::deleteElementByParameter('user', 'idUser', $idUser)) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (\Exception $e){
+            throw $e;
+        }
+    }
+
+    
 }
