@@ -1,8 +1,9 @@
-<?php 
+<?php
 
 namespace app\services;
 
 use app\db\DatabaseConnection;
+
 
 /**
  * Generic service
@@ -10,8 +11,9 @@ use app\db\DatabaseConnection;
  * Includes all generic functions that a service can use
  * 
  * @package app\services
- */ 
-class Service {
+ */
+class Service
+{
 
     /**
      * 
@@ -19,7 +21,8 @@ class Service {
      * 
      * @return string parameter type (i, s, d)
      */
-    private static function getParameterType($parameter) {
+    private static function getParameterType($parameter)
+    {
 
         switch (gettype($parameter)) {
             case 'integer':
@@ -45,13 +48,14 @@ class Service {
      * 
      * @return array elements
      */
-    public static function getAllElements($tableName) {
+    public static function getAllElements($tableName)
+    {
 
         try {
 
             $db = new DatabaseConnection();
             $conn = $db->getConnection();
-            
+
             $sql = 'SELECT * FROM ' . $tableName;
             $result = $conn->query($sql);
 
@@ -64,8 +68,7 @@ class Service {
             $result->free();
             $conn->close();
             return $elements;
-
-        } catch( \Exception $e ) {
+        } catch (\Exception $e) {
             throw $e;
         }
     }
@@ -86,7 +89,8 @@ class Service {
      * 
      * @return array element
      */
-    public static function getElementByParameter($tableName, $parameterToCompare, $parameterToSearch) {
+    public static function getElementByParameter($tableName, $parameterToCompare, $parameterToSearch)
+    {
 
         try {
 
@@ -110,11 +114,9 @@ class Service {
             $result->free();
             $conn->close();
             return $element;
-
-        } catch( \Exception $e ) {
+        } catch (\Exception $e) {
             throw $e;
         }
-
     }
 
     /**
@@ -124,9 +126,10 @@ class Service {
      * 
      * @param array $parameters data to insert ( ['columnName' => value] )
      * 
-     * @return array element
+     * @return boolean
      */
-    public static function insertElement($tableName, $parameters) {
+    protected static function insertElement($tableName, $parameters)
+    {
 
         $parametersKeys = array_keys($parameters);
 
@@ -139,12 +142,15 @@ class Service {
             $conn->begin_transaction();
 
             $sql = 'INSERT INTO ' . $tableName . ' (' . implode(', ', $parametersKeys) . ') VALUES (' . implode(', ', array_fill(0, count($parametersKeys), '?')) . ')';
+
             $stmt = $conn->prepare($sql);
 
-            foreach($parametersValues as $parameter) {
-                $stmt->bind_param(self::getParameterType($parameter), $parameter);
-            }
-            
+            $parametersTypes = array_map(function ($parameterType) {
+                return self::getParameterType($parameterType);
+            }, $parametersValues);
+
+            $stmt->bind_param(implode('', $parametersTypes), ...$parametersValues);
+
             $stmt->execute();
             $conn->commit();
 
@@ -156,12 +162,106 @@ class Service {
             $conn->close();
 
             return true;
-
-        } catch( \mysqli_sql_exception $e ) {
+        } catch (\mysqli_sql_exception $e) {
             $conn->rollback();
             throw $e;
         }
-
     }
 
+    /**
+     * Delete element by parameter
+     * 
+     * @param string $tableName table name
+     * 
+     * @param string $parameterToCompare parameter to compare
+     * 
+     * @param string $parameterToSearch parameter to search
+     * 
+     * @return boolean
+     */
+    public static function deleteElementByParameter($tableName, $parameterToCompare, $parameterToSearch)
+    {
+
+        try {
+
+            $db = new DatabaseConnection;
+            $conn = $db->getConnection();
+            $conn->begin_transaction();
+
+            $sql = 'DELETE FROM ' . $tableName . ' WHERE ' . $parameterToCompare . ' = ?';
+
+            $stmt = $conn->prepare($sql);
+
+            $stmt->bind_param(self::getParameterType($parameterToSearch), $parameterToSearch);
+
+            $stmt->execute();
+            $conn->commit();
+
+            if ($stmt->affected_rows == 0) {
+                return false;
+            }
+
+            $stmt->close();
+            $conn->close();
+
+            return true;
+        } catch (\mysqli_sql_exception $e) {
+            $conn->rollback();
+            throw $e;
+        }
+    }
+    /**
+     * Update element by parameter
+     * 
+     * @param string $tableName table name
+     * 
+     * @param array $parameters data to insert ( ['columnName' => value] )
+     * 
+     * @param string $parameterToCompare parameter to compare
+     * 
+     * @param string $parameterToSearch parameter to search
+     * 
+     * @return boolean
+     */
+
+    public static function updateElementByParameter($tableName, $parameters, $parameterToCompare, $parameterToSearch)
+    {
+
+        $keys = array_keys($parameters);
+        $values = array_values($parameters);
+
+        $parameterTypes = array_map(function ($parameterType) {
+            return self::getParameterType($parameterType);
+        }, $values);
+
+        array_push($parameterTypes, self::getParameterType($parameterToSearch));
+        array_push($values, $parameterToSearch);
+
+        $columnNames = implode(' = ?, ', $keys);
+        try {
+            $db = new DatabaseConnection;
+            $conn = $db->getConnection();
+            $conn->begin_transaction();
+
+            $sql = 'UPDATE ' . $tableName . ' SET '  .  $columnNames . '=? WHERE ' . $parameterToCompare . ' = ?';
+            
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param(implode("", $parameterTypes), ...$values);
+            $stmt->execute();
+
+            $conn->commit();
+
+            if ($stmt->affected_rows == 0) {
+                return false;
+            }
+
+            $stmt->close();
+            $conn->close();
+            return true;
+
+        } catch (\mysqli_sql_exception $e) {
+            $conn->rollback();
+            throw $e;
+        }
+    }
 }

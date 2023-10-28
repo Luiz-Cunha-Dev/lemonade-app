@@ -188,7 +188,7 @@ class UserModel {
         $this->password = $password;
         $this->salt = $salt;
         $this->phone = $phone;
-        $this->birthDate = new \DateTimeImmutable($birthDate);
+        $this->birthDate = $birthDate;
         $this->profilePicture = $profilePicture || null;
         $this->street = $street;
         $this->streetNumber = settype($streetNumber, 'int');
