@@ -22,23 +22,19 @@
  * @link       https://github.com/Luiz-Cunha-Dev/lemonade-app
 */
 
-require __DIR__.'/vendor/autoload.php';
-
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->safeLoad();
+require __DIR__.'/app/app.php';
 
 use app\routes\Router;
-use app\views\View;
 
-define('URL', $_ENV['SERVER_URL']);
-
-View::start([
-       'URL' => URL
-]);
+// Start router
 
 $router = new Router(URL);
 
+// Include page routes
+
 include __DIR__.'/app/routes/index.php';
+
+// Print page response
 
 $router->serve()
        ->sendResponse();
