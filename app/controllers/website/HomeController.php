@@ -35,7 +35,7 @@ class HomeController extends WebsitePageController {
         $footer = View::render('website/html/home/footer');
 
         // Return page view
-        return parent::getPage('Home', $header, $main, $footer, ['css' => 'app/views/css/home.css']);
+        return parent::getPage('Home', $header, $main, $footer, ['css' => 'app/views/pages/website/css/home.css']);
     }
 
 }

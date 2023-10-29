@@ -3,12 +3,19 @@
 use app\routes\http\Response;
 use app\controllers;
 
-$cssFilePath = 'app/views/css/home.css';
-$cssContent = file_get_contents($cssFilePath);
-
 // Home page route
 $router->get('/', [
     fn() => new Response(200, 'text/html', controllers\website\HomeController::getHome())
+]);
+
+// SignUp page route
+$router->get('/signup', [
+    fn() => new Response(200, 'text/html', controllers\website\SignUpController::getSignUp())
+]);
+
+// SignIn  page route
+$router->get('/signin', [
+    fn() => new Response(200, 'text/html', controllers\website\SignInController::getSignIn())
 ]);
 
 // PhpLove route

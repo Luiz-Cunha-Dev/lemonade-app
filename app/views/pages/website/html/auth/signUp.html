@@ -1,0 +1,135 @@
+<div class="section row">
+
+  <div class="transition-forms signup center" id="form1">
+    <div class="top">
+      <h3>Cadastrar-se</h3>
+    </div>
+    <form class="col-md-10">
+      <div class="row g-3 mb-4">
+        <div class="col">
+          <label for="inputName" class="form-label">Nome</label>
+          <input type="text" class="form-control" placeholder="Digite seu nome" id="inputName" aria-label="Nome">
+        </div>
+        <div class="col">
+          <label for="inputLastName" class="form-label">Sobrenome</label>
+          <input type="text" class="form-control" placeholder="Digite seu sobrenome" id="inputLastName" aria-label="Sobrenome">
+        </div>
+      </div>
+      <div class="mb-4">
+        <label for="inputEmail" class="form-label">Email</label>
+        <input placeholder="Digite seu email" type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
+        <div class="invalid-feedback">
+          Por favor, digite um email válido.
+        </div>
+      </div>
+      <div class="mb-4">
+        <label for="inputPassword" class="form-label">Senha</label>
+        <input placeholder="Digite sua senha" type="password" class="form-control" id="inputPassword">
+      </div>
+      <div class="mb-5">
+        <label for="inputConfirmPassword" class="form-label">Confirmar Senha</label>
+        <input placeholder="Digite sua senha" type="password" class="form-control" id="inputConfirmPassword">
+        <div class="invalid-feedback">
+          A senha e a confirmação de senha não coincidem.
+        </div>
+      </div>
+      <div class="down">
+        <a href="http://localhost/lemonade/signin">Já tenho uma conta</a>
+        <button class="btn btn-success">Continuar</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="transition-forms signup right hidden" id="form2">
+    <div class="top">
+      <img class="arrow-left" src="app/views/pages/website/assets/svgs/arrow-left.svg" alt="arrow-left"/>
+      <h3>Cadastrar-se</h3>
+    </div>
+    <form class="col-md-10">
+      <div class="row mb-4">
+        <label for="inputNickname" class="form-label">Apelido</label>
+        <input placeholder="Digite seu apelido" type="text" class="form-control" id="inputNickname" aria-describedby="emailHelp">
+        <div class="invalid-feedback">
+          Esse apelido já está em uso, por favor, escolha outro.
+        </div>
+      </div>
+      <div class="row mb-4">
+        <label for="inputPhone" class="form-label">Telefone</label>
+        <input placeholder="Digite seu número" type="tel" class="form-control" id="inputPhone">
+        <div class="invalid-feedback">
+          Por favor, digite um telefone válido.
+        </div>
+      </div>
+      <div class="row mb-5">
+        <label for="inputBirthDate" class="form-label">Data de Nascimento</label>
+        <input type="date" class="form-control" id="inputBirthDate">
+        <div class="invalid-feedback">
+          Por favor, digite uma data de nascimento válida.
+        </div>
+      </div>
+      <div class="down">
+        <div></div>
+        <button class="btn btn-success">Continuar</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="transition-forms signup right hidden" id="form3">
+    <div class="top">
+      <img class="arrow-left" src="app/views/pages/website/assets/svgs/arrow-left.svg" alt="arrow-left"/>
+      <h3>Cadastrar-se</h3>
+    </div>
+    <form class="col-md-10">
+      <div class="mb-4">
+        <label for="inputCEP" class="form-label">CEP</label>
+        <input placeholder="Digite seu CEP" type="text" maxlength="9" class="form-control" id="inputCEP">
+        <div class="invalid-feedback">
+          Por favor, digite um CEP válido.
+        </div>
+      </div>
+      <div class="row g-3 mb-4">
+        <div class="col-7">
+          <label for="inputStreet" class="form-label">Rua</label>
+          <input type="text" class="form-control" placeholder="Digite sua rua" id="inputStreet" aria-label="Rua">
+        </div>
+        <div class="col-5">
+          <label for="inputNumber" class="form-label">Número</label>
+          <input type="text" class="form-control" placeholder="Digite seu número" id="inputNumber" aria-label="Número">
+        </div>
+      </div>
+      <div class="mb-4">
+        <label for="inputNeighborhood" class="form-label">Bairro</label>
+        <input placeholder="Digite seu bairro" type="text" class="form-control" id="inputNeighborhood">
+      </div>
+      <div class="mb-4">
+        <label for="inputComplement" class="form-label">Complemento</label>
+        <input placeholder="Digite seu complemento" type="text" class="form-control" id="inputComplement">
+      </div>
+      <div class="row g-3 mb-4">
+        <div class="col">
+          <label for="inputCity" class="form-label">Cidade</label>
+          <select class="form-select" id="inputCity">
+            <option value="-">-</option>
+            <option value="Campinas">Campinas</option>
+            <option value="Sumaré">Sumaré</option>
+            <option value="Hortolandia">Hortolandia</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="inputState" class="form-label">Estado</label>
+          <select class="form-select" id="inputState">
+            <option value="-">-</option>
+            <option value="SP">SP</option>
+            <option value="MG">MG</option>
+            <option value="RJ">RJ</option>
+          </select>
+        </div>
+      </div>
+      <div class="down">
+        <div></div>
+        <button class="btn btn-success">Continuar</button>
+      </div>
+    </form>
+  </div>
+  
+</div>
