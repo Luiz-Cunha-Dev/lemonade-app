@@ -62,7 +62,6 @@ class View {
         }, array_keys($data));
 
         return str_replace($keys, array_values($data), $contentView);
-
     }
 
 }
