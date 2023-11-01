@@ -13,7 +13,6 @@ CREATE TABLE IF NOT EXISTS `user`(
     email VARCHAR(255) NOT NULL,
     nickname VARCHAR(45) NOT NULL,
     `password` VARCHAR(100) NOT NULL,
-    salt VARCHAR(100) NOT NULL,
     phone VARCHAR(15) NOT NULL,
     birthDate DATE NOT NULL,
     profilePicture VARCHAR(255),
