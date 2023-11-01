@@ -24,6 +24,9 @@
       <div class="mb-4">
         <label for="inputPassword" class="form-label">Senha</label>
         <input placeholder="Digite sua senha" type="password" class="form-control" id="inputPassword">
+        <div class="invalid-feedback">
+          A senha deve conter pelo menos 5 caracteres.
+        </div>
       </div>
       <div class="mb-5">
         <label for="inputConfirmPassword" class="form-label">Confirmar Senha</label>
@@ -49,7 +52,7 @@
         <label for="inputNickname" class="form-label">Apelido</label>
         <input placeholder="Digite seu apelido" type="text" class="form-control" id="inputNickname" aria-describedby="emailHelp">
         <div class="invalid-feedback">
-          Esse apelido já está em uso, por favor, escolha outro.
+          Por favor, digite um apelido válido.
         </div>
       </div>
       <div class="row mb-4">
@@ -89,20 +92,32 @@
       <div class="row g-3 mb-4">
         <div class="col-7">
           <label for="inputStreet" class="form-label">Rua</label>
-          <input name="street" "text" class="form-control" placeholder="Digite sua rua" id="inputStreet" aria-label="Rua">
+          <input type="text" class="form-control" placeholder="Digite sua rua" id="inputStreet" aria-label="Rua">
+          <div class="invalid-feedback">
+            Por favor, digite uma rua válida.
+          </div>
         </div>
         <div class="col-5">
           <label for="inputNumber" class="form-label">Número</label>
-          <input name="streetNumber" type="text" class="form-control" placeholder="Digite seu número" id="inputNumber" aria-label="Número">
+          <input type="text" class="form-control" placeholder="Digite seu número" id="inputNumber" aria-label="Número">
+          <div class="invalid-feedback">
+            Por favor, digite um número válido.
+          </div>
         </div>
       </div>
       <div class="mb-4">
         <label for="inputNeighborhood" class="form-label">Bairro</label>
-        <input name="district" placeholder="Digite seu bairro" type="text" class="form-control" id="inputNeighborhood">
+        <input placeholder="Digite seu bairro" type="text" class="form-control" id="inputNeighborhood">
+        <div class="invalid-feedback">
+          Por favor, digite um bairro válido.
+        </div>
       </div>
       <div class="mb-4">
         <label for="inputComplement" class="form-label">Complemento</label>
-        <input name="complement" placeholder="Digite seu complemento" type="text" class="form-control" id="inputComplement">
+        <input placeholder="Digite seu complemento" type="text" class="form-control" id="inputComplement">
+        <div class="invalid-feedback">
+          Por favor, digite um complemento válido.
+        </div>
       </div>
       <div class="row g-3 mb-4">
         <div class="col">
@@ -126,9 +141,16 @@
       </div>
       <div class="down">
         <div></div>
-        <button type="submit" class="btn btn-success">Continuar</button>
+        <button class="btn btn-success">Enviar</button>
       </div>
     </form>
+  </div>
+
+  <div class="toast align-items-center text-bg-danger border-0 position-fixed p-3 alert" role="alert" aria-live="assertive" aria-atomic="true" id="alertWindow">
+    <div class="d-flex">
+      <div class="toast-body"></div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
   </div>
   
 </div>
