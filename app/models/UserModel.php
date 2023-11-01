@@ -59,14 +59,6 @@ class UserModel {
     private $password;
 
     /**
-     * User password salt
-     * 
-     * @var string $salt
-     */
-
-    private $salt;
-
-    /**
      * User phone
      * 
      * @var string $phone
@@ -77,7 +69,7 @@ class UserModel {
     /**
      * User birth date
      * 
-     * @var \DateTimeImmutable $birthDate
+     * @var string $birthDate
      */
 
     private $birthDate;
@@ -163,7 +155,6 @@ class UserModel {
      * @param string $email user email
      * @param string $nickname user nickname
      * @param string $password user encrypted password
-     * @param string $salt user password salt
      * @param string $phone user phone
      * @param string $birthDate user birth date
      * @param string $profilePicture user profile picture (path)
@@ -178,7 +169,7 @@ class UserModel {
      * 
      * @return UserModel user
      */
-    public function __construct($idUser, $name, $lastName, $email, $nickname, $password, $salt, $phone, $birthDate, $profilePicture, 
+    public function __construct($idUser, $name, $lastName, $email, $nickname, $password, $phone, $birthDate, $profilePicture, 
     $street, $streetNumber, $district, $complement, $postalCode, $firstAccess, $idCity, $idUserType) {
         $this->idUser = settype($idUser, 'int') || null;
         $this->name = $name;
@@ -186,7 +177,6 @@ class UserModel {
         $this->email = $email;
         $this->nickname = $nickname;
         $this->password = $password;
-        $this->salt = $salt;
         $this->phone = $phone;
         $this->birthDate = $birthDate;
         $this->profilePicture = $profilePicture || null;
@@ -255,15 +245,6 @@ class UserModel {
     }
 
     /**
-     * Get user password salt
-     * 
-     * @return string Returns the user password salt
-     */
-    public function getSalt() {
-        return $this->salt;
-    }
-
-    /**
      * Get user password phone
      * 
      * @return string Returns the user phone
@@ -275,10 +256,20 @@ class UserModel {
     /**
      * Get user birth date
      * 
-     * @return DateTimeImmutable Returns the user birth date
+     * @return string Returns the user birth date
      */
     public function getBirthDate() {
-        return $this->birthDate->format('d/m/Y');
+        return $this->birthDate;
+    }
+
+    /**
+     * Get user birth date formatted
+     * 
+     * @return DateTimeImmutable Returns the user birth date formatted
+     */
+    public function getBirthDateFormatted() {
+        $birthDateFormatted = new \DateTimeImmutable($this->birthDate);
+        return $birthDateFormatted->format('d/m/Y');
     }
 
     /**
@@ -417,15 +408,6 @@ class UserModel {
     }
 
     /**
-     * Set user password salt
-     * 
-     * @param string $salt user password salt
-     */
-    public function setSalt($salt) {
-        $this->salt = $salt;
-    }
-
-    /**
      * Set user password phone
      * 
      * @param string $phone user phone
@@ -537,7 +519,6 @@ class UserModel {
             'email' => $this->email,
             'nickname' => $this->nickname,
             'password' => $this->password,
-            'salt' => $this->salt,
             'phone' => $this->phone,
             'birthDate' => $this->birthDate,
             'profilePicture' => $this->profilePicture,

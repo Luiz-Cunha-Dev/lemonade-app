@@ -2,7 +2,9 @@
 
 namespace app\routes;
 
-use Exception;
+use \Exception;
+use \Closure;
+use \ReflectionFunction;
 use http\Request;
 use http\Response;
 
@@ -70,7 +72,7 @@ class Router {
 
         foreach($params as $key => $value) {
 
-            if($value instanceof \Closure) {
+            if($value instanceof Closure) {
 
                 $params['controller'] = $value;
                 unset($params[$key]);
@@ -80,7 +82,26 @@ class Router {
 
         }
 
+        // Route variables
+
+        $params['variables'] = [];
+
+        // Variables pattern
+
+        $patternVariables = '/{(.*?)}/';
+
+        // Verify if the route has variables and add to the params array
+
+        if(preg_match_all($patternVariables, $route, $matches)) {
+            $route = preg_replace($patternVariables, '(.*?)', $route);
+            $params['variables'] = $matches[1];
+        }
+
+        // URL pattern
+
         $patternRoute = '/^' . str_replace('/', '\/',  $route) . '$/';
+
+        // Add route to collection
 
         $this->routes[$patternRoute][$method] = $params;
 
@@ -94,6 +115,16 @@ class Router {
      */
     public function get($route, $params = []) {
         $this->addRoute('GET', $route, $params);
+    }
+
+    /**
+     * Add a POST route
+     * 
+     * @param string $route route
+     * @param array $params route methods
+     */
+    public function post($route, $params = []) {
+        $this->addRoute('POST', $route, $params);
     }
 
     /**
@@ -113,22 +144,37 @@ class Router {
     private function getRoute() {
 
         // URI
+
         $uri = $this->getUri();
 
         // Method
+
         $httpMethod = $this->request->getHttpMethod();
 
         // Validates the routes
 
         foreach($this->routes as $patternRoute => $methods) {
 
-            // URI matches patternverif
-            if(preg_match($patternRoute, $uri)) {
+            // URI matches pattern verify
+
+            if(preg_match($patternRoute, $uri, $matches)) {
 
                 // Check the method
+
                 if(isset($methods[$httpMethod])) {
 
+                    // Remove the first element of the array (the entire route)
+
+                    unset($matches[0]);
+
+                    // Add variables and request to the route parameters
+
+                    $keys = $methods[$httpMethod]['variables'];
+                    $methods[$httpMethod]['variables'] = array_combine($keys, $matches);
+                    $methods[$httpMethod]['variables']['request'] = $this->request;
+
                     // Returns the route parameters
+
                     return $methods[$httpMethod];
                 }
 
@@ -154,12 +200,22 @@ class Router {
             // Checks if the controller exists
 
             if(!(isset($route['controller']))) {
-                throw new Exception('URL não pode ser processada', 500);
+                throw new Exception('Internal Server Error', 500);
             }
 
             // Args
 
             $args = [];
+
+            // Reflection
+
+            $reflection = new ReflectionFunction($route['controller']);
+            foreach($reflection->getParameters() as $parameter) {
+                $name = $parameter->getName();
+                $args[$name] = $route['variables'][$name] ?? '';
+            }
+
+            // Returns the execution of the controller function
 
             return call_user_func_array($route['controller'], $args);
 

@@ -3,39 +3,62 @@
 namespace app\controllers\website;
 
 use app\views\View;
+use app\services\UserService;
 
 /**
- * Home controller
+ * SignIn  controller
  * 
- * HTML file: ./view/pages/home.html
+ * HTML file: ./view/pages/auth/signIn.html
  * 
  * @package app\controller
  */ 
 class SignInController extends WebsitePageController {
 
     /**
-     * Return the content of home view
+     * Return the content of sign in view
      * 
-     * @return string home rendered page
+     * @return string sign in rendered page
      */
     public static function getSignIn() {
 
-        // Home view
+        // SignIn view
 
         $header = View::render('website/html/auth/header');
 
-
-        $main = View::render('website/html/auth/signIn', [
-            'h1' => 'What is boilerplate and why do we use it?',
-            'p' => 'In computer programming, boilerplate code or boilerplate refers to sections of code that have to be 
-            included in many places with little or no alteration. It is often used when referring to languages that are considered verbose, 
-            i.e. the programmer must write a lot of code to do minimal jobs.'
-        ]);
+        $main = View::render('website/html/auth/signIn');
 
         $footer = View::render('website/html/auth/footer');
 
         // Return page view
-        return parent::getPage('SignIn', $header, $main, $footer, ['css' => 'app/views/pages/website/css/signIn.css']);
+        
+        return parent::getPage('Entrar no Lemonade', $header, $main, $footer, ['css' => 'app/views/pages/website/css/signIn.css']);
+    }
+
+    /**
+     * 
+     * 
+     * @param Request $request
+     */
+    public static function postSignIn($request) {
+
+        $postVars = $request->getPostVars();
+
+        $userService = new UserService();
+
+        try {
+
+            if($userService->userLogin($postVars)) {
+
+                echo '<pre>';
+                print_r($postVars);
+                echo 'Logado :D';
+                echo '</pre>';
+            
+            }
+
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 
 }
