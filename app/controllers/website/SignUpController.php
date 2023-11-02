@@ -24,13 +24,13 @@ class SignUpController extends WebsitePageController {
 
         $header = View::render('website/html/auth/header');
 
-        $main = View::render('website/html/auth/signUp');
+        $main = View::render('website/html/auth/signup');
 
         $footer = View::render('website/html/auth/footer');
 
         // Return page view
         
-        return parent::getPage('Cadastrar-se no Lemonade', $header, $main, $footer, ['css' => 'app/views/pages/website/css/signUp.css', 'js' => 'app/views/pages/website/js/dist/signup.js']);
+        return parent::getPage('Cadastrar-se no Lemonade', $header, $main, $footer, ['css' => 'app/views/pages/website/css/signupDark.css', 'js' => 'app/views/pages/website/js/dist/signup.js']);
     }
 
     /**
@@ -38,13 +38,21 @@ class SignUpController extends WebsitePageController {
      * 
      * @param Request $request
      */
-    public static function postSignUp($request) {
+    public static function postSignUp() {
+        $body = file_get_contents('php://input');
+        $postVars = json_decode($body, true);
 
-        $postVars = $request->getPostVars();
+        try {
+            // Processar os dados
+            // ...
+    
+            header('Content-Type: application/json');
+            return json_encode($postVars);
 
-        echo '<pre>';
-        print_r($postVars);
-        echo '</pre>';
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
+    
 
 }

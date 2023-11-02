@@ -31,7 +31,7 @@ class HomeController extends WebsitePageController {
 
         // Return page view
 
-        return parent::getPage('Lemonade', $header, $main, $footer, ['css' => 'app/views/pages/website/css/home.css']);
+        return parent::getPage('Lemonade', $header, $main, $footer, ['css' => 'app/views/pages/website/css/homeDark.css', 'js' => 'app/views/pages/website/js/dist/home.js']);
     }
 
 }

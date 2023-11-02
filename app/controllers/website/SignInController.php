@@ -25,13 +25,13 @@ class SignInController extends WebsitePageController {
 
         $header = View::render('website/html/auth/header');
 
-        $main = View::render('website/html/auth/signIn');
+        $main = View::render('website/html/auth/signin');
 
         $footer = View::render('website/html/auth/footer');
 
         // Return page view
         
-        return parent::getPage('Entrar no Lemonade', $header, $main, $footer, ['css' => 'app/views/pages/website/css/signIn.css']);
+        return parent::getPage('Entrar no Lemonade', $header, $main, $footer, ['css' => 'app/views/pages/website/css/signinDark.css', 'js' => 'app/views/pages/website/js/dist/signin.js']);
     }
 
     /**
@@ -39,22 +39,16 @@ class SignInController extends WebsitePageController {
      * 
      * @param Request $request
      */
-    public static function postSignIn($request) {
-
-        $postVars = $request->getPostVars();
-
-        $userService = new UserService();
+    public static function postSignIn() {
+        $body = file_get_contents('php://input');
+        $postVars = json_decode($body, true);
 
         try {
-
-            if($userService->userLogin($postVars)) {
-
-                echo '<pre>';
-                print_r($postVars);
-                echo 'Logado :D';
-                echo '</pre>';
-            
-            }
+            // Processar os dados
+            // ...
+    
+            header('Content-Type: application/json');
+            return json_encode($postVars);
 
         } catch (\Exception $e) {
             return $e->getMessage();
