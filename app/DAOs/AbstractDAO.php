@@ -27,6 +27,8 @@ abstract class AbstractDAO {
         $this->conn = $connection;
     }
 
+    
+
     /**
      * 
      * Returns the type of the parameter
@@ -261,5 +263,4 @@ abstract class AbstractDAO {
             throw $e;
         }
     }
-
 }

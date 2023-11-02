@@ -94,6 +94,11 @@ class Response {
             case 'text/html':
                 echo $this->content;
                 exit;
+            
+            case 'application/json':
+                $cidades = json_encode($this->content);
+                echo $cidades;
+                exit;
         }
     } 
 

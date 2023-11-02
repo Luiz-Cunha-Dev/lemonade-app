@@ -28,3 +28,13 @@ $router->get('/signin', [
 $router->post('/signin', [
     fn($request) => new Response(200, 'text/html', controllers\website\SignInController::postSignIn($request))
 ]);
+
+// Cities request route
+$router->get('/cities', [
+fn() => new Response(200, 'application/json', controllers\website\CityController::getCities())
+]);
+
+//States request route
+$router->get('/states', [
+    fn() => new Response(200, 'application/json', controllers\website\StateController::getStates())
+    ]);
