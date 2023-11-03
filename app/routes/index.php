@@ -29,12 +29,14 @@ $router->post('/signin', [
     fn($request) => new Response(200, 'text/html', controllers\website\SignInController::postSignIn($request))
 ]);
 
-// Cities request route
+// Cities api route
+
 $router->get('/cities', [
-fn() => new Response(200, 'application/json', controllers\website\CityController::getCities())
+    fn() => new Response(200, 'application/json', controllers\api\CityController::getCities())
 ]);
 
-//States request route
+// States api route
+
 $router->get('/states', [
-    fn() => new Response(200, 'application/json', controllers\website\StateController::getStates())
-    ]);
+    fn() => new Response(200, 'application/json', controllers\api\StateController::getStates())
+]);

@@ -1,11 +1,25 @@
 <?php 
 
-namespace  app\DAOs;
+namespace app\DAOs;
 
 use app\models\CityModel;
 
-class CityDao extends AbstractDao{
+/**
+ * City DAO
+ * 
+ * Responsible for reading and writing data of city entity
+ * 
+ * @package app\DAOs
+ */ 
+class CityDAO extends AbstractDAO {
 
+    /**
+     * Get all cities
+     * 
+     * If it is null, returns an empty array
+     * 
+     * @return array cities
+     */
     public function getAllCities(){
 
         try{
@@ -20,10 +34,10 @@ class CityDao extends AbstractDao{
             }
 
             return $cities;
-
-
-        }catch( \Exception $e ) {
+            
+        } catch( \Exception $e ) {
             throw $e;
         }
     }
+
 }

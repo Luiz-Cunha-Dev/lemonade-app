@@ -7,7 +7,7 @@ namespace app\views;
  * 
  * Render html pages with dynamic content
  * 
- * @package app\view
+ * @package app\views
  */ 
 class View {
 

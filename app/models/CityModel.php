@@ -23,15 +23,13 @@ class CityModel {
      * 
      * @var string $name
      */
-
     private $name;
 
     /**
-     * City unity federation(state)
+     * City unity federation (state)
      * 
      * @var string $uf
      */
-
     private $uf;
 
     /**
@@ -39,7 +37,6 @@ class CityModel {
      * 
      * @var integer $idState
      */
-
     private $idState;
 
     /**
@@ -50,29 +47,28 @@ class CityModel {
      * @param string $uf city state
      * @param string $idState city state(fk)
      * 
-     * 
      * @return CityModel city
      */
     public function __construct($idCity, $name, $uf, $idState) {
-        $this->idCity = $idCity;
+        $this->idCity = (int)$idCity || null;
         $this->name = $name;
         $this->uf = $uf;
-        $this->idState = settype($idState, 'int');
+        $this->idState = (int)$idState;
     }
 
     /**
      * Get city id
      * 
-     * @return integer Returns the citys id
+     * @return integer Returns the city id
      */
     public function getIdCity() {
         return $this->idCity;
     }
 
     /**
-     * Get citys name
+     * Get city name
      * 
-     * @return string Returns citys name
+     * @return string Returns city name
      */
     public function getName() {
         return $this->name;
@@ -81,7 +77,7 @@ class CityModel {
     /**
      * Get city uf
      * 
-     * @return string Returns citys uf
+     * @return string Returns city uf
      */
     public function getUf() {
         return $this->uf;
@@ -90,7 +86,7 @@ class CityModel {
     /**
      * Get city id state (fk)
      * 
-     * @return integer Returns citys id state
+     * @return integer Returns city id state
      */
     public function getIdState() {
         return $this->idState;
@@ -124,7 +120,7 @@ class CityModel {
     }
 
     /**
-     * Set id State(fk)
+     * Set id State (fk)
      * 
      * @param string $idState state id
      */
@@ -146,4 +142,5 @@ class CityModel {
             'idState' => $this->idState,
         ];
     }
+
 }

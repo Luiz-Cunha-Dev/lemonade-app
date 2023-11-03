@@ -8,9 +8,10 @@ use app\services\UserService;
 /**
  * SignIn  controller
  * 
- * HTML file: ./view/pages/auth/signIn.html
+ * HTML file: ./view/pages/website/html/auth/signIn.html
+ * CSS file: ./view/pages/website/css/signIn.css
  * 
- * @package app\controller
+ * @package app\controllers\website
  */ 
 class SignInController extends WebsitePageController {
 

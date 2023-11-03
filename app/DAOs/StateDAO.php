@@ -1,11 +1,25 @@
 <?php 
 
-namespace  app\DAOs;
+namespace app\DAOs;
 
 use app\models\StateModel;
 
-class StateDao extends AbstractDao{
+/**
+ * State DAO
+ * 
+ * Responsible for reading and writing data of state entity
+ * 
+ * @package app\DAOs
+ */ 
+class StateDAO extends AbstractDAO {
 
+    /**
+     * Get all states
+     * 
+     * If it is null, returns an empty array
+     * 
+     * @return array states
+     */
     public function getAllStates(){
 
         try{
@@ -21,9 +35,9 @@ class StateDao extends AbstractDao{
 
             return $states;
 
-
-        }catch( \Exception $e ) {
+        } catch( \Exception $e ) {
             throw $e;
         }
     }
+
 }
