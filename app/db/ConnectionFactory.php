@@ -28,6 +28,7 @@ class ConnectionFactory{
     private function createDataSource() {
         mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
         $dataSource = new \mysqli($_ENV['HOST'], $_ENV['DATABASE_USER'], $_ENV['DATABASE_PASSWORD'], $_ENV['DATABASE']);
+        $dataSource->set_charset('utf8');
         $dataSource->autocommit(FALSE);
         return $dataSource;
     }

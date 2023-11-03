@@ -96,8 +96,7 @@ class Response {
                 exit;
             
             case 'application/json':
-                $cidades = json_encode($this->content);
-                echo $cidades;
+                echo json_encode($this->content, JSON_UNESCAPED_UNICODE);
                 exit;
         }
     } 

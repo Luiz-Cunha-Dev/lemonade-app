@@ -2,20 +2,33 @@
 
 namespace app\services;
 
-use app\DAOs\StateDao;
+use app\DAOs\StateDAO;
 
-class StateService extends Service{
+/**
+ * State Service
+ * 
+ * Responsible for orchestrating business rules in the state context
+ * 
+ * @package app\services
+ */ 
+class StateService extends Service {
 
+    /**
+     * Get all states
+     * 
+     * @return array $states
+     */
     public function getAllStates(){
 
-        $stateDao = new StateDao($this->conn->getConnection());       
+        $stateDao = new StateDAO($this->conn->getConnection());       
 
         $states = $stateDao->getAllStates();
 
-        for($i = 0; $i < count($states); $i++){
-            $statesJson[$i] = array ("idState" => $states[$i]->getIdState(), "acronym" => $states[$i]->getAcronym());
-        }
-        return $statesJson;
+        $states = array_map(function($state){
+            return $state->toArray();
+        }, $states);
+        
+        return $states;
     }
     
 }

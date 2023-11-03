@@ -7,9 +7,11 @@ use app\views\View;
 /**
  * SignUp controller
  * 
- * HTML file: ./view/pages/auth/signUp.html
+ * HTML file: ./view/pages/website/html/auth/signUp.html
+ * CSS file: ./view/pages/website/css/signUp.css
+ * JS file: ./view/pages/website/js/signUp.js
  * 
- * @package app\controller
+ * @package app\controllers\website
  */ 
 class SignUpController extends WebsitePageController {
 

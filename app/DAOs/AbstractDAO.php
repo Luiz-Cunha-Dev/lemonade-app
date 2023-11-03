@@ -2,8 +2,6 @@
 
 namespace app\DAOs;
 
-use app\db\ConnectionFactory;
-
 /**
  * Abstract DAO
  * 
@@ -17,12 +15,16 @@ abstract class AbstractDAO {
      * 
      * Database connection
      * 
-     * @var ConnectionFactory $conn database connection
+     * @var mysqli $conn connection
      */
     protected $conn;
 
 
-
+    /**
+     * Class constructor
+     * 
+     * Instantiates a connection
+     */
     final public function __construct ($connection) {
         $this->conn = $connection;
     }
@@ -263,4 +265,5 @@ abstract class AbstractDAO {
             throw $e;
         }
     }
+
 }

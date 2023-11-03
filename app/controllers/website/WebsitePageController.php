@@ -11,9 +11,9 @@ use app\views\View;
  * 
  * HTML files: ./view/pages/page.html
  * 
- * @package app\controller
+ * @package app\controllers\website
  */ 
-class WebsitePageController {
+abstract class WebsitePageController {
 
     /**
      * Return the content of a generic website page
@@ -28,7 +28,7 @@ class WebsitePageController {
      * 
      * @return string rendered page
      */
-    public static function getPage($title, $header, $main, $footer, $vars=[]) {
+    final public static function getPage($title, $header, $main, $footer, $vars=[]) {
         
         $css =  array_key_exists('css', $vars) ? '<link rel="stylesheet" href="' . $vars['css'] . '">' : '';
         $js =  array_key_exists('js', $vars) ? '<script type="module" src="' . $vars['js'] . '"></script>' : '';
