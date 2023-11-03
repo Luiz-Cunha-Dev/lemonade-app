@@ -33,6 +33,8 @@ const inputComplement = document.getElementById("inputComplement");
 const inputCity = document.getElementById("inputCity");
 const inputState = document.getElementById("inputState");
 const alertWindow = document.getElementById("alertWindow");
+let cities;
+let states;
 
 buttonForm1.addEventListener("click", (event) => {
   event.preventDefault();
@@ -385,6 +387,26 @@ function validComplement() {
   }
 }
 
+function getStateId(acronym) {
+  for (const state of states) {
+    if (state.acronym === acronym) {
+      return state.idState;
+    }
+  }
+
+  return "0";
+}
+
+function getCityId(name) {
+  for (const city of cities) {
+    if (city.name === name) {
+      return city.idCity;
+    }
+  }
+
+  return "0";
+}
+
 async function validCep() {
   if (inputCep.value.length === 0) {
     inputCep.classList.remove("is-valid");
@@ -407,12 +429,12 @@ async function validCep() {
   const address = await getAddressByZipCode(inputCep.value);
 
   if (address && !address.erro) {
-    document.getElementById("inputStreet").value = address.logradouro;
+    inputStreet.value = address.logradouro;
     validStreet();
-    document.getElementById("inputNeighborhood").value = address.bairro;
+    inputNeighborhood.value = address.bairro;
     validNeighborhood();
-    document.getElementById("inputCity").value = address.localidade;
-    document.getElementById("inputState").value = address.uf;
+    inputCity.value = getCityId(address.localidade);
+    inputState.value = getStateId(address.uf);
 
     if (inputCep.classList.contains("is-invalid")) {
       inputCep.classList.remove("is-invalid");
@@ -610,7 +632,6 @@ async function signUp() {
         "http://localhost/lemonade/signup",
         user
       );
-      console.log(response);
       buttonForm3.innerText = "Enviar";
     } catch (error) {
       const message = alertWindow.querySelector(".toast-body");
@@ -629,3 +650,40 @@ async function signUp() {
     alertWindow.classList.remove("show");
   }
 }
+
+async function insertCities() {
+
+  try {
+    cities = (await axios.get("http://localhost/lemonade/cities")).data;
+
+    for (const city of cities) {
+      const option = document.createElement("option");
+      option.value = city.idCity;
+      option.text = city.name;
+      inputCity.appendChild(option);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
+async function insertStates() {
+
+  try {
+    states = (await axios.get("http://localhost/lemonade/states")).data;
+
+    for (const state of states) {
+      const option = document.createElement("option");
+      option.value = state.idState;
+      option.text = state.acronym;
+      inputState.appendChild(option);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
+insertCities();
+insertStates();

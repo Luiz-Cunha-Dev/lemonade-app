@@ -12,6 +12,8 @@ class StateService extends Service{
 
         $states = $stateDao->getAllStates();
 
+        $statesJson = array();
+
         for($i = 0; $i < count($states); $i++){
             $statesJson[$i] = array ("idState" => $states[$i]->getIdState(), "acronym" => $states[$i]->getAcronym());
         }

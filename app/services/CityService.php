@@ -13,8 +13,10 @@ class CityService extends Service{
 
         $cities = $cityDao->getAllCities();
 
+        $citiesJson = array(); 
+
         for($i = 0; $i < count($cities); $i++){
-            $citiesJson[$i] = array ("idCity" => $cities[$i]->getIdCity(), "name" => $cities[$i]->getName());
+            $citiesJson[$i] = array("idCity" => $cities[$i]->getIdCity(), "name" => $cities[$i]->getName());
         }
         
         return $citiesJson;

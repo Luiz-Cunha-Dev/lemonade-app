@@ -1,4 +1,5 @@
 
+
 function setAndGetDarkMode(value) {
   localStorage.setItem("darkMode", value);
   return localStorage.getItem("darkMode");
@@ -20,8 +21,10 @@ export function toggleMode() {
 
   if (darkMode === "true") {
     css.href = `app/views/pages/website/css/${fileName}Dark.css`;
+    document.getElementById("modeButton").src = "app/views/pages/website/assets/svgs/sun.svg";
   } else {
     css.href = `app/views/pages/website/css/${fileName}Light.css`;
+    document.getElementById("modeButton").src = "app/views/pages/website/assets/svgs/moon.svg";
   }
 }
 
@@ -32,7 +35,9 @@ export function useCorrectMode(){
   
     if (darkMode === "true" || darkMode === null) {
         document.getElementById("css").href = `app/views/pages/website/css/${fileName}Dark.css`;
+        document.getElementById("modeButton").src = "app/views/pages/website/assets/svgs/sun.svg";
     } else {
         document.getElementById("css").href = `app/views/pages/website/css/${fileName}Light.css`;
+        document.getElementById("modeButton").src = "app/views/pages/website/assets/svgs/moon.svg";
     }
 }
