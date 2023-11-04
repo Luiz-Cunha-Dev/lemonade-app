@@ -23,7 +23,6 @@ class UserModel {
      * 
      * @var string $name
      */
-
     private $name;
 
     /**
@@ -31,7 +30,6 @@ class UserModel {
      * 
      * @var string $lastName
      */
-
     private $lastName;
 
     /**
@@ -39,7 +37,6 @@ class UserModel {
      * 
      * @var string $email
      */
-
     private $email;
 
     /**
@@ -47,7 +44,6 @@ class UserModel {
      * 
      * @var string $nickname
      */
-
     private $nickname;
 
     /**
@@ -55,7 +51,6 @@ class UserModel {
      * 
      * @var string $password
      */
-
     private $password;
 
     /**
@@ -63,7 +58,6 @@ class UserModel {
      * 
      * @var string $phone
      */
-
     private $phone;
 
     /**
@@ -71,7 +65,6 @@ class UserModel {
      * 
      * @var string $birthDate
      */
-
     private $birthDate;
 
     /**
@@ -79,7 +72,6 @@ class UserModel {
      * 
      * @var string $profilePicture
      */
-
     private $profilePicture;
 
     /**
@@ -87,7 +79,6 @@ class UserModel {
      * 
      * @var string $street
      */
-
     private $street;
 
     /**
@@ -95,7 +86,6 @@ class UserModel {
      * 
      * @var integer $streetNumber
      */
-
     private $streetNumber;
 
     /**
@@ -103,7 +93,6 @@ class UserModel {
      * 
      * @var string $district
      */
-
     private $district;
 
     /**
@@ -111,7 +100,6 @@ class UserModel {
      * 
      * @var string $complement
      */
-
     private $complement;
 
     /**
@@ -119,7 +107,6 @@ class UserModel {
      * 
      * @var string $postalCode
      */
-
     private $postalCode;
 
     /**
@@ -127,7 +114,6 @@ class UserModel {
      * 
      * @var boolean $firstAccess
      */
-
     private $firstAccess;
 
     /**
@@ -135,7 +121,6 @@ class UserModel {
      * 
      * @var integer $idCity
      */
-
     private $idCity;
 
     /**
@@ -143,7 +128,6 @@ class UserModel {
      * 
      * @var integer $idUserType
      */
-
     private $idUserType;
 
     /**
@@ -171,7 +155,7 @@ class UserModel {
      */
     public function __construct($idUser, $name, $lastName, $email, $nickname, $password, $phone, $birthDate, $profilePicture, 
     $street, $streetNumber, $district, $complement, $postalCode, $firstAccess, $idCity, $idUserType) {
-        $this->idUser = settype($idUser, 'int') || null;
+        $this->idUser = (int)$idUser || null;
         $this->name = $name;
         $this->lastName = $lastName;
         $this->email = $email;
@@ -181,13 +165,13 @@ class UserModel {
         $this->birthDate = $birthDate;
         $this->profilePicture = $profilePicture || null;
         $this->street = $street;
-        $this->streetNumber = settype($streetNumber, 'int');
+        $this->streetNumber = (int)$streetNumber;
         $this->district = $district;
         $this->complement = $complement || null;
         $this->postalCode = $postalCode;
-        $this->firstAccess = settype($firstAccess, 'bool') || true;
-        $this->idCity = settype($idCity, 'int');
-        $this->idUserType = settype($idUserType, 'int');
+        $this->firstAccess = (bool)$firstAccess || true;
+        $this->idCity = (int)$idCity;
+        $this->idUserType = (int)$idUserType;
     }
 
     /**

@@ -23,7 +23,6 @@ class StateModel {
      * 
      * @var string $name
      */
-
     private $name;
 
     /**
@@ -31,7 +30,6 @@ class StateModel {
      * 
      * @var string $acronym
      */
-
     private $acronym;
 
     /**
@@ -44,7 +42,7 @@ class StateModel {
      * @return StateModel state
      */
     public function __construct($idState, $name, $acronym) {
-        $this->idState = $idState;
+        $this->idState = (int)$idState || null;
         $this->name = $name;
         $this->acronym = $acronym;
     }
@@ -115,4 +113,5 @@ class StateModel {
             'acronym' => $this->acronym,
         ];
     }
+
 }

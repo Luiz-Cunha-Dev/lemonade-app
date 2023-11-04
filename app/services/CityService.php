@@ -2,25 +2,33 @@
 
 namespace app\services;
 
-use app\models\CityModel;
-use app\DAOs\CityDao;
+use app\DAOs\CityDAO;
 
-class CityService extends Service{
+/**
+ * City Service
+ * 
+ * Responsible for orchestrating business rules in the city context
+ * 
+ * @package app\services
+ */ 
+class CityService extends Service {
 
+    /**
+     * Get all cities
+     * 
+     * @return array $cities
+     */
     public function getAllCities(){
 
-        $cityDao = new CityDao($this->conn->getConnection());       
+        $cityDao = new CityDAO($this->conn->getConnection());       
 
         $cities = $cityDao->getAllCities();
 
-        $citiesJson = array(); 
+        $cities = array_map(function($city){
+            return $city->toArray();
+        }, $cities);
 
-        for($i = 0; $i < count($cities); $i++){
-            $citiesJson[$i] = array("idCity" => $cities[$i]->getIdCity(), "name" => $cities[$i]->getName());
-        }
-        
-        return $citiesJson;
+        return $cities;
     }
 
-    
 }

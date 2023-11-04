@@ -15,6 +15,7 @@ use app\DAOs\UserDAO;
 class UserService extends Service {
 
     /**
+     * Register a user in the application
      * 
      * @param array $userData
      */
@@ -48,8 +49,10 @@ class UserService extends Service {
     }
 
     /**
+     * Logs a user into the application
      * 
      * @param array $userData
+     * 
      */
     public function userLogin($userData) {
 
