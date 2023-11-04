@@ -16,7 +16,7 @@ $router->get('/signup', [
 ]);
 
 $router->post('/signup', [
-    fn($request) => new Response(200, 'text/html', controllers\website\SignUpController::postSignUp($request))
+    fn($request) => new Response(201, 'text/html', controllers\website\SignUpController::postSignUp())
 ]);
 
 // SignIn page route
@@ -26,7 +26,7 @@ $router->get('/signin', [
 ]);
 
 $router->post('/signin', [
-    fn($request) => new Response(200, 'text/html', controllers\website\SignInController::postSignIn($request))
+    fn($request) => new Response(201, 'text/html', controllers\website\SignInController::postSignIn())
 ]);
 
 // Cities api route

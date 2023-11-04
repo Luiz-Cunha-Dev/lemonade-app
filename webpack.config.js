@@ -7,7 +7,10 @@ const isProduction = process.env.NODE_ENV == 'production';
 
 const config = {
     entry: {
-        signup: './app/views/pages/website/js/signUp.js',
+        home: './app/views/pages/website/js/home.js',
+        signup: './app/views/pages/website/js/signup.js',
+        signin: './app/views/pages/website/js/signin.js',
+        
     },
     output: {
         path: path.resolve(__dirname, './app/views/pages/website/js/dist'),

@@ -27,7 +27,7 @@ class CityService extends Service {
         $cities = array_map(function($city){
             return $city->toArray();
         }, $cities);
-        
+
         return $cities;
     }
 

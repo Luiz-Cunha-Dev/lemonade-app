@@ -1,4 +1,10 @@
 import axios from "axios";
+import { toggleMode, useCorrectMode } from "./darkMode";
+
+useCorrectMode();
+
+const modeButton = document.getElementById("modeButton");
+modeButton.addEventListener("click", toggleMode);
 
 const form1 = document.getElementById("form1");
 const form2 = document.getElementById("form2");
@@ -27,9 +33,8 @@ const inputComplement = document.getElementById("inputComplement");
 const inputCity = document.getElementById("inputCity");
 const inputState = document.getElementById("inputState");
 const alertWindow = document.getElementById("alertWindow");
-
-
-
+let cities;
+let states;
 
 buttonForm1.addEventListener("click", (event) => {
   event.preventDefault();
@@ -41,10 +46,10 @@ buttonForm2.addEventListener("click", (event) => {
   nextFormRedirect("form2");
 });
 
-buttonForm3.addEventListener("click", async(event) => {
+buttonForm3.addEventListener("click", async (event) => {
   event.preventDefault();
   await signUp();
-})
+});
 
 arrowLeftForm2.addEventListener("click", () => {
   backFormRedirect("form2");
@@ -53,9 +58,6 @@ arrowLeftForm2.addEventListener("click", () => {
 arrowLeftForm3.addEventListener("click", () => {
   backFormRedirect("form3");
 });
-
-
-
 
 inputName.addEventListener("input", validName);
 
@@ -141,9 +143,6 @@ inputCep.addEventListener("input", function (event) {
   this.value = resultado;
 });
 
-
-
-
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -177,8 +176,7 @@ async function backFormRedirect(currentForm) {
     form2.classList.add("hidden");
     form1.classList.remove("left");
     form1.classList.add("center");
-  } 
-  else if (currentForm == "form3") {
+  } else if (currentForm == "form3") {
     form3.classList.remove("center");
     form3.classList.add("right");
     form2.classList.remove("hidden");
@@ -203,7 +201,7 @@ async function getAddressByZipCode(cep) {
 function validName(name) {
   const nameRegex = /^[A-Za-z\s]+$/;
 
-  if(inputName.value === ""){
+  if (inputName.value === "") {
     inputName.classList.remove("is-valid");
     inputName.classList.remove("is-invalid");
     return;
@@ -230,7 +228,7 @@ function validName(name) {
 function validLastName() {
   const lastNameRegex = /^[A-Za-z\s]+$/;
 
-  if(inputLastName.value === ""){
+  if (inputLastName.value === "") {
     inputLastName.classList.remove("is-valid");
     inputLastName.classList.remove("is-invalid");
     return;
@@ -389,8 +387,28 @@ function validComplement() {
   }
 }
 
+function getStateId(acronym) {
+  for (const state of states) {
+    if (state.acronym === acronym) {
+      return state.idState;
+    }
+  }
+
+  return "0";
+}
+
+function getCityId(name) {
+  for (const city of cities) {
+    if (city.name === name) {
+      return city.idCity;
+    }
+  }
+
+  return "0";
+}
+
 async function validCep() {
-  if (inputCep.value.length === 0){
+  if (inputCep.value.length === 0) {
     inputCep.classList.remove("is-valid");
     inputCep.classList.remove("is-invalid");
     return;
@@ -411,12 +429,12 @@ async function validCep() {
   const address = await getAddressByZipCode(inputCep.value);
 
   if (address && !address.erro) {
-    document.getElementById("inputStreet").value = address.logradouro;
+    inputStreet.value = address.logradouro;
     validStreet();
-    document.getElementById("inputNeighborhood").value = address.bairro;
+    inputNeighborhood.value = address.bairro;
     validNeighborhood();
-    document.getElementById("inputCity").value = address.localidade;
-    document.getElementById("inputState").value = address.uf;
+    inputCity.value = getCityId(address.localidade);
+    inputState.value = getStateId(address.uf);
 
     if (inputCep.classList.contains("is-invalid")) {
       inputCep.classList.remove("is-invalid");
@@ -439,7 +457,7 @@ async function validCep() {
 function validEmail() {
   const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-  if (inputEmail.value.length === 0){
+  if (inputEmail.value.length === 0) {
     inputEmail.classList.remove("is-valid");
     inputEmail.classList.remove("is-invalid");
     return;
@@ -466,7 +484,7 @@ function validEmail() {
 function validPhone() {
   const regexTelefone = /^\(\d{2}\) \d{5}-\d{4}$/;
 
-  if (inputPhone.value.length === 0){
+  if (inputPhone.value.length === 0) {
     inputPhone.classList.remove("is-valid");
     inputPhone.classList.remove("is-invalid");
     return;
@@ -525,7 +543,7 @@ function validPasswordMatch() {
   const password = inputPassword.value;
   const confirmPassword = inputConfirmPassword.value;
 
-  if (confirmPassword.length === 0){
+  if (confirmPassword.length === 0) {
     inputPassword.classList.remove("is-valid");
     inputPassword.classList.remove("is-invalid");
     inputConfirmPassword.classList.remove("is-valid");
@@ -571,17 +589,19 @@ function validPasswordMatch() {
 async function signUp() {
   const user = {
     name: inputName.value,
+    lastName: inputLastName.value,
     email: inputEmail.value,
     password: inputPassword.value,
-    phone: inputPhone.value,
+    nickName: inputNickname.value,
+    phone: inputPhone.value.replace(/\D/g, ""),
     birthDate: inputBirthDate.value,
-    cep: inputCep.value,
+    cep: inputCep.value.replace(/\D/g, ""),
     street: inputStreet.value,
-    number: inputNumber.value,
+    number: parseInt(inputNumber.value, 10),
     complement: inputComplement.value,
     neighborhood: inputNeighborhood.value,
-    city: inputCity.value,
-    state: inputState.value,
+    city: parseInt(inputCity.value, 10),
+    state: parseInt(inputState.value, 10),
   };
 
   if (
@@ -589,7 +609,8 @@ async function signUp() {
     inputLastName.classList.contains("is-valid") &&
     inputBirthDate.classList.contains("is-valid") &&
     inputCep.classList.contains("is-valid") &&
-    inputComplement.classList.contains("is-valid") &&
+    (inputComplement.classList.contains("is-valid") ||
+      inputComplement.value === "") &&
     inputLastName.classList.contains("is-valid") &&
     inputName.classList.contains("is-valid") &&
     inputPassword.classList.contains("is-valid") &&
@@ -598,28 +619,71 @@ async function signUp() {
     inputStreet.classList.contains("is-valid") &&
     inputNumber.classList.contains("is-valid") &&
     inputNeighborhood.classList.contains("is-valid") &&
-    inputCity.value !== "-" &&
-    inputState.value !== "-"
+    inputCity.value !== "0" &&
+    inputState.value !== "0"
   ) {
     try {
       buttonForm3.innerHTML = `
       <div class="spinner-border" role="status">
         <span class="visually-hidden">Loading...</span>
-      </div>`
+      </div>`;
 
-      await sleep(5000);
-
-      buttonForm3.innerText = "Enviar"
-      // const response = await axios.post('http://localhost:3000/users', user);
-      // console.log(response);
+      const response = await axios.post(
+        "http://localhost/lemonade/signup",
+        user
+      );
+      buttonForm3.innerText = "Enviar";
     } catch (error) {
-      console.error(error);
+      const message = alertWindow.querySelector(".toast-body");
+      alertWindow.classList.add("show");
+      message.textContent =
+        "Houve um erro ao tentar cadastrar-se. Por favor, tente novamente mais tarde.";
+      await sleep(5000);
+      alertWindow.classList.remove("show");
     }
   } else {
-   const message =  alertWindow.querySelector(".toast-body");
+    const message = alertWindow.querySelector(".toast-body");
     alertWindow.classList.add("show");
-    message.textContent = "Preencha todos os campos corretamente para continuar!"
+    message.textContent =
+      "Preencha todos os campos corretamente para continuar!";
     await sleep(5000);
     alertWindow.classList.remove("show");
   }
 }
+
+async function insertCities() {
+
+  try {
+    cities = (await axios.get("http://localhost/lemonade/cities")).data;
+
+    for (const city of cities) {
+      const option = document.createElement("option");
+      option.value = city.idCity;
+      option.text = city.name;
+      inputCity.appendChild(option);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
+async function insertStates() {
+
+  try {
+    states = (await axios.get("http://localhost/lemonade/states")).data;
+
+    for (const state of states) {
+      const option = document.createElement("option");
+      option.value = state.idState;
+      option.text = state.acronym;
+      inputState.appendChild(option);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
+insertCities();
+insertStates();

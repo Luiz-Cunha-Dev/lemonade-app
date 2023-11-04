@@ -27,7 +27,7 @@ class StateService extends Service {
         $states = array_map(function($state){
             return $state->toArray();
         }, $states);
-        
+
         return $states;
     }
     
