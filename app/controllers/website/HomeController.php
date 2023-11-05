@@ -2,16 +2,17 @@
 
 namespace app\controllers\website;
 
+use app\controllers\AbstractPageController;
 use app\views\View;
 
 /**
  * Home controller
  * 
- * HTML file: ./view/pages/home/home.html
+ * HTML file: ./view/pages/website/home/home.html
  * 
  * @package app\controllers\website
  */ 
-class HomeController extends WebsitePageController {
+class HomeController extends AbstractPageController {
 
     /**
      * Return the content of home view

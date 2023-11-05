@@ -1,19 +1,17 @@
 <?php
 
-namespace app\controllers\website;
+namespace app\controllers;
 
 use app\views\View;
 
 /**
- * Generic controller to handle pages (website)
- * 
- * Note, does not include web application pages, only the website
+ * Generic controller to handle pages
  * 
  * HTML files: ./view/pages/page.html
  * 
- * @package app\controllers\website
+ * @package app\controllers
  */ 
-abstract class WebsitePageController {
+abstract class AbstractPageController {
 
     /**
      * Return the content of a generic website page
@@ -33,7 +31,7 @@ abstract class WebsitePageController {
         $css =  array_key_exists('css', $vars) ? '<link id="css" rel="stylesheet" href="' . $vars['css'] . '">' : '';
         $js =  array_key_exists('js', $vars) ? '<script id="js"  type="module" src="' . $vars['js'] . '"></script>' : '';
          
-        return View::render('website/html/page', [
+        return View::render('page', [
             'title' => $title,
             'css' => $css,
             'header' => $header,

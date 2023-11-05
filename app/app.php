@@ -24,5 +24,7 @@ View::start([
 
 MiddlewareQueue::setMiddlewareMap([
        'inApiToken' => app\middlewares\InternalApiTokenMiddleware::class,
-       'SessionLogout' => app\middlewares\SessionLogoutMiddleware::class
+       'RequireSessionLogout' => app\middlewares\SessionLogoutMiddleware::class,
+       'RequireSessionLogin' => app\middlewares\SessionLoginMiddleware::class,
+       'IsSessionExpired' => app\middlewares\SessionExpiredMiddleware::class
 ]);

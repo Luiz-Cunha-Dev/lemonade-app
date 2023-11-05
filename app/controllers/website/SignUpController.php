@@ -2,10 +2,8 @@
 
 namespace app\controllers\website;
 
-use app\routes\http\Request;
-use app\services\UserService;
+use app\controllers\AbstractPageController;
 use app\views\View;
-use Exception;
 
 /**
  * SignUp controller
@@ -16,7 +14,7 @@ use Exception;
  * 
  * @package app\controllers\website
  */ 
-class SignUpController extends WebsitePageController {
+class SignUpController extends AbstractPageController {
 
     /**
      * Return the content of sign up view
