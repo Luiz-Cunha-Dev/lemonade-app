@@ -13,8 +13,8 @@ use Exception;
 /**
  * SignIn  controller
  * 
- * HTML file: ./view/pages/website/html/auth/signIn.html
- * CSS file: ./view/pages/website/css/signIn.css
+ * HTML file: ./views/pages/website/html/auth/signIn.html
+ * CSS file: ./views/pages/website/css/signIn.css
  * 
  * @package app\controllers\website
  */ 
@@ -29,7 +29,7 @@ class SignInController extends AbstractPageController {
 
         // Get the remember me cookie if it exists
 
-        $rememberMeCookie = self::hasRememberMeCookie();
+        $rememberMeCookie = Session::hasRememberMeCookie();
 
         if ($rememberMeCookie) {
 
@@ -37,9 +37,9 @@ class SignInController extends AbstractPageController {
 
             // Cookie validation
 
-            if (self::validateRememberMeCookie($rememberMeCookie)) {    
+            if (Session::validateRememberMeCookie($rememberMeCookie)) {    
 
-                $userId = self::getUserIdFromRememberMeCookie($rememberMeCookie);
+                $userId = Session::getUserIdFromRememberMeCookie($rememberMeCookie);
                 Session::createSession($userService->getUserById($userId));
                 $request->getRouter()->redirect('/app');
 
@@ -49,11 +49,13 @@ class SignInController extends AbstractPageController {
 
         // SignIn view
 
-        $header = View::render('website/html/auth/header');
+        $header = View::render('pages/website/html/auth/header');
 
-        $main = View::render('website/html/auth/signIn');
+        $main = View::render('pages/website/html/auth/signIn', [
+            'alert' => ''
+        ]);
 
-        $footer = View::render('website/html/auth/footer');
+        $footer = View::render('pages/website/html/auth/footer');
 
         // Return page view
         
@@ -80,7 +82,7 @@ class SignInController extends AbstractPageController {
             // Create the remember me cookie
             
             if (isset($postVars['rememberme']) && $postVars['rememberme'] == 'on') {
-                self::createRememberMeCookie($user);
+                Session::createRememberMeCookie($user);
             }
 
             Session::createSession($user);
@@ -88,56 +90,24 @@ class SignInController extends AbstractPageController {
             $request->getRouter()->redirect('/app');
 
         } catch (Exception $e) {
-            echo '<pre>';
-            echo 'Error: '. $e->getMessage();
-            echo '<br>';
-            echo 'Code: '. $e->getCode();
-            echo '</pre>';
-            exit;
+
+        $header = View::render('pages/website/html/auth/header');
+
+        $main = View::render('pages/website/html/auth/signIn', [
+            'alert' => View::render('components/alert', [
+                'alertType' => 'warning',
+                'errorType' => 'Erro ao fazer login',
+                'message' => $e->getMessage()
+            ])
+        ]);
+
+        $footer = View::render('website/html/auth/footer');
+
+        return parent::getPage('Entrar no Lemonade', $header, $main, $footer, 
+        ['css' => 'app/views/pages/website/css/signInDark.css', 'js' => 'app/views/pages/website/js/dist/signIn.js']);
+
         }
         
-    }
-
-    /**
-     * Create remember me cookie
-     * @param UserModel $user
-     */
-    private static function createRememberMeCookie($user) {
-        $token = random_bytes(32);
-        $cookie = $user->getIdUser() . ':' . $token;
-        $mac = hash_hmac('sha256', $cookie, 'lemonade');
-        $cookie .= ':' . $mac;
-        setcookie('rememberme', $cookie);
-    }
-
-    /**
-     * Check if has a remember me cookie
-     */
-    private static function hasRememberMeCookie() {
-        return isset($_COOKIE['rememberme']) ? $_COOKIE['rememberme'] : '';
-    }
-
-    /**
-     * Validate the remember me cookie
-     * @param string $cookie remember me cookie
-     * @return boolean
-     */
-    private static function validateRememberMeCookie($cookie) {
-        list ($user, $token, $mac) = explode(':', $cookie);
-        if (!hash_equals(hash_hmac('sha256', $user . ':' . $token, 'lemonade'), $mac)) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Get user id from remember me cookie
-     * @param string $cookie remember me cookie
-     * @return int user id
-     */
-    private static function getUserIdFromRememberMeCookie($cookie) {
-        $userId = explode(':', $cookie)[0];
-        return $userId;
     }
 
 }

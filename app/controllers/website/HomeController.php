@@ -8,7 +8,7 @@ use app\views\View;
 /**
  * Home controller
  * 
- * HTML file: ./view/pages/website/home/home.html
+ * HTML file: ./views/pages/website/home/home.html
  * 
  * @package app\controllers\website
  */ 
@@ -23,12 +23,11 @@ class HomeController extends AbstractPageController {
 
         // Home view
 
-        $header = View::render('website/html/home/header');
+        $header = View::render('pages/website/html/home/header');
 
+        $main = View::render('pages/website/html/home/main');
 
-        $main = View::render('website/html/home/main');
-
-        $footer = View::render('website/html/home/footer');
+        $footer = View::render('pages/website/html/home/footer');
 
         // Return page view
 

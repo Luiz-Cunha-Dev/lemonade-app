@@ -37,7 +37,7 @@ class View {
      * @return string content of an html page
      */
     private static function getContentView($view) {
-        $file = __DIR__ . '/pages/' . $view . '.html';
+        $file = __DIR__ . '/' . $view . '.html';
         return file_exists($file) ? file_get_contents($file) : '';
     }
 

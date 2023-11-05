@@ -77,7 +77,7 @@ class UserDao extends AbstractDAO {
      * 
      * If it is null, returns an empty array
      * 
-     * @param int $idUser email of the user
+     * @param string $emailUser email of the user
      * 
      * @return UserModel user
      */
@@ -85,6 +85,35 @@ class UserDao extends AbstractDAO {
 
         try {
             $user = parent::getElementByParameter('user', 'email', $emailUser);
+
+            if (empty($user)) {
+                return array();
+            }
+
+            $user = new UserModel($user['idUser'], $user['name'], $user['lastName'], $user['email'], $user['nickname'], $user['password'], 
+            $user['phone'], $user['birthDate'], $user['profilePicture'], $user['street'], $user['streetNumber'], $user['district'], $user['complement'],
+            $user['postalCode'], $user['firstAccess'], $user['idCity'], $user['idUserType']);
+
+            return $user;
+        } catch (Exception $e) {
+            throw $e;
+        }
+
+    }
+
+    /**
+     * Get a user by nickname
+     * 
+     * If it is null, returns an empty array
+     * 
+     * @param string $nicknameUser nickname of the user
+     * 
+     * @return UserModel user
+     */
+    public function getUserByNickname($nicknameUser){
+
+        try {
+            $user = parent::getElementByParameter('user', 'nickname', $nicknameUser);
 
             if (empty($user)) {
                 return array();

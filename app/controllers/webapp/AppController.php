@@ -30,7 +30,7 @@ class AppController extends AbstractPageController {
 
         $header = null;
 
-        $main = View::render('webapp/html/app', [
+        $main = View::render('pages/webapp/html/app', [
             'userName' => Session::getCurrentUserSessionData()['name'],
             'studentType' => Session::getCurrentUserSessionData()['userType'] == 1 ? '<p>Student</p>' : '',
             'teacherType' => Session::getCurrentUserSessionData()['userType'] == 2 ? '<p>Teacher</p>' : ' '

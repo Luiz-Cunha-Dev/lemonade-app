@@ -19,7 +19,7 @@ class InternalApiTokenMiddleware implements IMiddleware {
             return new Response(401, 'application/json', [
                 'status' => 401,
                 'error' => 'Unauthorized',
-                'message' => 'Internal API Token is required'
+                'message' => 'Insira um token válido'
             ]);
         }
 
@@ -27,7 +27,7 @@ class InternalApiTokenMiddleware implements IMiddleware {
             return new Response(401, 'application/json', [
                 'status' => 401,
                 'error' => 'Unauthorized',
-                'message' => 'Invalid Internal API Token'
+                'message' => 'Token inválido'
             ]);
         }
 
