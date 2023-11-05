@@ -2,7 +2,7 @@
 
 namespace app\services;
 
-use app\DAOs\StateDAO;
+use app\daos\StateDAO;
 
 /**
  * State Service

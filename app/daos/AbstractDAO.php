@@ -1,13 +1,17 @@
 <?php
 
-namespace app\DAOs;
+namespace app\daos;
+
+use Exception;
+use mysqli;
+use mysqli_sql_exception;
 
 /**
  * Abstract DAO
  * 
  * Includes all generic methods that a DAO can use
  * 
- * @package app\DAOs
+ * @package app\daos
  */
 abstract class AbstractDAO {
 
@@ -19,7 +23,6 @@ abstract class AbstractDAO {
      */
     protected $conn;
 
-
     /**
      * Class constructor
      * 
@@ -28,8 +31,6 @@ abstract class AbstractDAO {
     final public function __construct ($connection) {
         $this->conn = $connection;
     }
-
-    
 
     /**
      * 
@@ -79,7 +80,7 @@ abstract class AbstractDAO {
             $result->free();
             $this->conn->close();
             return $elements;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw $e;
         }
     }
@@ -121,7 +122,7 @@ abstract class AbstractDAO {
             $result->free();
             $this->conn->close();
             return $element;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw $e;
         }
     }
@@ -166,7 +167,7 @@ abstract class AbstractDAO {
             $this->conn->close();
 
             return true;
-        } catch (\mysqli_sql_exception $e) {
+        } catch (mysqli_sql_exception $e) {
             $this->conn->rollback();
             throw $e;
         }
@@ -220,7 +221,7 @@ abstract class AbstractDAO {
             $this->conn->close();
             return true;
 
-        } catch (\mysqli_sql_exception $e) {
+        } catch (mysqli_sql_exception $e) {
             $this->conn->rollback();
             throw $e;
         }
@@ -260,7 +261,7 @@ abstract class AbstractDAO {
             $this->conn->close();
 
             return true;
-        } catch (\mysqli_sql_exception $e) {
+        } catch (mysqli_sql_exception $e) {
             $this->conn->rollback();
             throw $e;
         }

@@ -50,10 +50,10 @@ class CityModel {
      * @return CityModel city
      */
     public function __construct($idCity, $name, $uf, $idState) {
-        $this->idCity = (int)$idCity || null;
+        $this->idCity = $idCity;
         $this->name = $name;
         $this->uf = $uf;
-        $this->idState = (int)$idState;
+        $this->idState = $idState;
     }
 
     /**

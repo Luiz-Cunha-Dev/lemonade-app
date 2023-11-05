@@ -1,15 +1,16 @@
 <?php 
 
-namespace app\DAOs;
+namespace app\daos;
 
 use app\models\UserModel;
+use Exception;
 
 /**
  * User DAO
  * 
  * Responsible for reading and writing data of user entity
  * 
- * @package app\services
+ * @package app\daos
  */ 
 class UserDao extends AbstractDAO {
 
@@ -36,7 +37,7 @@ class UserDao extends AbstractDAO {
             }
 
             return $users;
-        } catch( \Exception $e ) {
+        } catch(Exception $e ) {
             throw $e;
         }
 
@@ -65,7 +66,7 @@ class UserDao extends AbstractDAO {
             $user['postalCode'], $user['firstAccess'], $user['idCity'], $user['idUserType']);
 
             return $user;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw $e;
         }
 
@@ -94,7 +95,7 @@ class UserDao extends AbstractDAO {
             $user['postalCode'], $user['firstAccess'], $user['idCity'], $user['idUserType']);
 
             return $user;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw $e;
         }
 
@@ -110,8 +111,16 @@ class UserDao extends AbstractDAO {
     public function insertUser($user){
 
         try {
-            return parent::insertElement('user', $user->toArray());
-        } catch (\Exception $e) {
+            $user = $user->toArray();
+
+            // Remove null values 
+            
+            $user = array_filter($user, function($value) {
+                return !empty($value);
+            });
+
+            return parent::insertElement('user', $user);
+        } catch (Exception $e) {
             throw $e;
         }
 
@@ -130,7 +139,7 @@ class UserDao extends AbstractDAO {
 
         try {
             return parent::updateElementByParameter('user', 'idUser', $idUser, $dataToUpdate);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw $e;
         }
 
@@ -147,7 +156,7 @@ class UserDao extends AbstractDAO {
         
         try {
             return parent::deleteElementByParameter('user', 'idUser', $idUser);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw $e;
         }
 
