@@ -65,11 +65,11 @@ class UserService extends Service {
         $user = $userDao->getUserByEmail($userData['email']);
 
         if (!$user) {
-            throw new Exception('User not found', 400);
+            throw new Exception('Usuário não encontrado');
         }
 
         if (!(password_verify($userData['password'], $user->getPassword()))) {
-            throw new Exception('Incorrect Password', 400);
+            throw new Exception('Senha incorreta');
         }
 
         return $user;
@@ -88,7 +88,45 @@ class UserService extends Service {
         $user = $userDao->getUserById($userId);
 
         if (!$user) {
-            throw new Exception('User not found', 400);
+            throw new Exception('Usuário não encontrado');
+        }
+
+        return $user;
+    
+    }
+
+    /**
+     * Get user by email
+     * @param string $userEmail
+     * @return UserModel $user
+     */
+    public function getUserByEmail($userEmail) {
+
+        $userDao = new UserDAO($this->conn->getConnection());
+
+        $user = $userDao->getUserByEmail($userEmail);
+
+        if (!$user) {
+            throw new Exception('Usuário não encontrado');
+        }
+
+        return $user;
+    
+    }
+
+    /**
+     * Get user by nickname
+     * @param string $userNickname
+     * @return UserModel $user
+     */
+    public function getUserByNickname($userNickname) {
+
+        $userDao = new UserDAO($this->conn->getConnection());
+
+        $user = $userDao->getUserByNickname($userNickname);
+
+        if (!$user) {
+            throw new Exception('Usuário não encontrado');
         }
 
         return $user;

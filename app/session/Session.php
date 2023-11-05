@@ -24,12 +24,7 @@ class Session {
         // Check if the session is active
         
         if (session_status() != PHP_SESSION_ACTIVE) {
-            session_start([
-                'use_only_cookies' => 1,
-                'cookie_lifetime' => 0,
-                'cookie_secure' => 1,
-                'cookie_httponly' => 1
-              ]);
+            session_start();
         }
 
     }
@@ -88,6 +83,14 @@ class Session {
         // Unset user session
 
         unset($_SESSION['user']);
+
+        // Destroy session cookie
+
+        self::destroySessionCookie();
+
+        // Destroy remember me cookie
+
+        self::destroyRememberMeCookie();
 
         return true;
     }
@@ -169,6 +172,64 @@ class Session {
 
         $_SESSION['user']['lastAction'] = time();
 
+    }
+
+    /**
+     * Destroy session cookie
+     */
+    private static function destroySessionCookie() {
+        setcookie('PHPSESSID', '', time()-3600, '/'); 
+        unset($_COOKIE['PHPSESSID']);
+    }
+
+    /**
+     * Create remember me cookie
+     * @param UserModel $user
+     */
+    public static function createRememberMeCookie($user) {
+        $token = random_bytes(32);
+        $cookie = $user->getIdUser() . ':' . $token;
+        $mac = hash_hmac('sha256', $cookie, 'lemonade');
+        $cookie .= ':' . $mac;
+        setcookie('rememberme', $cookie);
+    }
+
+    /**
+     * Check if has a remember me cookie
+     */
+    public static function hasRememberMeCookie() {
+        return isset($_COOKIE['rememberme']) ? $_COOKIE['rememberme'] : '';
+    }
+
+    /**
+     * Validate the remember me cookie
+     * @param string $cookie remember me cookie
+     * @return boolean
+     */
+    public static function validateRememberMeCookie($cookie) {
+        list ($user, $token, $mac) = explode(':', $cookie);
+        if (!hash_equals(hash_hmac('sha256', $user . ':' . $token, 'lemonade'), $mac)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Get user id from remember me cookie
+     * @param string $cookie remember me cookie
+     * @return int user id
+     */
+    public static function getUserIdFromRememberMeCookie($cookie) {
+        $userId = explode(':', $cookie)[0];
+        return $userId;
+    }
+
+    /**
+     * Destroy remember me cookie
+     */
+    private static function destroyRememberMeCookie() {
+        setcookie('rememberme', '', time()-3600, '/lemonade'); 
+        unset($_COOKIE['rememberme']);
     }
 
 }

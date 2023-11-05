@@ -23,7 +23,7 @@ $router->get('/signup', [
     fn() => new Response(200, 'text/html', SignUpController::getSignUp())
 ]);
 
-// SignIn page route
+// SignIn page routes
 
 $router->get('/signin', [
     'middlewares' => [

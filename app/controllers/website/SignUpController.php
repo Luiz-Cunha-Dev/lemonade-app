@@ -8,9 +8,9 @@ use app\views\View;
 /**
  * SignUp controller
  * 
- * HTML file: ./view/pages/website/html/auth/signUp.html
- * CSS file: ./view/pages/website/css/signUp.css
- * JS file: ./view/pages/website/js/signUp.js
+ * HTML file: ./views/pages/website/html/auth/signUp.html
+ * CSS file: ./views/pages/website/css/signUp.css
+ * JS file: ./views/pages/website/js/signUp.js
  * 
  * @package app\controllers\website
  */ 
@@ -25,11 +25,11 @@ class SignUpController extends AbstractPageController {
 
         // SignUp view
 
-        $header = View::render('website/html/auth/header');
+        $header = View::render('pages/website/html/auth/header');
 
-        $main = View::render('website/html/auth/signUp');
+        $main = View::render('pages/website/html/auth/signUp');
 
-        $footer = View::render('website/html/auth/footer');
+        $footer = View::render('pages/website/html/auth/footer');
 
         // Return page view
         

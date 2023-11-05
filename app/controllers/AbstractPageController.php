@@ -31,7 +31,7 @@ abstract class AbstractPageController {
         $css =  array_key_exists('css', $vars) ? '<link id="css" rel="stylesheet" href="' . $vars['css'] . '">' : '';
         $js =  array_key_exists('js', $vars) ? '<script id="js"  type="module" src="' . $vars['js'] . '"></script>' : '';
          
-        return View::render('page', [
+        return View::render('pages/page', [
             'title' => $title,
             'css' => $css,
             'header' => $header,

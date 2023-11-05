@@ -21,17 +21,8 @@ class LogOutController {
     public static function getLogOut($request) {
         if ((Session::hasSession())) {
             Session::destroySession();
-            self::destroyRememberMeCookie();
         }
         $request->getRouter()->redirect('/');
-    }
-
-    /**
-     * Destroy remember me cookie
-     */
-    private static function destroyRememberMeCookie() {
-        setcookie('rememberme', '', 1, '/lemonade'); 
-        unset($_COOKIE['rememberme']);
     }
 
 }

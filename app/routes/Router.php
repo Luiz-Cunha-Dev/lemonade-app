@@ -8,6 +8,7 @@ use \ReflectionFunction;
 use app\routes\http\Request;
 use app\routes\http\Response;
 use app\routes\middleware\MiddlewareQueue;
+use app\views\View;
 
 /**
  * Route manager
@@ -185,12 +186,25 @@ class Router {
                     return $methods[$httpMethod];
                 }
 
-                throw new Exception('Method not allowed', 405);
+                // Method not allowed
+
+                (new Response(405, 'text/html', View::render('pages/errorPage', [
+                    'errorCode' => 405,
+                    'errorMessage' => 'Método não permitido',
+                    'errorDescription' => 'O recurso não oferece suporte a esse método'
+                ])))->sendResponse();
             }
 
         }
         
-        throw new Exception('Page not found', 404);
+        // Not found
+
+        (new Response(404, 'text/html', View::render('pages/errorPage', [
+            'errorCode' => 404,
+            'errorMessage' => 'Página não encontrada',
+            'errorDescription' => 'A página que você está procurando não existe ou foi movida para outra URL. Tente novamente'
+        ])))->sendResponse();
+
     }
 
     /**
@@ -207,7 +221,15 @@ class Router {
             // Checks if the controller exists
 
             if(!(isset($route['controller']))) {
-                throw new Exception('Internal Server Error', 500);
+
+                // Internal Server Error
+
+                (new Response(500, 'text/html', View::render('pages/errorPage', [
+                    'errorCode' => 500,
+                    'errorMessage' => 'Erro interno do servidor',
+                    'errorDescription' => 'Desculpe, algo deu errado, ocorreu um problema com o recurso que você está procurando'
+                ])))->sendResponse();
+
             }
 
             // Args
@@ -228,7 +250,7 @@ class Router {
 
         } catch (Exception $e) {
 
-            return new Response($e->getCode(), 'text/html', $e->getMessage());
+            throw new Exception($e->getMessage(), 500);
             
         }
     } 

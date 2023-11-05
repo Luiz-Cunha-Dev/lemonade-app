@@ -4,6 +4,13 @@ require __DIR__.'/../vendor/autoload.php';
 
 use app\routes\middleware\MiddlewareQueue;
 use app\views\View;
+use app\errors\ErrorHandler;
+use app\errors\ExceptionHandler;
+
+// Error and Exception handling
+
+new ExceptionHandler();
+new ErrorHandler();
 
 // Environment variables
 
