@@ -33,7 +33,7 @@ class UserController {
         $userService = new UserService();
 
         try {
-            $user = $userService->getUserByEmail($queryParams['email']);
+            return ($userService->getUserByEmail($queryParams['email']))->toArray();
         } catch (Exception $e) {
             return (new Response(500, 'application/json', [
                 'status' => 404,
@@ -41,17 +41,6 @@ class UserController {
                 'message' => $e->getMessage()
             ]))->sendResponse();
         }
-
-        if (!$user) {
-            return (new Response(404, 'application/json', [
-                'status' => 404,
-                'error' => 'Not found',
-                'message' => 'O usuário não foi encontrado'
-            ]))->sendResponse();
-        }
-        
-        
-        return $user->toArray();
 
     }
 
@@ -75,7 +64,7 @@ class UserController {
         $userService = new UserService();
 
         try {
-            $user = $userService->getUserByNickname($queryParams['nickname']);
+            return ($userService->getUserByNickname($queryParams['nickname']))->toArray();
         } catch (Exception $e) {
             return (new Response(500, 'application/json', [
                 'status' => 404,
@@ -83,17 +72,7 @@ class UserController {
                 'message' => $e->getMessage()
             ]))->sendResponse();
         }
-
-        if (!$user) {
-            return (new Response(404, 'application/json', [
-                'status' => 404,
-                'error' => 'Not found',
-                'message' => 'O usuário não foi encontrado'
-            ]))->sendResponse();
-        }
         
-        
-        return $user->toArray();
     }
 
 }
