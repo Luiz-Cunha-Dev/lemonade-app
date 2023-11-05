@@ -58,7 +58,7 @@ class UserService extends Service {
      * @param array $userData
      * @return UserModel $user
      */
-    public function login($userData) {
+    public function authenticate($userData) {
 
         $userDao = new UserDAO($this->conn->getConnection());
 
@@ -70,6 +70,25 @@ class UserService extends Service {
 
         if (!(password_verify($userData['password'], $user->getPassword()))) {
             throw new Exception('Incorrect Password', 400);
+        }
+
+        return $user;
+    
+    }
+
+    /**
+     * Get user by id
+     * @param int $userId
+     * @return UserModel $user
+     */
+    public function getUserById($userId) {
+
+        $userDao = new UserDAO($this->conn->getConnection());
+
+        $user = $userDao->getUserById($userId);
+
+        if (!$user) {
+            throw new Exception('User not found', 400);
         }
 
         return $user;

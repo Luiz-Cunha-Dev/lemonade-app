@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers\website;
+namespace app\controllers\webapp;
 
 use app\routes\http\Request;
 use app\session\Session;
@@ -8,22 +8,30 @@ use app\session\Session;
 /**
  * LogOut Controller
 
- * Handles user logout from the application
- * @package app\controllers\website
+ * Handles user logout from the web app
+ * @package app\controllers\webapp
  */ 
 class LogOutController {
 
     /**
-     * Logs the user out of the application
+     * Logs the user out of the web app
      * @param Request $request
      * @return void redirect to the index page or signin page
      */
     public static function getLogOut($request) {
         if ((Session::hasSession())) {
             Session::destroySession();
-            $request->getRouter()->redirect('/signin');
+            self::destroyRememberMeCookie();
         }
         $request->getRouter()->redirect('/');
+    }
+
+    /**
+     * Destroy remember me cookie
+     */
+    private static function destroyRememberMeCookie() {
+        setcookie('rememberme', '', 1, '/lemonade'); 
+        unset($_COOKIE['rememberme']);
     }
 
 }

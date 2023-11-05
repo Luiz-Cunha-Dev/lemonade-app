@@ -4,13 +4,12 @@ use app\routes\http\Response;
 use app\controllers\website\HomeController;
 use app\controllers\website\SignUpController;
 use app\controllers\website\SignInController;
-use app\controllers\website\LogOutController;
 
 // Home page route
 
 $router->get('/', [
     'middlewares' => [
-        'SessionLogout'
+        'RequireSessionLogout'
     ],
     fn() => new Response(200, 'text/html', HomeController::getHome())
 ]);
@@ -19,7 +18,7 @@ $router->get('/', [
 
 $router->get('/signup', [
     'middlewares' => [
-        'SessionLogout'
+        'RequireSessionLogout'
     ],
     fn() => new Response(200, 'text/html', SignUpController::getSignUp())
 ]);
@@ -28,17 +27,11 @@ $router->get('/signup', [
 
 $router->get('/signin', [
     'middlewares' => [
-        'SessionLogout'
+        'RequireSessionLogout'
     ],
-    fn() => new Response(200, 'text/html', SignInController::getSignIn())
+    fn($request) => new Response(200, 'text/html', SignInController::getSignIn($request))
 ]);
 
 $router->post('/signin', [
     fn($request) => new Response(200, 'text/html', SignInController::postSignIn($request))
-]);
-
-// LogOut page route
-
-$router->get('/app/logout', [
-    fn($request) => new Response(200, 'text/html', LogOutController::getLogOut($request))
 ]);

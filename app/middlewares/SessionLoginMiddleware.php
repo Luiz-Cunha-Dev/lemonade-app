@@ -7,18 +7,18 @@ use app\session\Session;
 /**
  * Session Logout Middleware
  * 
- * If the user is logged in, redirects to the web app
+ * If the user is not logged in, redirects to the web site
  * 
  * @package app\middlewares
  */
-class SessionLogoutMiddleware implements IMiddleware {
+class SessionLoginMiddleware implements IMiddleware {
 
     public function handle($request, $next) {
 
         // Check if user is logged
 
-        if(Session::hasSession()) {
-            $request->getRouter()->redirect('/app'); //TODO implement webapp root route
+        if(!(Session::hasSession())) {
+            $request->getRouter()->redirect('/signin');
         }
 
        return $next($request);
