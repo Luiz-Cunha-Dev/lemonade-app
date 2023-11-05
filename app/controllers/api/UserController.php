@@ -36,7 +36,7 @@ class UserController {
             return ($userService->getUserByEmail($queryParams['email']))->toArray();
         } catch (Exception $e) {
             return (new Response(500, 'application/json', [
-                'status' => 404,
+                'status' => 500,
                 'error' => 'Internal Server Error',
                 'message' => $e->getMessage()
             ]))->sendResponse();
@@ -67,7 +67,7 @@ class UserController {
             return ($userService->getUserByNickname($queryParams['nickname']))->toArray();
         } catch (Exception $e) {
             return (new Response(500, 'application/json', [
-                'status' => 404,
+                'status' => 500,
                 'error' => 'Internal Server Error',
                 'message' => $e->getMessage()
             ]))->sendResponse();
