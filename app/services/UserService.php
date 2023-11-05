@@ -3,7 +3,8 @@
 namespace app\services;
 
 use app\models\UserModel;
-use app\DAOs\UserDAO;
+use app\daos\UserDAO;
+use Exception;
 
 /**
  * User Service
@@ -15,28 +16,32 @@ use app\DAOs\UserDAO;
 class UserService extends Service {
 
     /**
-     * Register a user in the application
-     * 
+     * Handles user register
      * @param array $userData
      */
-    public function userRegister($userData) {
-        
-        if (!($userData['password'] == $userData['confirmPassword'])) {
-            throw new \Exception('Passwords don\'t match');
-        
-        }
+    public function register($userData) {
 
-        unset($userData['confirmPassword']);
-
-        unset($userData['state']);
-
-        $userData['complement'] = $userData['state'] ? $userData['state'] : null;
-
-        // $cityDAO = new CityDAO($this->conn->getConnection());
-        
-        // $userData['idCity'] = // cityDAO->getCityByName($userData['city'])->getId();
+        // Password encrypt
 
         $userData['password'] = password_hash($userData['password'], PASSWORD_DEFAULT);
+
+        // Setting profilePicutre to null
+
+        $temp = array_slice($userData, 0, 7);
+
+        $temp['profilePicture'] = null;
+
+        $userData = array_merge($temp, array_slice($userData, 7));
+
+        $temp = array_slice($userData, 0, 13);
+
+        // Setting firstAccess to null
+
+        $temp['firstAccess'] = null;
+
+        $userData = array_merge($temp, array_slice($userData, 13));
+
+        // Setting idUser to null and idUserType to 1 (student)
 
         $userData = array_merge(['idUser' => null], $userData, ['idUserType' => 1]);
 
@@ -49,26 +54,25 @@ class UserService extends Service {
     }
 
     /**
-     * Logs a user into the application
-     * 
+     * Handles user login
      * @param array $userData
-     * 
+     * @return UserModel $user
      */
-    public function userLogin($userData) {
+    public function login($userData) {
 
         $userDao = new UserDAO($this->conn->getConnection());
 
         $user = $userDao->getUserByEmail($userData['email']);
 
         if (!$user) {
-            throw new \Exception('User not found');
+            throw new Exception('User not found', 400);
         }
 
         if (!(password_verify($userData['password'], $user->getPassword()))) {
-            throw new \Exception('Incorrect Password');
+            throw new Exception('Incorrect Password', 400);
         }
 
-        return true;
+        return $user;
     
     }
 

@@ -2,7 +2,10 @@
 
 namespace app\controllers\website;
 
+use app\routes\http\Request;
+use app\services\UserService;
 use app\views\View;
+use Exception;
 
 /**
  * SignUp controller
@@ -26,35 +29,14 @@ class SignUpController extends WebsitePageController {
 
         $header = View::render('website/html/auth/header');
 
-        $main = View::render('website/html/auth/signup');
+        $main = View::render('website/html/auth/signUp');
 
         $footer = View::render('website/html/auth/footer');
 
         // Return page view
         
-        return parent::getPage('Cadastrar-se no Lemonade', $header, $main, $footer, ['css' => 'app/views/pages/website/css/signupDark.css', 'js' => 'app/views/pages/website/js/dist/signup.js']);
+        return parent::getPage('Cadastrar-se no Lemonade', $header, $main, $footer, 
+        ['css' => 'app/views/pages/website/css/signUpDark.css', 'js' => 'app/views/pages/website/js/dist/signUp.js']);
     }
-
-    /**
-     * 
-     * 
-     * @param Request $request
-     */
-    public static function postSignUp() {
-        $body = file_get_contents('php://input');
-        $postVars = json_decode($body, true);
-
-        try {
-            // Processar os dados
-            // ...
-    
-            header('Content-Type: application/json');
-            return json_encode($postVars);
-
-        } catch (\Exception $e) {
-            return $e->getMessage();
-        }
-    }
-    
 
 }

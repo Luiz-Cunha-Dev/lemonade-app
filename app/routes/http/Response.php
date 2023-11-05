@@ -6,7 +6,6 @@ namespace app\routes\http;
  * Represents an HTTP response
  * 
  * @package app\routes\http
- * @since 0.1.0
  */
 class Response {
 

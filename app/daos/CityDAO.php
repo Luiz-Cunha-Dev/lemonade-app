@@ -1,15 +1,16 @@
 <?php 
 
-namespace app\DAOs;
+namespace app\daos;
 
 use app\models\CityModel;
+use Exception;
 
 /**
  * City DAO
  * 
  * Responsible for reading and writing data of city entity
  * 
- * @package app\DAOs
+ * @package app\daos
  */ 
 class CityDAO extends AbstractDAO {
 
@@ -35,7 +36,7 @@ class CityDAO extends AbstractDAO {
 
             return $cities;
             
-        } catch( \Exception $e ) {
+        } catch(Exception $e ) {
             throw $e;
         }
     }

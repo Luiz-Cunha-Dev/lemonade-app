@@ -2,7 +2,7 @@
 
 namespace app\services;
 
-use app\DAOs\CityDAO;
+use app\daos\CityDAO;
 
 /**
  * City Service

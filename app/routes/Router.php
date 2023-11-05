@@ -5,8 +5,9 @@ namespace app\routes;
 use \Exception;
 use \Closure;
 use \ReflectionFunction;
-use http\Request;
-use http\Response;
+use app\routes\http\Request;
+use app\routes\http\Response;
+use app\routes\middleware\MiddlewareQueue;
 
 /**
  * Route manager
@@ -49,7 +50,7 @@ class Router {
      */
     public function __construct($url) {
         $this->url = $url;
-        $this->request = new http\Request();
+        $this->request = new Request($this);
         $this->setPrefix();
     }
 
@@ -70,6 +71,8 @@ class Router {
      */
     private function addRoute($method, $route, $params = []) {
 
+        // Route params validation
+
         foreach($params as $key => $value) {
 
             if($value instanceof Closure) {
@@ -81,6 +84,10 @@ class Router {
             }
 
         }
+
+        // Route middlewares
+
+        $params['middlewares'] = $params['middlewares'] ?? [];
 
         // Route variables
 
@@ -215,15 +222,40 @@ class Router {
                 $args[$name] = $route['variables'][$name] ?? '';
             }
 
-            // Returns the execution of the controller function
+            // Returns and execution of the middleware queue
 
-            return call_user_func_array($route['controller'], $args);
+            return (new MiddlewareQueue($route['middlewares'], $route['controller'], $args))->next($this->request);
 
         } catch (Exception $e) {
 
-            return new http\Response($e->getCode(), 'text/html', $e->getMessage());
+            return new Response($e->getCode(), 'text/html', $e->getMessage());
             
         }
     } 
+
+    /**
+     * Returns the current url
+     * @return string
+     */
+    public function getCurrentUrl() {
+        return $this->url . $this->getUri();
+    }
+
+    /**
+     * Redirect URL
+     * @param string $route
+     */
+    public function redirect($route) {
+
+        // Set URL
+
+        $url = $this->url . $route;
+
+        // Redirect
+
+        header('Location: ' . $url);
+        exit;
+        
+    }
 
 }

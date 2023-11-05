@@ -42,7 +42,7 @@ class StateModel {
      * @return StateModel state
      */
     public function __construct($idState, $name, $acronym) {
-        $this->idState = (int)$idState || null;
+        $this->idState = $idState;
         $this->name = $name;
         $this->acronym = $acronym;
     }

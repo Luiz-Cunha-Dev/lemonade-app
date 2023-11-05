@@ -2,13 +2,20 @@
 
 namespace app\routes\http;
 
+use app\routes\Router;
+
 /**
  * Represents an HTTP request
  * 
  * @package app\routes\http
- * @since 0.1.0
  */
 class Request {
+
+    /**
+     * Request router instance
+     * @var Router
+     */
+    private $router;
 
     /**
      * Request HTTP method
@@ -42,14 +49,24 @@ class Request {
 
     /**
      * Class constructor
+     * @param Router $router
      * @return Request
      */
-    public function __construct() {
+    public function __construct($router) {
+        $this->router = $router;
         $this->httpMethod = $_SERVER['REQUEST_METHOD'] ?? '';
-        $this->uri = $_SERVER['REQUEST_URI'] ?? '';
+        $this->uri = explode('?', $_SERVER['REQUEST_URI'] ?? '')[0]; // Remove GETS from URI
         $this->queryParams = $_GET ?? [];
         $this->postVars = $_POST ?? [];
         $this->headers = getallheaders();
+    }
+
+    /**
+     * Returns the router instance of the request
+     * @return Router
+     */
+    public function getRouter() {
+        return $this->router;
     }
 
     /**

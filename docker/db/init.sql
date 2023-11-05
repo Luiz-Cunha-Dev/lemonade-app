@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `user`(
     street VARCHAR(150) NOT NULL,
     streetNumber INT NOT NULL,
     district VARCHAR(45) NOT NULL,
-    complement VARCHAR(100) NOT NULL,
+    complement VARCHAR(100),
     postalCode CHAR(8) NOT NULL,
     firstAccess BOOLEAN NOT NULL DEFAULT FALSE,
     idCity INT NOT NULL,

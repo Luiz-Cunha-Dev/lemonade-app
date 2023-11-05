@@ -2,8 +2,11 @@
 
 namespace app\controllers\website;
 
+use app\routes\http\Request;
 use app\views\View;
 use app\services\UserService;
+use app\session\Session;
+use Exception;
 
 /**
  * SignIn  controller
@@ -26,34 +29,45 @@ class SignInController extends WebsitePageController {
 
         $header = View::render('website/html/auth/header');
 
-        $main = View::render('website/html/auth/signin');
+        $main = View::render('website/html/auth/signIn');
 
         $footer = View::render('website/html/auth/footer');
 
         // Return page view
         
-        return parent::getPage('Entrar no Lemonade', $header, $main, $footer, ['css' => 'app/views/pages/website/css/signinDark.css', 'js' => 'app/views/pages/website/js/dist/signin.js']);
+        return parent::getPage('Entrar no Lemonade', $header, $main, $footer, 
+        ['css' => 'app/views/pages/website/css/signInDark.css', 'js' => 'app/views/pages/website/js/dist/signIn.js']);
     }
 
     /**
-     * 
+     * Logs the user into the application
      * 
      * @param Request $request
+     * @return void logs the user in and redirects
      */
-    public static function postSignIn() {
-        $body = file_get_contents('php://input');
-        $postVars = json_decode($body, true);
+    public static function postSignIn($request) {
+
+        $postVars = $request->getPostVars();
+
+        $userService = new UserService();
 
         try {
-            // Processar os dados
-            // ...
-    
-            header('Content-Type: application/json');
-            return json_encode($postVars);
 
-        } catch (\Exception $e) {
-            return $e->getMessage();
+            $user = $userService->login($postVars);
+
+            Session::createSession($user);
+
+            $request->getRouter()->redirect('/app');
+
+        } catch (Exception $e) {
+            echo '<pre>';
+            echo 'Error: '. $e->getMessage();
+            echo '<br>';
+            echo 'Code: '. $e->getCode();
+            echo '</pre>';
+            exit;
         }
+        
     }
 
 }

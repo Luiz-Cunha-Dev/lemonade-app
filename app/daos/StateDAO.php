@@ -1,15 +1,16 @@
 <?php 
 
-namespace app\DAOs;
+namespace app\daos;
 
 use app\models\StateModel;
+use Exception;
 
 /**
  * State DAO
  * 
  * Responsible for reading and writing data of state entity
  * 
- * @package app\DAOs
+ * @package app\daos
  */ 
 class StateDAO extends AbstractDAO {
 
@@ -35,7 +36,7 @@ class StateDAO extends AbstractDAO {
 
             return $states;
 
-        } catch( \Exception $e ) {
+        } catch(Exception $e ) {
             throw $e;
         }
     }

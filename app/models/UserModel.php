@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use DateTimeImmutable;
+
 /**
  * User model
  * 
@@ -155,7 +157,7 @@ class UserModel {
      */
     public function __construct($idUser, $name, $lastName, $email, $nickname, $password, $phone, $birthDate, $profilePicture, 
     $street, $streetNumber, $district, $complement, $postalCode, $firstAccess, $idCity, $idUserType) {
-        $this->idUser = (int)$idUser || null;
+        $this->idUser = $idUser;
         $this->name = $name;
         $this->lastName = $lastName;
         $this->email = $email;
@@ -163,15 +165,15 @@ class UserModel {
         $this->password = $password;
         $this->phone = $phone;
         $this->birthDate = $birthDate;
-        $this->profilePicture = $profilePicture || null;
+        $this->profilePicture = $profilePicture;
         $this->street = $street;
-        $this->streetNumber = (int)$streetNumber;
+        $this->streetNumber = $streetNumber;
         $this->district = $district;
-        $this->complement = $complement || null;
+        $this->complement = $complement;
         $this->postalCode = $postalCode;
-        $this->firstAccess = (bool)$firstAccess || true;
-        $this->idCity = (int)$idCity;
-        $this->idUserType = (int)$idUserType;
+        $this->firstAccess = $firstAccess;
+        $this->idCity = $idCity;
+        $this->idUserType = $idUserType;
     }
 
     /**
@@ -252,7 +254,7 @@ class UserModel {
      * @return DateTimeImmutable Returns the user birth date formatted
      */
     public function getBirthDateFormatted() {
-        $birthDateFormatted = new \DateTimeImmutable($this->birthDate);
+        $birthDateFormatted = new DateTimeImmutable($this->birthDate);
         return $birthDateFormatted->format('d/m/Y');
     }
 
@@ -406,7 +408,7 @@ class UserModel {
      * @param string $birthDate user birth date
      */
     public function setBirthDate($birthDate) {
-        $this->birthDate = new \DateTimeImmutable($birthDate);
+        $this->birthDate = new DateTimeImmutable($birthDate);
     }
 
     /**
