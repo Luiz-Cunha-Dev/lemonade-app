@@ -591,15 +591,15 @@ async function signUp() {
     name: inputName.value,
     lastName: inputLastName.value,
     email: inputEmail.value,
-    password: inputPassword.value,
     nickName: inputNickname.value,
+    password: inputPassword.value,
     phone: inputPhone.value.replace(/\D/g, ""),
     birthDate: inputBirthDate.value,
-    cep: inputCep.value.replace(/\D/g, ""),
     street: inputStreet.value,
     number: parseInt(inputNumber.value, 10),
-    complement: inputComplement.value,
     district: inputNeighborhood.value,
+    complement: inputComplement.value,
+    cep: inputCep.value.replace(/\D/g, ""),
     idCity: parseInt(inputCity.value, 10),
   };
 
@@ -653,7 +653,7 @@ async function signUp() {
 async function insertCities() {
 
   try {
-    cities = (await axios.get("http://localhost/lemonade/api/cities?inApiToken=b3050e0156cc3d05ddb7bbd9")).data;
+    cities = (await axios.get("http://localhost/lemonade/api/cities?ltoken=b3050e0156cc3d05ddb7bbd9")).data;
 
     for (const city of cities) {
       const option = document.createElement("option");
@@ -670,7 +670,7 @@ async function insertCities() {
 async function insertStates() {
 
   try {
-    states = (await axios.get("http://localhost/lemonade/api/states?inApiToken=b3050e0156cc3d05ddb7bbd9")).data;
+    states = (await axios.get("http://localhost/lemonade/api/states?ltoken=b3050e0156cc3d05ddb7bbd9")).data;
 
     for (const state of states) {
       const option = document.createElement("option");

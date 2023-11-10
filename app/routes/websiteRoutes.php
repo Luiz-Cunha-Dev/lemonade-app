@@ -23,6 +23,13 @@ $router->get('/signup', [
     fn() => new Response(200, 'text/html', SignUpController::getSignUp())
 ]);
 
+$router->post('/signup', [
+    'middlewares' => [
+        'RequireSessionLogout'
+    ],
+    fn($request) => new Response(200, 'application/json', SignUpController::postSignUp($request))
+]);
+
 // SignIn page routes
 
 $router->get('/signin', [
@@ -33,5 +40,8 @@ $router->get('/signin', [
 ]);
 
 $router->post('/signin', [
-    fn($request) => new Response(200, 'text/html', SignInController::postSignIn($request))
+    'middlewares' => [
+        'RequireSessionLogout'
+    ],
+    fn($request) => new Response(200, 'application/json', SignInController::postSignIn($request))
 ]);

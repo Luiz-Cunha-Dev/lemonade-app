@@ -50,6 +50,12 @@ class UserService extends Service {
         $userDao = new UserDAO($this->conn->getConnection());
 
         $userDao->insertUser($user);
+
+        $userDao = new UserDAO($this->conn->getConnection());
+
+        $user = $userDao->getUserByEmail($userData['email']);
+
+        return $user;
         
     }
 

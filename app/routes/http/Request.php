@@ -41,6 +41,13 @@ class Request {
      */
     private $postVars = [];
 
+
+    /**
+     * Json variables (php://input)
+     * @var array
+     */
+    private $jsonVars = [];
+
     /**
      * Request headers
      * @var array
@@ -58,6 +65,7 @@ class Request {
         $this->uri = explode('?', $_SERVER['REQUEST_URI'] ?? '')[0]; // Remove GETS from URI
         $this->queryParams = $_GET ?? [];
         $this->postVars = $_POST ?? [];
+        $this->jsonVars = json_decode(file_get_contents('php://input'), true);
         $this->headers = getallheaders();
     }
 
@@ -94,11 +102,19 @@ class Request {
     }
 
     /**
-     * Returns the POST varaibles of the request
+     * Returns the POST variables of the request
      * @return array
      */
     public function getPostVars() {
         return $this->postVars;
+    }
+
+    /**
+     * Returns the JSON variables of the request
+     * @return array
+     */
+    public function getJsonVars() {
+        return $this->jsonVars;
     }
 
     /**

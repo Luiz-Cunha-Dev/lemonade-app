@@ -75,9 +75,9 @@ class SignInController extends AbstractPageController {
 
         $userService = new UserService();
 
-        try {
+        $user = $userService->authenticate($postVars);
 
-            $user = $userService->authenticate($postVars);
+        if ($user) {
 
             // Create the remember me cookie
             
@@ -87,24 +87,11 @@ class SignInController extends AbstractPageController {
 
             Session::createSession($user);
 
-            $request->getRouter()->redirect('/app');
+            return ['message' => '', 'success' => true]; 
 
-        } catch (Exception $e) {
+        } else {
 
-        $header = View::render('pages/website/html/auth/header');
-
-        $main = View::render('pages/website/html/auth/signIn', [
-            'alert' => View::render('components/alert', [
-                'alertType' => 'warning',
-                'errorType' => 'Erro ao fazer login',
-                'message' => $e->getMessage()
-            ])
-        ]);
-
-        $footer = View::render('website/html/auth/footer');
-
-        return parent::getPage('Entrar no Lemonade', $header, $main, $footer, 
-        ['css' => 'app/views/pages/website/css/signInDark.css', 'js' => 'app/views/pages/website/js/dist/signIn.js']);
+            return ['message' => 'E-mail ou senha incorretos!', 'success' => false]; 
 
         }
         
