@@ -33,9 +33,3 @@ $router->get('/api/users', [
     fn($request) => new Response(200, 'application/json', UserController::getUserByEmail($request))
 ]);
 
-$router->get('/api/users', [
-    'middlewares' => [
-        'inApiToken'
-    ],
-    fn($request) => new Response(200, 'application/json', UserController::getUserByNickname($request))
-]);

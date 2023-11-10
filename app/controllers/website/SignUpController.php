@@ -3,6 +3,8 @@
 namespace app\controllers\website;
 
 use app\controllers\AbstractPageController;
+use app\services\UserService;
+use app\session\Session;
 use app\views\View;
 
 /**
@@ -35,6 +37,28 @@ class SignUpController extends AbstractPageController {
         
         return parent::getPage('Cadastrar-se no Lemonade', $header, $main, $footer, 
         ['css' => 'app/views/pages/website/css/signUpDark.css', 'js' => 'app/views/pages/website/js/dist/signUp.js']);
+    }
+
+    public static function postSignUp($request) {
+
+        $jsonVars = $request->getJsonVars();
+
+        $userService = new UserService();
+
+        $user = $userService->register($jsonVars);
+
+        if ($user) {
+            
+            Session::createSession($user);
+
+            return ['message' => '', 'success' => true];
+
+        } else {
+
+            return ['message' => 'Erro ao cadastrar-se!', 'success' => false]; 
+            
+        }
+
     }
 
 }

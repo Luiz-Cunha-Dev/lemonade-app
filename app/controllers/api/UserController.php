@@ -22,7 +22,7 @@ class UserController {
 
         $queryParams = $request->getQueryParams();
 
-        if (!(isset($queryParams['email']))) {
+        if (!(isset($queryParams['email'])) && !(isset($queryParams['nickname']))) {
             return (new Response(400, 'application/json', [
                 'status' => 400,
                 'error' => 'Bad request',
@@ -33,7 +33,9 @@ class UserController {
         $userService = new UserService();
 
         try {
-            return ($userService->getUserByEmail($queryParams['email']))->toArray();
+            if (isset($queryParams['email'])) $user = $userService->getUserByEmail($queryParams['email']);
+            if (isset($queryParams['nickname'])) $user = $userService->getUserByNickname($queryParams['nickname']);
+            return $user->toArray();
         } catch (Exception $e) {
             return (new Response(500, 'application/json', [
                 'status' => 500,
