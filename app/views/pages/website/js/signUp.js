@@ -638,7 +638,6 @@ async function signUp() {
 
       if(response.data.success){
         window.location.href = "http://localhost/lemonade/app";
-        buttonForm3.disabled = false;
       }else{
         buttonForm3.disabled = false;
         const message = alertWindow.querySelector(".toast-body");
@@ -703,7 +702,7 @@ async function searchForExistingEmail(){
   try {
     const response = await axios.get(`http://localhost/lemonade/api/user?ltoken=b3050e0156cc3d05ddb7bbd9&email=${inputEmail.value}`);
 
-    if(!response.data.success){
+    if(response.data.length === 0){
       if (!inputEmail.classList.contains("is-invalid")) {
         inputEmail.classList.add("is-invalid");
       }
@@ -727,7 +726,7 @@ async function searchForExistingNickname(){
   try {
     const response = await axios.get(`http://localhost/lemonade/api/user?ltoken=b3050e0156cc3d05ddb7bbd9&nickname=${inputNickname.value}`);
 
-    if(!response.data.success){
+    if(response.data.length === 0){
       if (!inputNickname.classList.contains("is-invalid")) {
         inputNickname.classList.add("is-invalid");
       }
