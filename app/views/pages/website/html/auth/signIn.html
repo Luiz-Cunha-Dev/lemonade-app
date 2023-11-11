@@ -1,26 +1,31 @@
   <div class="section row">
-    {{alert}}
     <div class="col-md-5 signin">
       <div class="top">
         <h3>Entrar</h3>
       </div>
-      <form method="post" class="col-md-10">
+      <form class="col-md-10">
         <div class="row mb-4">
-          <label for="exampleInputEmail1" class="form-label">Email</label>
-          <input placeholder="Digite seu email" type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp">
+          <label for="inputEmail1" class="form-label">Email</label>
+          <input placeholder="Digite seu email" type="email" class="form-control" id="inputEmail" name="email" aria-describedby="emailHelp">
         </div>
         <div class="row mb-4">
-          <label for="exampleInputPassword1" class="form-label">Senha</label>
-          <input placeholder="Digite sua senha" type="password" class="form-control" id="exampleInputPassword1" name="password">
+          <label for="inputPassword1" class="form-label">Senha</label>
+          <input placeholder="Digite sua senha" type="password" class="form-control" id="inputPassword" name="password">
         </div>
         <div class="mb-5 form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1" name="rememberme">
-          <label class="form-check-label" for="exampleCheck1">Manter-me conectado</label>
+          <input type="checkbox" class="form-check-input" id="inputRememberme" name="rememberme">
+          <label class="form-check-label" for="inputRememberme">Manter-me conectado</label>
         </div>
         <div class="down">
           <a href="{{URL}}/signup">Criar nova conta </a>
-          <button type="submit" class="btn btn-success">Entrar</button>
+          <button id="signinButton" class="btn btn-success">Entrar</button>
         </div>
       </form>
+    </div>
+    <div class="toast align-items-center text-bg-danger border-0 position-fixed p-3 alert" role="alert" aria-live="assertive" aria-atomic="true" id="alertWindow">
+      <div class="d-flex">
+        <div class="toast-body"></div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
     </div>
   </div>

@@ -93,6 +93,10 @@ class UserService extends AbstractService {
 
         $user = $this->userDao->getUserByEmail($userData['email']);
 
+        if (!empty($user) && !(password_verify($userData['password'], $user->toArray()['password']))) {
+            $user = array();
+        }
+
         $this->userDao->closeConnection();
 
         return $user;

@@ -3,12 +3,10 @@
 namespace app\controllers\website;
 
 use app\controllers\AbstractPageController;
-use app\models\UserModel;
 use app\routes\http\Request;
 use app\views\View;
 use app\services\UserService;
 use app\session\Session;
-use Exception;
 
 /**
  * SignIn  controller
@@ -51,9 +49,7 @@ class SignInController extends AbstractPageController {
 
         $header = View::render('pages/website/html/auth/header');
 
-        $main = View::render('pages/website/html/auth/signIn', [
-            'alert' => ''
-        ]);
+        $main = View::render('pages/website/html/auth/signIn');
 
         $footer = View::render('pages/website/html/auth/footer');
 
@@ -71,7 +67,7 @@ class SignInController extends AbstractPageController {
      */
     public static function postSignIn($request) {
 
-        $postVars = $request->getPostVars();
+        $postVars = $request->getJsonVars();
 
         $userService = new UserService();
 

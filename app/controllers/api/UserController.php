@@ -27,7 +27,9 @@ class UserController {
             $users = $userService->getAllUsers();
 
                 $users = array_map(function($user) {
-                    return $user->toArray();
+                    $user = $user->toArray();
+                    unset($user['password']);
+                    return $user;
                 }, (array)$users);
 
             
@@ -64,11 +66,11 @@ class UserController {
 
                 $user = $userService->getUserByEmailAndNickname($queryParams['email'], $queryParams['nickname']);
 
-            } else if (isset($queryParams['email'])) {
+            } elseif (isset($queryParams['email'])) {
 
                 $user = $userService->getUserByEmail($queryParams['email']);
 
-            } else if (isset($queryParams['nickname'])) {
+            } elseif (isset($queryParams['nickname'])) {
 
                 $user = $userService->getUserByNickname($queryParams['nickname']);
                 
@@ -78,7 +80,15 @@ class UserController {
 
             }
 
-            return (isset($user) && $user) ? $user->toArray() : array();
+            if (isset($user) && $user) {
+                $user = $user->toArray();
+                unset($user['password']);
+                $user = [$user];
+            } else {
+                return $user = array();
+            }
+
+            return $user;
 
         } catch (Exception $e) {
             return (new Response(500, 'application/json', [

@@ -64,10 +64,12 @@ inputName.addEventListener("input", validName);
 inputLastName.addEventListener("input", validLastName);
 
 inputNickname.addEventListener("input", validNickName);
+inputNickname.addEventListener("blur", searchForExistingNickname);
 
 inputCep.addEventListener("input", validCep);
 
 inputEmail.addEventListener("input", validEmail);
+inputEmail.addEventListener("blur", searchForExistingEmail);
 
 inputPhone.addEventListener("input", validPhone);
 
@@ -626,12 +628,24 @@ async function signUp() {
       <div class="spinner-border" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>`;
+      buttonForm3.disabled = true;
 
       const response = await axios.post(
         "http://localhost/lemonade/signup",
         user
       );
       buttonForm3.innerText = "Enviar";
+
+      if(response.data.success){
+        window.location.href = "http://localhost/lemonade/app";
+      }else{
+        buttonForm3.disabled = false;
+        const message = alertWindow.querySelector(".toast-body");
+        alertWindow.classList.add("show");
+        message.textContent = response.data.message;
+        await sleep(5000);
+        alertWindow.classList.remove("show");
+      }
     } catch (error) {
       const message = alertWindow.querySelector(".toast-body");
       alertWindow.classList.add("show");
@@ -682,6 +696,54 @@ async function insertStates() {
     console.log(error);
   }
 
+}
+
+async function searchForExistingEmail(){
+  try {
+    const response = await axios.get(`http://localhost/lemonade/api/user?ltoken=b3050e0156cc3d05ddb7bbd9&email=${inputEmail.value}`);
+
+    if(response.data.length === 0){
+      if (!inputEmail.classList.contains("is-invalid")) {
+        inputEmail.classList.add("is-invalid");
+      }
+  
+      if (inputEmail.classList.contains("is-valid")) {
+        inputEmail.classList.remove("is-valid");
+      }
+      const message = alertWindow.querySelector(".toast-body");
+      alertWindow.classList.add("show");
+      message.textContent =
+        "Este endereço de e-mail já está associado a uma conta existente. Por favor, insira outro e-mail para continuar.";
+      await sleep(8000);
+      alertWindow.classList.remove("show");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function searchForExistingNickname(){
+  try {
+    const response = await axios.get(`http://localhost/lemonade/api/user?ltoken=b3050e0156cc3d05ddb7bbd9&nickname=${inputNickname.value}`);
+
+    if(response.data.length === 0){
+      if (!inputNickname.classList.contains("is-invalid")) {
+        inputNickname.classList.add("is-invalid");
+      }
+  
+      if (inputNickname.classList.contains("is-valid")) {
+        inputNickname.classList.remove("is-valid");
+      }
+      const message = alertWindow.querySelector(".toast-body");
+      alertWindow.classList.add("show");
+      message.textContent =
+        "O nickname inserido já está associado a uma conta existente. Por favor, insira outro nickname para continuar.";
+      await sleep(8000);
+      alertWindow.classList.remove("show");
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 insertCities();
