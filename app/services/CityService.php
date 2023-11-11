@@ -11,22 +11,38 @@ use app\daos\CityDAO;
  * 
  * @package app\services
  */ 
-class CityService extends Service {
+class CityService extends AbstractService {
+
+    /**
+     * City DAO
+     * @var CityDAO $cityDao
+     */
+    private $cityDao;
+
+    /**
+     * Class constructor
+     * 
+     * Return a new CityService instance
+     */
+    public function __construct() {
+        parent::__construct();
+        $this->cityDao = new CityDAO($this->conn->getConnection());
+    }
 
     /**
      * Get all cities
      * 
      * @return array $cities
      */
-    public function getAllCities(){
+    public function getAllCities(){      
 
-        $cityDao = new CityDAO($this->conn->getConnection());       
-
-        $cities = $cityDao->getAllCities();
+        $cities = $this->cityDao->getAllCities();
 
         $cities = array_map(function($city){
             return $city->toArray();
         }, $cities);
+
+        $this->cityDao->closeConnection();
 
         return $cities;
     }

@@ -7,7 +7,7 @@ use app\views\View;
 use app\errors\ErrorHandler;
 use app\errors\ExceptionHandler;
 
-// Error and Exception handling
+//Error and Exception handling
 
 //new ExceptionHandler();
 //new ErrorHandler();
@@ -30,7 +30,7 @@ View::start([
 // Middleware map
 
 MiddlewareQueue::setMiddlewareMap([
-       'inApiToken' => app\middlewares\InternalApiTokenMiddleware::class,
+       'InternalApiToken' => app\middlewares\InternalApiTokenMiddleware::class,
        'RequireSessionLogout' => app\middlewares\SessionLogoutMiddleware::class,
        'RequireSessionLogin' => app\middlewares\SessionLoginMiddleware::class,
        'IsSessionExpired' => app\middlewares\SessionExpiredMiddleware::class

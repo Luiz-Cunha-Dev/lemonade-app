@@ -14,32 +14,33 @@ use Exception;
 class UserController {
 
     /**
-     * Get user by email
+     * Get user all users
      * 
-     * @return array $user
+     * @return array $users
      */
-    public static function getUserByEmail($request) {
-
-        $queryParams = $request->getQueryParams();
-
-        if (!(isset($queryParams['email'])) && !(isset($queryParams['nickname']))) {
-            return (new Response(400, 'application/json', [
-                'status' => 400,
-                'error' => 'Bad request',
-                'message' => 'Insira um campo válido para realizar a busca'
-            ]))->sendResponse();
-        }
+    public static function getAllUsers() {
 
         $userService = new UserService();
 
         try {
-            if (isset($queryParams['email'])) $user = $userService->getUserByEmail($queryParams['email']);
-            if (isset($queryParams['nickname'])) $user = $userService->getUserByNickname($queryParams['nickname']);
-            return $user->toArray();
+            
+            $users = $userService->getAllUsers();
+
+                $users = array_map(function($user) {
+                    return $user->toArray();
+                }, (array)$users);
+
+            
+            if (!$users) {
+                return (new Response(204, 'application/json', []))->sendResponse();
+            }
+
+            return $users;
+
         } catch (Exception $e) {
             return (new Response(500, 'application/json', [
                 'status' => 500,
-                'error' => 'Internal Server Error',
+                'error' => 'Erro interno do servidor',
                 'message' => $e->getMessage()
             ]))->sendResponse();
         }
@@ -47,34 +48,46 @@ class UserController {
     }
 
     /**
-     * Get user by nickname
+     * Get user by query parameter
      * 
      * @return array $user
      */
-    public static function getUserByNickname($request) {
+    public static function getUserByParameter($request) {
 
         $queryParams = $request->getQueryParams();
-
-        if (!(isset($queryParams['nickname']))) {
-            return (new Response(400, 'application/json', [
-                'status' => 400,
-                'error' => 'Bad request',
-                'message' => 'Insira um campo válido para realizar a busca'
-            ]))->sendResponse();
-        }
 
         $userService = new UserService();
 
         try {
-            return ($userService->getUserByNickname($queryParams['nickname']))->toArray();
+            
+            if (isset($queryParams['email']) && isset($queryParams['nickname'])) {
+
+                $user = $userService->getUserByEmailAndNickname($queryParams['email'], $queryParams['nickname']);
+
+            } else if (isset($queryParams['email'])) {
+
+                $user = $userService->getUserByEmail($queryParams['email']);
+
+            } else if (isset($queryParams['nickname'])) {
+
+                $user = $userService->getUserByNickname($queryParams['nickname']);
+                
+            } else {
+
+                return (new Response(204, 'application/json', []))->sendResponse();
+
+            }
+
+            return (isset($user) && $user) ? $user->toArray() : array();
+
         } catch (Exception $e) {
             return (new Response(500, 'application/json', [
                 'status' => 500,
-                'error' => 'Internal Server Error',
+                'error' => 'Erro interno do servidor',
                 'message' => $e->getMessage()
             ]))->sendResponse();
         }
-        
+
     }
 
 }

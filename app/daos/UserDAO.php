@@ -26,12 +26,12 @@ class UserDao extends AbstractDAO {
         try {
             $users = parent::getAllElements('user');
 
-            if (empty($user)) {
+            if (empty($users)) {
                 return array();
             }
 
             for ($i=0; $i < count($users); $i++) { 
-                $users[$i] = new UserModel($users[$i]['idUser'], $users[$i]['name'], $users[$i]['lastName'], $users[$i]['email'], $users[$i]['nickname'], $users[$i]['password'], $users[$i]['salt'],
+                $users[$i] = new UserModel($users[$i]['idUser'], $users[$i]['name'], $users[$i]['lastName'], $users[$i]['email'], $users[$i]['nickname'], $users[$i]['password'],
                 $users[$i]['phone'], $users[$i]['birthDate'], $users[$i]['profilePicture'], $users[$i]['street'], $users[$i]['streetNumber'], $users[$i]['district'], $users[$i]['complement'],
                 $users[$i]['postalCode'], $users[$i]['firstAccess'], $users[$i]['idCity'], $users[$i]['idUserType']);
             }
@@ -131,6 +131,35 @@ class UserDao extends AbstractDAO {
     }
 
     /**
+     * Get a user by parameters
+     * 
+     * If it is null, returns an empty array
+     * 
+     * @param string $nicknameUser nickname of the user
+     * 
+     * @return UserModel user
+     */
+    public function getUsersByParameters($parameters){
+
+        try {
+            $users = parent::getElementByParameters('user', $parameters);
+
+            if (empty($users)) {
+                return array();
+            }
+            
+            $users = new UserModel($users['idUser'], $users['name'], $users['lastName'], $users['email'], $users['nickname'], $users['password'], 
+            $users['phone'], $users['birthDate'], $users['profilePicture'], $users['street'], $users['streetNumber'], $users['district'], $users['complement'],
+            $users['postalCode'], $users['firstAccess'], $users['idCity'], $users['idUserType']);
+
+            return $users;
+        } catch (Exception $e) {
+            throw $e;
+        }
+
+    }
+
+    /**
      * Insert an user
      * 
      * @param UserModel user to insert
@@ -140,15 +169,7 @@ class UserDao extends AbstractDAO {
     public function insertUser($user){
 
         try {
-            $user = $user->toArray();
-
-            // Remove null values 
-            
-            $user = array_filter($user, function($value) {
-                return !empty($value);
-            });
-
-            return parent::insertElement('user', $user);
+            return parent::insertElement('user', $user->toArray());
         } catch (Exception $e) {
             throw $e;
         }
@@ -158,16 +179,16 @@ class UserDao extends AbstractDAO {
     /**
      * Update an user
      * 
-     * @param array $dataToUpdate data to insert ( ['columnName' => value] )
+     * @param array $newUserData data to insert ( ['columnName' => value] )
      * 
      * @param integer $idUser id of the user
      * 
      * @return boolean
      */
-    public function updateUserById($dataToUpdate, $idUser){
+    public function updateUserById($newUserData, $idUser){
 
         try {
-            return parent::updateElementByParameter('user', 'idUser', $idUser, $dataToUpdate);
+            return parent::updateElementByParameter('user', 'idUser', $idUser, $newUserData);
         } catch (Exception $e) {
             throw $e;
         }

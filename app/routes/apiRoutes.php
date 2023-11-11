@@ -9,7 +9,7 @@ use app\controllers\api\UserController;
 
 $router->get('/api/cities', [
     'middlewares' => [
-        'inApiToken'
+        'InternalApiToken'
     ],
     fn() => new Response(200, 'application/json', CityController::getCities())
 ]);
@@ -18,18 +18,25 @@ $router->get('/api/cities', [
 
 $router->get('/api/states', [
     'middlewares' => [
-        'inApiToken'
+        'InternalApiToken'
     ],
     fn() => new Response(200, 'application/json', StateController::getStates())
 ]);
-
 
 // User api routes
 
 $router->get('/api/users', [
     'middlewares' => [
-        'inApiToken'
+        'InternalApiToken'
     ],
-    fn($request) => new Response(200, 'application/json', UserController::getUserByEmail($request))
+    fn() => new Response(200, 'application/json', UserController::getAllUsers())
 ]);
 
+// User api routes
+
+$router->get('/api/user', [
+    'middlewares' => [
+        'InternalApiToken'
+    ],
+    fn($request) => new Response(200, 'application/json', UserController::getUserByParameter($request))
+]);

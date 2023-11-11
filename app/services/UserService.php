@@ -4,7 +4,7 @@ namespace app\services;
 
 use app\models\UserModel;
 use app\daos\UserDAO;
-use Exception;
+use mysqli_sql_exception;
 
 /**
  * User Service
@@ -13,7 +13,23 @@ use Exception;
  * 
  * @package app\services
  */ 
-class UserService extends Service {
+class UserService extends AbstractService {
+
+    /**
+     * User DAO
+     * @var UserDAO $userDao
+     */
+    private $userDao;
+
+    /**
+     * Class constructor
+     * 
+     * Return a new UserService instance
+     */
+    public function __construct() {
+        parent::__construct();
+        $this->userDao = new UserDAO($this->conn->getConnection());
+    }
 
     /**
      * Handles user register
@@ -45,17 +61,26 @@ class UserService extends Service {
 
         $userData = array_merge(['idUser' => null], $userData, ['idUserType' => 1]);
 
-        $user = new UserModel(...array_values($userData));
+        $userBeforeInsert = new UserModel(...array_values($userData));
 
-        $userDao = new UserDAO($this->conn->getConnection());
+        try {
 
-        $userDao->insertUser($user);
+            $this->userDao->beginTransaction();
 
-        $userDao = new UserDAO($this->conn->getConnection());
+            $this->userDao->insertUser($userBeforeInsert);
 
-        $user = $userDao->getUserByEmail($userData['email']);
+            $this->userDao->commitTransaction();
 
-        return $user;
+            $userAfterInsert = $this->userDao->getUserByEmail($userData['email']);
+
+            $this->userDao->closeConnection();
+
+            return $userAfterInsert;
+
+        } catch (mysqli_sql_exception $e) {
+            $this->userDao->rollbackTransaction();
+            throw $e;
+        }
         
     }
 
@@ -66,17 +91,24 @@ class UserService extends Service {
      */
     public function authenticate($userData) {
 
-        $userDao = new UserDAO($this->conn->getConnection());
+        $user = $this->userDao->getUserByEmail($userData['email']);
 
-        $user = $userDao->getUserByEmail($userData['email']);
+        $this->userDao->closeConnection();
 
-        if (!$user) {
-            throw new Exception('Usuário não encontrado');
-        }
+        return $user;
+    
+    }
 
-        if (!(password_verify($userData['password'], $user->getPassword()))) {
-            throw new Exception('Senha incorreta');
-        }
+
+    /**
+     * Get all users
+     * @return UserModel $users
+     */
+    public function getAllUsers() {
+
+        $user = $this->userDao->getAllUsers();
+
+        $this->userDao->closeConnection();
 
         return $user;
     
@@ -89,13 +121,9 @@ class UserService extends Service {
      */
     public function getUserById($userId) {
 
-        $userDao = new UserDAO($this->conn->getConnection());
+        $user = $this->userDao->getUserById($userId);
 
-        $user = $userDao->getUserById($userId);
-
-        if (!$user) {
-            throw new Exception('Usuário não encontrado');
-        }
+        $this->userDao->closeConnection();
 
         return $user;
     
@@ -108,13 +136,9 @@ class UserService extends Service {
      */
     public function getUserByEmail($userEmail) {
 
-        $userDao = new UserDAO($this->conn->getConnection());
+        $user = $this->userDao->getUserByEmail($userEmail);
 
-        $user = $userDao->getUserByEmail($userEmail);
-
-        if (!$user) {
-            throw new Exception('Usuário não encontrado');
-        }
+        $this->userDao->closeConnection();
 
         return $user;
     
@@ -127,13 +151,25 @@ class UserService extends Service {
      */
     public function getUserByNickname($userNickname) {
 
-        $userDao = new UserDAO($this->conn->getConnection());
+        $user = $this->userDao->getUserByNickname($userNickname);
 
-        $user = $userDao->getUserByNickname($userNickname);
+        $this->userDao->closeConnection();
 
-        if (!$user) {
-            throw new Exception('Usuário não encontrado');
-        }
+        return $user;
+    
+    }
+
+    /**
+     * Get user by email and nickname
+     * @param string $userEmail
+     * @param string $userNickname
+     * @return UserModel $user
+     */
+    public function getUserByEmailAndNickname($userEmail, $userNickname) {
+
+        $user = $this->userDao->getUsersByParameters(['email' => $userEmail, 'nickname' => $userNickname]);
+
+        $this->userDao->closeConnection();
 
         return $user;
     
