@@ -65,7 +65,7 @@ class Request {
         $this->uri = explode('?', $_SERVER['REQUEST_URI'] ?? '')[0]; // Remove GETS from URI
         $this->queryParams = $_GET ?? [];
         $this->postVars = $_POST ?? [];
-        $this->jsonVars = json_decode(file_get_contents('php://input'), true);
+        $this->jsonVars = json_decode(file_get_contents('php://input'), true) ?? [];
         $this->headers = getallheaders();
     }
 
