@@ -7,14 +7,14 @@ const isProduction = process.env.NODE_ENV == 'production';
 
 const config = {
     entry: {
-        home: './app/views/pages/website/js/home.js',
-        signUp: './app/views/pages/website/js/signUp.js',
-        signIn: './app/views/pages/website/js/signIn.js',
-        darkMode: './app/views/pages/website/js/darkMode.js',
-        
+        home: './app/views/pages/js/home.js',
+        signUp: './app/views/pages/js/signUp.js',
+        signIn: './app/views/pages/js/signIn.js',
+        darkMode: './app/views/pages/js/darkMode.js',
+        app: './app/views/pages/js/app.js'
     },
     output: {
-        path: path.resolve(__dirname, './app/views/pages/website/js/dist'),
+        path: path.resolve(__dirname, './app/views/pages/js/dist'),
     },
     devServer: {
         open: true,

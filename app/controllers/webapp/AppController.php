@@ -28,19 +28,20 @@ class AppController extends AbstractPageController {
 
         // App home view
 
-        $header = null;
+        $header = View::render('pages/webapp/html/header');
 
-        $main = View::render('pages/webapp/html/app', [
-            'userName' => Session::getCurrentUserSessionData()['name'],
-            'studentType' => Session::getCurrentUserSessionData()['userType'] == 1 ? '<p>Student</p>' : '',
-            'teacherType' => Session::getCurrentUserSessionData()['userType'] == 2 ? '<p>Teacher</p>' : ' '
+        $main = View::render('pages/webapp/html/app/main', [
+            // 'userName' => Session::getCurrentUserSessionData()['name'],
+            // 'studentType' => Session::getCurrentUserSessionData()['userType'] == 1 ? '<p>Student</p>' : '',
+            // 'teacherType' => Session::getCurrentUserSessionData()['userType'] == 2 ? '<p>Teacher</p>' : ' '
         ]);
 
-        $footer = null;
+        $footer = View::render('pages/webapp/html/footer');
 
         // Return page view
 
-        return parent::getPage('App', $header, $main, $footer);
+        return parent::getPage('App', $header, $main, $footer, 
+        ['css' => 'app/views/pages/webapp/css/appDark.css', 'js' => 'app/views/pages/js/dist/app.js']);
     }
 
 }

@@ -32,7 +32,7 @@ class HomeController extends AbstractPageController {
         // Return page view
 
         return parent::getPage('Lemonade', $header, $main, $footer, 
-        ['css' => 'app/views/pages/website/css/homeDark.css', 'js' => 'app/views/pages/website/js/dist/home.js']);
+        ['css' => 'app/views/pages/website/css/homeDark.css', 'js' => 'app/views/pages/js/dist/home.js']);
     }
 
 }
