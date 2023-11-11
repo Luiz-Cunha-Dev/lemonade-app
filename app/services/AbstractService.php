@@ -11,7 +11,7 @@ use app\db\ConnectionFactory;
  * 
  * @package app\services
  */
-abstract class Service {
+abstract class AbstractService {
 
     /**
      * ConnectionFactory
@@ -25,7 +25,7 @@ abstract class Service {
      * 
      * Instantiates a ConnectionFactory
      */
-    final public function __construct() {
+    public function __construct() {
         $this->conn = new ConnectionFactory();
     }
 

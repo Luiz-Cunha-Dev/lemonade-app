@@ -4,7 +4,6 @@ namespace app\daos;
 
 use Exception;
 use mysqli;
-use mysqli_sql_exception;
 
 /**
  * Abstract DAO
@@ -30,6 +29,45 @@ abstract class AbstractDAO {
      */
     final public function __construct ($connection) {
         $this->conn = $connection;
+    }
+
+    /**
+     * Remove array null values
+     * @param array $array array to remove null values from
+     * @return array array without null values
+     */
+    final protected function removeArrayNullValues($array) {
+        return array_filter($array, function($value) {
+            return !empty($value);
+        });
+    }
+
+    /**
+     * Close connection
+     */
+    final public function closeConnection() {
+        $this->conn->close();
+    }
+
+    /**
+     * Begin an transaction
+     */
+    final public function beginTransaction() {
+        $this->conn->begin_transaction();
+    }
+
+    /**
+     * Commit an transaction
+     */
+    final public function commitTransaction() {
+        $this->conn->commit();
+    }
+
+    /**
+     * Rollback an transaction
+     */
+    final public function rollbackTransaction() {
+        $this->conn->rollback();
     }
 
     /**
@@ -78,7 +116,7 @@ abstract class AbstractDAO {
             }
 
             $result->free();
-            $this->conn->close();
+
             return $elements;
         } catch (Exception $e) {
             throw $e;
@@ -88,7 +126,6 @@ abstract class AbstractDAO {
     /**
      * Get element by parameter
      * 
-     * 
      * If it is null, returns an empty array
      * 
      * @param string $tableName table name
@@ -96,8 +133,6 @@ abstract class AbstractDAO {
      * @param string $parameterToCompare parameter to compare
      * 
      * @param string $parameterToSearch parameter to search
-     * 
-     * @param string $parameterType parameter type (i, s, d)
      * 
      * @return array element
      */
@@ -120,7 +155,54 @@ abstract class AbstractDAO {
             }
 
             $result->free();
-            $this->conn->close();
+
+            return $element;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Get element by parameters
+     * 
+     * If it is null, returns an empty array
+     * 
+     * @param string $tableName table name
+     * 
+     * @param array $parametersToCompareAndSearch parameters to compare and search
+     * 
+     * @return array element
+     */
+    final protected function getElementByParameters($tableName, $parametersToCompareAndSearch) {
+
+        try {
+
+            $parametersKeys = array_keys($parametersToCompareAndSearch);
+
+            $parametersValues = array_values($parametersToCompareAndSearch);
+
+            $sql = 'SELECT * FROM ' . $tableName . ' WHERE ' . implode(' = ? AND ', ($parametersKeys)) . ' = ?';
+
+            $stmt = $this->conn->prepare($sql);
+
+            $parametersTypes = array_map(function ($parameterType) {
+                return self::getParameterType($parameterType);
+            }, $parametersKeys);
+
+            $stmt->bind_param(implode('', $parametersTypes), ...$parametersValues);
+
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $stmt->close();
+
+            if ($result) {
+                $element = $result->fetch_assoc();
+            } else {
+                $element = array();
+            }
+
+            $result->free();
+
             return $element;
         } catch (Exception $e) {
             throw $e;
@@ -138,13 +220,13 @@ abstract class AbstractDAO {
      */
     final protected function insertElement($tableName, $dataToInsert) {
 
+        $dataToInsert = $this->removeArrayNullValues($dataToInsert);
+
         $parametersKeys = array_keys($dataToInsert);
 
         $parametersValues = array_values($dataToInsert);
 
         try {
-
-            $this->conn->begin_transaction();
 
             $sql = 'INSERT INTO ' . $tableName . ' (' . implode(', ', $parametersKeys) . ') VALUES (' . implode(', ', array_fill(0, count($parametersKeys), '?')) . ')';
 
@@ -157,18 +239,15 @@ abstract class AbstractDAO {
             $stmt->bind_param(implode('', $parametersTypes), ...$parametersValues);
 
             $stmt->execute();
-            $this->conn->commit();
 
             if ($stmt->affected_rows == 0) {
                 return false;
             }
 
             $stmt->close();
-            $this->conn->close();
 
             return true;
-        } catch (mysqli_sql_exception $e) {
-            $this->conn->rollback();
+        } catch (Exception $e) {
             throw $e;
         }
     }
@@ -189,6 +268,8 @@ abstract class AbstractDAO {
 
      final protected function updateElementByParameter($tableName, $parameterToCompare, $parameterToSearch, $dataToUpdate) {
 
+        $dataToUpdate = $this->removeArrayNullValues($dataToUpdate);
+
         $keys = array_keys($dataToUpdate);
         $values = array_values($dataToUpdate);
 
@@ -203,26 +284,20 @@ abstract class AbstractDAO {
 
         try {
 
-            $this->conn->begin_transaction();
-
             $sql = 'UPDATE ' . $tableName . ' SET '  .  $columnNames . '=? WHERE ' . $parameterToCompare . ' = ?';
             
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param(implode("", $parameterTypes), ...$values);
             $stmt->execute();
 
-            $this->conn->commit();
-
             if ($stmt->affected_rows == 0) {
                 return false;
             }
 
             $stmt->close();
-            $this->conn->close();
-            return true;
 
-        } catch (mysqli_sql_exception $e) {
-            $this->conn->rollback();
+            return true;
+        } catch (Exception $e) {
             throw $e;
         }
     }
@@ -242,8 +317,6 @@ abstract class AbstractDAO {
 
         try {
 
-            $this->conn->begin_transaction();
-
             $sql = 'DELETE FROM ' . $tableName . ' WHERE ' . $parameterToCompare . ' = ?';
 
             $stmt = $this->conn->prepare($sql);
@@ -251,18 +324,15 @@ abstract class AbstractDAO {
             $stmt->bind_param(self::getParameterType($parameterToSearch), $parameterToSearch);
 
             $stmt->execute();
-            $this->conn->commit();
 
             if ($stmt->affected_rows == 0) {
                 return false;
             }
 
             $stmt->close();
-            $this->conn->close();
 
             return true;
-        } catch (mysqli_sql_exception $e) {
-            $this->conn->rollback();
+        } catch (Exception $e) {
             throw $e;
         }
     }
