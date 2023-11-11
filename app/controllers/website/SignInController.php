@@ -56,7 +56,7 @@ class SignInController extends AbstractPageController {
         // Return page view
         
         return parent::getPage('Entrar no Lemonade', $header, $main, $footer, 
-        ['css' => 'app/views/pages/website/css/signInDark.css', 'js' => 'app/views/pages/website/js/dist/signIn.js']);
+        ['css' => 'app/views/pages/website/css/signInDark.css', 'js' => 'app/views/pages/js/dist/signIn.js']);
     }
 
     /**
