@@ -9,7 +9,7 @@ use app\session\Session;
 /**
  * Session Logout Middleware
  * 
- * If the user is logged in, redirects to the web app
+ * Check if it is the user's first access
  * 
  * @package app\middlewares
  */
@@ -35,7 +35,7 @@ class SessionFirstAccessMiddleware implements IMiddleware {
 
             } else {
 
-                return new Response(200, 'text/html', 'sda');
+                return new Response(200, 'text/html', 'sda'); //TODO Implement admin first access page
 
             }
 
