@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `user`(
     district VARCHAR(45) NOT NULL,
     complement VARCHAR(100),
     postalCode CHAR(8) NOT NULL,
-    firstAccess BOOLEAN NOT NULL DEFAULT FALSE,
+    firstAccess BOOLEAN NOT NULL DEFAULT TRUE,
     idCity INT NOT NULL,
     idUserType INT NOT NULL,
 	CONSTRAINT userPk PRIMARY KEY (idUser),

@@ -38,7 +38,7 @@ abstract class AbstractDAO {
      */
     final protected function removeArrayNullValues($array) {
         return array_filter($array, function($value) {
-            return !empty($value);
+            return isset($value);
         });
     }
 

@@ -18,7 +18,7 @@ class SessionLogoutMiddleware implements IMiddleware {
         // Check if user is logged
 
         if(Session::hasSession()) {
-            $request->getRouter()->redirect('/wapp'); //TODO implement webapp root route
+            $request->getRouter()->redirect('/wapp');
         }
 
        return $next($request);

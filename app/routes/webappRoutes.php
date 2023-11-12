@@ -9,7 +9,8 @@ use app\routes\http\Response;
 $router->get('/wapp', [
     'middlewares' => [
         'RequireSessionLogin',
-        'IsSessionExpired'
+        'IsSessionExpired',
+        'IsSessionFirstAccess'
     ],
     fn() => new Response(200, 'text/html', AppController::getApp())
 ]);
