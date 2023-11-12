@@ -637,7 +637,7 @@ async function signUp() {
       buttonForm3.innerText = "Enviar";
 
       if(response.data.success){
-        window.location.href = "http://localhost/lemonade/app";
+        window.location.href = "http://localhost/lemonade/wapp";
       }else{
         buttonForm3.disabled = false;
         const message = alertWindow.querySelector(".toast-body");

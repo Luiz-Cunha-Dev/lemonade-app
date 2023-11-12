@@ -39,7 +39,7 @@ class SignInController extends AbstractPageController {
 
                 $userId = Session::getUserIdFromRememberMeCookie($rememberMeCookie);
                 Session::createSession($userService->getUserById($userId));
-                $request->getRouter()->redirect('/app');
+                $request->getRouter()->redirect('/wapp');
 
             }
 
