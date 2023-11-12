@@ -100,4 +100,67 @@ class UserController {
 
     }
 
+    /**
+     * Delete user by id
+     * 
+     * @return boolean
+     */
+    public static function deleteUserById($id){
+
+        try {
+            $userService = new UserService;
+            $deletedUser = $userService->deleteUserById($id);
+
+            if($deletedUser){
+                return [
+                    'message' => 'Usuário deletado',
+                    'success' => 'true'
+                ];
+            }
+
+            return (new Response(404, 'application/json', [
+                'message' => 'Usuário não encontrado',
+                'success' => 'false'
+
+            ]))->sendResponse();
+
+        } catch (\Exception $e) {
+
+            (new Response(500, 'application/json', [
+                'status' => 500,
+                'error' => 'Erro interno do servidor',
+                'message' => $e->getMessage()
+            ]))->sendResponse();  
+
+        }
+    }
+    /**
+     * Update user by id
+     * 
+     * @return boolean
+     */
+    public static function updateUserById($request, $idUser){
+        
+        $jsonvars = $request->getJsonVars();
+
+        try {
+            $userService = new UserService;
+            $updatedUser = $userService->updateUserById($jsonvars, $idUser);
+
+            if($updatedUser){
+                return [
+                    'message' => 'Usuario atualizado',
+                    'success' => 'true'
+                ];
+            }
+
+            return [
+                'message' => 'Usuario não encontrado',
+                'success' => 'false'
+            ];
+        } catch (\Exception $e) {
+            throw new $e;
+        }
+    }
+
 }

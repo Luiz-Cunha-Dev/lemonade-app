@@ -195,6 +195,7 @@ class UserDao extends AbstractDAO {
 
     }
 
+
     /**
      * Delete an user
      * 

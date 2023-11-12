@@ -2,6 +2,7 @@
 
 namespace app\daos;
 
+use app\db\ConnectionFactory;
 use Exception;
 use mysqli;
 
@@ -330,6 +331,8 @@ abstract class AbstractDAO {
             }
 
             $stmt->close();
+
+            
 
             return true;
         } catch (Exception $e) {

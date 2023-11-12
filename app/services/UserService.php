@@ -109,7 +109,7 @@ class UserService extends AbstractService {
      * @return UserModel $users
      */
     public function getAllUsers() {
-
+        
         $user = $this->userDao->getAllUsers();
 
         $this->userDao->closeConnection();
@@ -177,6 +177,55 @@ class UserService extends AbstractService {
 
         return $user;
     
+    }
+
+    /**
+     * Delete user by id
+     * @param integer $id
+     * @return boolean
+     */
+    public function deleteUserbyId($idUser) {
+
+        try {
+            $this->userDao->beginTransaction();
+
+            $deleteUser = ($this->userDao->deleteUserById($idUser));
+                
+            $this->userDao->commitTransaction();
+            $this->userDao->closeConnection();
+
+            return $deleteUser;
+
+        } catch (mysqli_sql_exception $e) {
+            $this-> userDao->rollbackTransaction();
+            throw $e;
+        }
+ 
+    }
+
+    /**
+     * Update user by id
+     * @param array $newUserData
+     * @param integer $idUser
+     * @return boolean
+     */
+
+    public function updateUserById($newUserData, $idUser){
+        
+        try {
+            $this->userDao->beginTransaction();
+
+            $updatedUser = $this->userDao->updateUserById($newUserData, $idUser);
+             
+            $this->userDao->commitTransaction();
+            $this->userDao->closeConnection();
+
+            return $updatedUser;
+
+        } catch (mysqli_sql_exception $e) {
+            $this->userDao->rollbackTransaction();
+            throw new $e;
+        }
     }
 
 }
