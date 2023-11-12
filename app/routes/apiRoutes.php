@@ -11,7 +11,7 @@ $router->get('/api/cities', [
     'middlewares' => [
         'InternalApiToken'
     ],
-    fn() => new Response(200, 'application/json', CityController::getCities())
+    fn () => new Response(200, 'application/json', CityController::getCities())
 ]);
 
 // States api route
@@ -20,7 +20,7 @@ $router->get('/api/states', [
     'middlewares' => [
         'InternalApiToken'
     ],
-    fn() => new Response(200, 'application/json', StateController::getStates())
+    fn () => new Response(200, 'application/json', StateController::getStates())
 ]);
 
 // User api routes
@@ -29,7 +29,7 @@ $router->get('/api/users', [
     'middlewares' => [
         'InternalApiToken'
     ],
-    fn() => new Response(200, 'application/json', UserController::getAllUsers())
+    fn () => new Response(200, 'application/json', UserController::getAllUsers())
 ]);
 
 // User api routes
@@ -38,5 +38,13 @@ $router->get('/api/user', [
     'middlewares' => [
         'InternalApiToken'
     ],
-    fn($request) => new Response(200, 'application/json', UserController::getUserByParameter($request))
+    fn ($request) => new Response(200, 'application/json', UserController::getUserByParameter($request))
+]);
+
+$router->get('/api/user/delete/{id}', [
+    fn ($id) => new Response(200, 'application/json', UserController::deleteUserById($id))
+]);
+
+$router->post('/api/user/update/{id}', [
+    fn ($request, $id) => new Response(200, 'application/json', UserController::updateUserById($request, $id))
 ]);
