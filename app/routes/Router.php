@@ -136,6 +136,26 @@ class Router {
     }
 
     /**
+     * Add a PUT route
+     * 
+     * @param string $route route
+     * @param array $params route methods
+     */
+    public function put($route, $params = []) {
+        $this->addRoute('PUT', $route, $params);
+    }
+
+    /**
+     * Add a DELETE route
+     * 
+     * @param string $route route
+     * @param array $params route methods
+     */
+    public function delete($route, $params = []) {
+        $this->addRoute('DELETE', $route, $params);
+    }
+
+    /**
      * Get URI whitout prefix
      */
     private function getUri() {

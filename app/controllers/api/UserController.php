@@ -2,6 +2,7 @@
 
 namespace app\controllers\api;
 
+use app\routes\http\Request;
 use app\routes\http\Response;
 use app\services\UserService;
 use Exception;
@@ -101,30 +102,56 @@ class UserController {
     }
 
     /**
-     * Delete user by id
-     * 
+     * Update user by id
+     * @param Request $request
+     * @param integer $idUser
      * @return boolean
      */
-    public static function deleteUserById($id){
+    public static function updateUserById($request, $idUser){
+        
+        $jsonVars = $request->getJsonVars();
 
         try {
-            $userService = new UserService;
-            $deletedUser = $userService->deleteUserById($id);
 
-            if($deletedUser){
-                return [
-                    'message' => 'Usuário deletado',
-                    'success' => 'true'
-                ];
+            $userService = new UserService();
+            $updatedUser = $userService->updateUserById($jsonVars, $idUser);
+
+            if (!$updatedUser) {
+                return (new Response(204, 'application/json', ['message' => 'Usuário não encontrado', 'success' => false]))->sendResponse();
             }
 
-            return (new Response(404, 'application/json', [
-                'message' => 'Usuário não encontrado',
-                'success' => 'false'
+            return ['message' => 'Usuario atualizado', 'success' => true];
 
+        } catch (Exception $e) {
+
+            return (new Response(500, 'application/json', [
+                'status' => 500,
+                'error' => 'Erro interno do servidor',
+                'message' => $e->getMessage()
             ]))->sendResponse();
 
-        } catch (\Exception $e) {
+        }
+
+    }
+
+    /**
+     * Delete user by id
+     * @param integer $idUser
+     * @return boolean
+     */
+    public static function deleteUserById($idUser){
+
+        try {
+            $userService = new UserService();
+            $deletedUser = $userService->deleteUserById($idUser);
+
+            if (!$deletedUser) {
+                return (new Response(204, 'application/json', ['message' => 'Usuário não encontrado', 'success' => false]))->sendResponse();
+            }
+
+            return ['message' => 'Usuário deletado com sucesso', 'success' => true];
+
+        } catch (Exception $e) {
 
             (new Response(500, 'application/json', [
                 'status' => 500,
@@ -132,34 +159,6 @@ class UserController {
                 'message' => $e->getMessage()
             ]))->sendResponse();  
 
-        }
-    }
-    /**
-     * Update user by id
-     * 
-     * @return boolean
-     */
-    public static function updateUserById($request, $idUser){
-        
-        $jsonvars = $request->getJsonVars();
-
-        try {
-            $userService = new UserService;
-            $updatedUser = $userService->updateUserById($jsonvars, $idUser);
-
-            if($updatedUser){
-                return [
-                    'message' => 'Usuario atualizado',
-                    'success' => 'true'
-                ];
-            }
-
-            return [
-                'message' => 'Usuario não encontrado',
-                'success' => 'false'
-            ];
-        } catch (\Exception $e) {
-            throw new $e;
         }
     }
 

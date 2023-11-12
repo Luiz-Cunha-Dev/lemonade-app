@@ -187,9 +187,10 @@ class UserService extends AbstractService {
     public function deleteUserbyId($idUser) {
 
         try {
+
             $this->userDao->beginTransaction();
 
-            $deleteUser = ($this->userDao->deleteUserById($idUser));
+            $deleteUser = $this->userDao->deleteUserById($idUser);
                 
             $this->userDao->commitTransaction();
             $this->userDao->closeConnection();
@@ -209,10 +210,10 @@ class UserService extends AbstractService {
      * @param integer $idUser
      * @return boolean
      */
-
     public function updateUserById($newUserData, $idUser){
         
         try {
+
             $this->userDao->beginTransaction();
 
             $updatedUser = $this->userDao->updateUserById($newUserData, $idUser);
