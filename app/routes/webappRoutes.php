@@ -6,7 +6,7 @@ use app\routes\http\Response;
 
 // Web app home page route
 
-$router->get('/app/', [
+$router->get('/wapp', [
     'middlewares' => [
         'RequireSessionLogin',
         'IsSessionExpired'
@@ -16,7 +16,7 @@ $router->get('/app/', [
 
 // LogOut page route
 
-$router->get('/app/logout', [
+$router->get('/wapp/logout', [
     'middlewares' => [
         'RequireSessionLogin',
         'IsSessionExpired'

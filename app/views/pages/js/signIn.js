@@ -39,7 +39,7 @@ async function signIn() {
     buttonForm.innerText = "Enviar";
 
     if (response.data.success) {
-      window.location.href = "http://localhost/lemonade/app";
+      window.location.href = "http://localhost/lemonade/wapp";
     } else {
       buttonForm.disabled = false;
       const message = alertWindow.querySelector(".toast-body");
