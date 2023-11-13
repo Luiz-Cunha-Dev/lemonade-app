@@ -41,11 +41,11 @@ class UserService extends AbstractService {
 
         $userData['password'] = password_hash($userData['password'], PASSWORD_DEFAULT);
 
-        // Setting profilePicutre to null
+        // Setting profilePicutre to default
 
         $temp = array_slice($userData, 0, 7);
 
-        $temp['profilePicture'] = null;
+        $temp['profilePicture'] = '../lemonade/images/userDefaultProfilePicture.jpg';
 
         $userData = array_merge($temp, array_slice($userData, 7));
 
@@ -103,7 +103,6 @@ class UserService extends AbstractService {
     
     }
 
-
     /**
      * Get all users
      * @return UserModel $users
@@ -111,6 +110,26 @@ class UserService extends AbstractService {
     public function getAllUsers() {
         
         $user = $this->userDao->getAllUsers();
+
+        $this->userDao->closeConnection();
+
+        return $user;
+    
+    }
+
+    /**
+     * Get all users with pagination
+     * @param integer $offset offset
+     * @param integer $limit limit
+     * @return UserModel $users
+     */
+    public function getAllUsersWithPagination($offset=0, $limit=10) {
+
+        $offset = $offset ? $offset : 0;
+
+        $limit = $limit ? $limit : 10;
+        
+        $user = $this->userDao->getAllUsersWithPagination($offset, $limit);
 
         $this->userDao->closeConnection();
 
@@ -187,9 +206,10 @@ class UserService extends AbstractService {
     public function deleteUserbyId($idUser) {
 
         try {
+
             $this->userDao->beginTransaction();
 
-            $deleteUser = ($this->userDao->deleteUserById($idUser));
+            $deleteUser = $this->userDao->deleteUserById($idUser);
                 
             $this->userDao->commitTransaction();
             $this->userDao->closeConnection();
@@ -209,10 +229,10 @@ class UserService extends AbstractService {
      * @param integer $idUser
      * @return boolean
      */
-
     public function updateUserById($newUserData, $idUser){
         
         try {
+
             $this->userDao->beginTransaction();
 
             $updatedUser = $this->userDao->updateUserById($newUserData, $idUser);

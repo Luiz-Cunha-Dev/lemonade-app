@@ -29,7 +29,7 @@ $router->get('/api/users', [
     'middlewares' => [
         'InternalApiToken'
     ],
-    fn () => new Response(200, 'application/json', UserController::getAllUsers())
+    fn ($request) => new Response(200, 'application/json', UserController::getAllUsers($request))
 ]);
 
 // User api routes
@@ -41,10 +41,16 @@ $router->get('/api/user', [
     fn ($request) => new Response(200, 'application/json', UserController::getUserByParameter($request))
 ]);
 
-$router->get('/api/user/delete/{id}', [
-    fn ($id) => new Response(200, 'application/json', UserController::deleteUserById($id))
+$router->put('/api/user/update/{id}', [
+    'middlewares' => [
+        'InternalApiToken'
+    ],
+    fn ($request, $id) => new Response(200, 'application/json', UserController::updateUserById($request, $id))
 ]);
 
-$router->post('/api/user/update/{id}', [
-    fn ($request, $id) => new Response(200, 'application/json', UserController::updateUserById($request, $id))
+$router->delete('/api/user/delete/{id}', [
+    'middlewares' => [
+        'InternalApiToken'
+    ],
+    fn ($id) => new Response(200, 'application/json', UserController::deleteUserById($id))
 ]);

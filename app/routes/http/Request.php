@@ -49,6 +49,12 @@ class Request {
     private $jsonVars = [];
 
     /**
+     * Files ($_FILES)
+     * @var array
+     */
+    private $files = [];
+
+    /**
      * Request headers
      * @var array
      */
@@ -66,6 +72,7 @@ class Request {
         $this->queryParams = $_GET ?? [];
         $this->postVars = $_POST ?? [];
         $this->jsonVars = json_decode(file_get_contents('php://input'), true) ?? [];
+        $this->files = $_FILES ?? [];
         $this->headers = getallheaders();
     }
 
@@ -107,6 +114,14 @@ class Request {
      */
     public function getPostVars() {
         return $this->postVars;
+    }
+
+    /**
+     * Returns the files of the request
+     * @return array
+     */
+    public function getFiles() {
+        return $this->files;
     }
 
     /**
