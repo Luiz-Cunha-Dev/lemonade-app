@@ -19,13 +19,17 @@ class UserController {
      * 
      * @return array $users
      */
-    public static function getAllUsers() {
+    public static function getAllUsers($request) {
+
+        $queryParams = $request->getQueryParams();
 
         $userService = new UserService();
 
         try {
+
+            if (!isset($queryParams['offset']) && !isset($queryParams['limit'])) {
             
-            $users = $userService->getAllUsers();
+                $users = $userService->getAllUsers();
 
                 $users = array_map(function($user) {
                     $user = $user->toArray();
@@ -33,7 +37,21 @@ class UserController {
                     return $user;
                 }, (array)$users);
 
+            } else {
+
+                // Pagination
+
+                $users = $userService->getAllUsersWithPagination($queryParams['offset'] ?? null, $queryParams['limit'] ?? null);
+
+                $users = array_map(function($user) {
+                    $user = $user->toArray();
+                    unset($user['password']);
+                    unset($user['rowNumber']);
+                    return $user;
+                }, (array)$users);
             
+            }
+
             if (!$users) {
                 return (new Response(204, 'application/json', []))->sendResponse();
             }

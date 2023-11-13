@@ -103,7 +103,6 @@ class UserService extends AbstractService {
     
     }
 
-
     /**
      * Get all users
      * @return UserModel $users
@@ -111,6 +110,26 @@ class UserService extends AbstractService {
     public function getAllUsers() {
         
         $user = $this->userDao->getAllUsers();
+
+        $this->userDao->closeConnection();
+
+        return $user;
+    
+    }
+
+    /**
+     * Get all users with pagination
+     * @param integer $offset offset
+     * @param integer $limit limit
+     * @return UserModel $users
+     */
+    public function getAllUsersWithPagination($offset=0, $limit=10) {
+
+        $offset = $offset ? $offset : 0;
+
+        $limit = $limit ? $limit : 10;
+        
+        $user = $this->userDao->getAllUsersWithPagination($offset, $limit);
 
         $this->userDao->closeConnection();
 

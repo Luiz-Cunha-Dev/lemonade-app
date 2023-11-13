@@ -29,7 +29,7 @@ $router->get('/api/users', [
     'middlewares' => [
         'InternalApiToken'
     ],
-    fn () => new Response(200, 'application/json', UserController::getAllUsers())
+    fn ($request) => new Response(200, 'application/json', UserController::getAllUsers($request))
 ]);
 
 // User api routes
