@@ -44,6 +44,37 @@ class UserDao extends AbstractDAO {
     }
 
     /**
+     * Get all users with pagination
+     * 
+     * If it is null, returns an empty array
+     * 
+     * @param integer $offset offset
+     * @param integer $limit limit
+     * @return array users
+     */
+    public function getAllUsersWithPagination($offset, $limit) {
+
+        try {
+            $users = parent::getAllElementsWithPagination('user', $offset, $limit);
+
+            if (empty($users)) {
+                return array();
+            }
+
+            for ($i=0; $i < count($users); $i++) { 
+                $users[$i] = new UserModel($users[$i]['idUser'], $users[$i]['name'], $users[$i]['lastName'], $users[$i]['email'], $users[$i]['nickname'], $users[$i]['password'],
+                $users[$i]['phone'], $users[$i]['birthDate'], $users[$i]['profilePicture'], $users[$i]['street'], $users[$i]['streetNumber'], $users[$i]['district'], $users[$i]['complement'],
+                $users[$i]['postalCode'], $users[$i]['firstAccess'], $users[$i]['idCity'], $users[$i]['idUserType']);
+            }
+
+            return $users;
+        } catch(Exception $e ) {
+            throw $e;
+        }
+
+    }
+
+    /**
      * Get a user by id
      * 
      * If it is null, returns an empty array

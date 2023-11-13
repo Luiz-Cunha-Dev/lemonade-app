@@ -124,6 +124,39 @@ abstract class AbstractDAO {
     }
 
     /**
+     * Get all elements with pagination
+     * 
+     * If it is null, returns an empty array
+     * 
+     * @param string $tableName table name
+     * @param integer $offset offset
+     * @param integer $limit limit
+     * @return array elements
+     */
+    final protected function getAllElementsWithPagination($tableName, $offset, $limit) {
+
+        try {
+
+            $sql = 'WITH tableaux AS (SELECT *, ROW_NUMBER() OVER () AS rowNumber FROM ' . $tableName . ') SELECT * FROM tableaux WHERE rowNumber >= '. $offset . 
+            ' AND rowNumber <= ' . $offset . ' + ' . $limit;
+            
+            $result = $this->conn->query($sql);
+
+            if ($result) {
+                $elements = $result->fetch_all(MYSQLI_ASSOC);
+            } else {
+                $elements = array();
+            }
+
+            $result->free();
+
+            return $elements;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
      * Get element by parameter
      * 
      * If it is null, returns an empty array
