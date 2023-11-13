@@ -41,11 +41,11 @@ class UserService extends AbstractService {
 
         $userData['password'] = password_hash($userData['password'], PASSWORD_DEFAULT);
 
-        // Setting profilePicutre to null
+        // Setting profilePicutre to default
 
         $temp = array_slice($userData, 0, 7);
 
-        $temp['profilePicture'] = null;
+        $temp['profilePicture'] = '../lemonade/images/userDefaultProfilePicture.jpg';
 
         $userData = array_merge($temp, array_slice($userData, 7));
 

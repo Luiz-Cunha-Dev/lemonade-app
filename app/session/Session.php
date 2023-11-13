@@ -46,8 +46,9 @@ class Session {
             'id' => $user->getIdUser(),
             'name' => $user->getName(),
             'email' => $user->getEmail(),
-            'userType' => $user->getIdUserType(),
+            'profilePicture' => $user->getProfilePicture(),
             'firstAccess' => $user->getFirstAccess(),
+            'userType' => $user->getIdUserType(),
             'lastAction' => time()
         ];
 
