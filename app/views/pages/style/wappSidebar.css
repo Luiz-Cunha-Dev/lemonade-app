@@ -1,0 +1,34 @@
+#toggle-sidebar {
+  height: 25px;
+  position: absolute;
+  left: 25px;
+  cursor: pointer;
+}
+
+#sidebar {
+  position: absolute;
+  left: -450px;
+  top: 0px;
+  bottom: 0;
+  width: 450px;
+  height: 100%;
+  z-index: 3;
+  background-color: #151e30;
+  transition: all 0.5s ease;
+  flex: 1;
+}
+#sidebar img {
+  width: 40px;
+}
+
+#fade {
+  z-index: 2;
+  width: 100vw;
+  height: 100%;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  background: rgba(0, 2, 21, 0.5);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+  cursor: pointer;
+}/*# sourceMappingURL=wappSidebar.css.map */

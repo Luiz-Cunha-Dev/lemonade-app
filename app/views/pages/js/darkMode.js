@@ -1,43 +1,25 @@
+const darkMode = localStorage.getItem('darkMode');
+const toggleButton = document.getElementById('toggle-button');
+const sun = './app/views/pages/assets/svgs/sun.svg'
+const moon = './app/views/pages/assets/svgs/moon.svg'
 
-
-function setAndGetDarkMode(value) {
-  localStorage.setItem("darkMode", value);
-  return localStorage.getItem("darkMode");
+if (darkMode === 'true' || darkMode === null) {
+  document.body.classList.add('dark-mode');
+  toggleButton.src = sun;
+}else{
+  document.body.classList.add('light-mode');
+  toggleButton.src = moon;
 }
 
-export function toggleMode() {
-  let darkMode = localStorage.getItem("darkMode");
+toggleButton.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+  document.body.classList.toggle('light-mode');
 
-  if (darkMode === null || darkMode === "false") {
-    darkMode = setAndGetDarkMode(true);
+  if (document.body.classList.contains('dark-mode')) {
+    localStorage.setItem('darkMode', 'true');
+    toggleButton.src = sun;
   } else {
-    darkMode = setAndGetDarkMode(false);
+    localStorage.setItem('darkMode', 'false');
+    toggleButton.src = moon;
   }
-
-  const css = document.getElementById("css");
-  const js = document.getElementById("js");
-  const jsHref = js.src.split("/");
-  const fileName = jsHref[jsHref.length - 1].replace(".js", "");
-
-  if (darkMode === "true") {
-    css.href = `app/views/pages/website/css/${fileName}Dark.css`;
-    document.getElementById("modeButton").src = "app/views/pages/website/assets/svgs/sun.svg";
-  } else {
-    css.href = `app/views/pages/website/css/${fileName}Light.css`;
-    document.getElementById("modeButton").src = "app/views/pages/website/assets/svgs/moon.svg";
-  }
-}
-
-export function useCorrectMode(){
-    let darkMode = localStorage.getItem("darkMode");
-    const jsHref = document.getElementById("js").src.split("/");
-    const fileName = jsHref[jsHref.length - 1].replace(".js", "");
-  
-    if (darkMode === "true" || darkMode === null) {
-        document.getElementById("css").href = `app/views/pages/website/css/${fileName}Dark.css`;
-        document.getElementById("modeButton").src = "app/views/pages/website/assets/svgs/sun.svg";
-    } else {
-        document.getElementById("css").href = `app/views/pages/website/css/${fileName}Light.css`;
-        document.getElementById("modeButton").src = "app/views/pages/website/assets/svgs/moon.svg";
-    }
-}
+});

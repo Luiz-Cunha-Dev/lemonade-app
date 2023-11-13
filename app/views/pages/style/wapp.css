@@ -1,0 +1,277 @@
+#toggle-sidebar {
+  height: 25px;
+  position: absolute;
+  left: 25px;
+  cursor: pointer;
+}
+
+#sidebar {
+  position: absolute;
+  left: -400px;
+  top: 0px;
+  bottom: 0;
+  width: 400px;
+  height: 100%;
+  z-index: 3;
+  background-color: #151e30;
+  transition: all 0.5s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#sidebar img {
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  margin: 50px;
+}
+#sidebar ul {
+  list-style: none;
+  width: 100%;
+  margin: 0;
+  color: #fff;
+  font-family: Fredoka;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  padding: 0;
+}
+#sidebar ul img {
+  border-radius: 0;
+  width: 40px;
+  height: 40px;
+  margin: 20px;
+}
+#sidebar li {
+  width: 100%;
+  height: 100px;
+}
+#sidebar li:nth-child(odd) {
+  background-color: rgba(39, 46, 104, 0.54);
+}
+#sidebar li a {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  padding-left: 8%;
+}
+
+#fade {
+  z-index: 2;
+  width: 100vw;
+  height: 100%;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  background: rgba(0, 2, 21, 0.5);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+  cursor: pointer;
+}
+
+.userInfo {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  position: absolute;
+  right: 40px;
+}
+.userInfo ul {
+  width: 100%;
+  padding: 15px;
+}
+.userInfo img {
+  width: 50px;
+  border-radius: 100%;
+}
+
+.logo {
+  width: 50px !important;
+  border-radius: 100%;
+}
+
+.navbar {
+  background-color: #111827 !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  color: white;
+}
+
+.top-navbar {
+  display: flex;
+  align-items: center;
+  background-color: #0e141e;
+  height: 50px;
+  position: relative;
+}
+
+.top-navbar img {
+  position: absolute;
+  right: 30px;
+  width: 25px;
+  cursor: pointer;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+body {
+  background-color: #0e141e;
+  color: white;
+  margin: 0;
+  padding: 0;
+  font-family: "Fredoka", sans-serif;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+body.dark-mode {
+  background-color: #0e141e;
+  color: #fff;
+}
+body.light-mode {
+  background-color: #fff;
+  color: #333;
+}
+
+h1 {
+  font-size: 70px;
+  font-style: normal;
+  font-weight: 600;
+  text-align: center;
+}
+
+h2 {
+  font-size: 60px;
+  font-style: normal;
+  font-weight: 600;
+  text-align: center;
+}
+
+.greeting {
+  position: absolute;
+  left: 12%;
+  top: 20%;
+}
+
+.userPicture {
+  width: 170px;
+  height: 170px;
+  border-radius: 100%;
+}
+
+.rankingPicture {
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  position: absolute;
+  bottom: -30px;
+  left: 45px;
+  z-index: 1;
+}
+
+.ranking {
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ranking .top1 {
+  position: relative;
+}
+.ranking .top2 {
+  padding-top: 50%;
+  position: relative;
+}
+.ranking .top3 {
+  padding-top: 50%;
+  position: relative;
+}
+.ranking h3 {
+  width: 100%;
+  position: absolute;
+  bottom: -60px;
+  text-align: center;
+}
+
+.container {
+  flex: 1;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 15vh;
+}
+
+.footer {
+  background-color: #111827;
+  padding: 30px 0;
+  margin-top: 40px;
+  max-height: 100vh;
+}
+
+.hidden {
+  display: none;
+}/*# sourceMappingURL=wapp.css.map */

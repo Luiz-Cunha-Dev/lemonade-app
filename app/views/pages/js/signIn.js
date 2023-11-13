@@ -1,10 +1,5 @@
-import { toggleMode, useCorrectMode } from "./darkMode";
+import "./darkMode";
 import axios from "axios";
-
-useCorrectMode();
-
-const modeButton = document.getElementById("modeButton");
-modeButton.addEventListener("click", toggleMode);
 
 const inputEmail = document.getElementById("inputEmail");
 const inputPassword = document.getElementById("inputPassword");

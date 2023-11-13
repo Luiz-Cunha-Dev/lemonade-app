@@ -1,53 +1,58 @@
-<div class="navbar top-navbar">
-    <img id="modeButton" src="./app/views/pages/webapp/assets/svgs/sun.svg" alt="dark/ligth mode" />
-  </div>
+<div class="top-navbar">
+  <img id="toggle-button" src="./app/views/pages/assets/svgs/sun.svg" alt="dark/ligth mode" />
+</div>
 
-  <nav
-    class="navbar navbar-main bg-dark navbar-expand-lg bg-body-tertiary"
-    data-bs-theme="dark"
-  >
-    <div
-      class="container-fluid"
-      style="z-index: 2; background-color: #111827"
-    >
-      <a
-        style="margin-left: 20%; gap: 10px"
-        class="navbar-brand d-flex justify-content-center align-items-center"
-        href="{{URL}}"
-      >
-        <img
-          src="app/views/pages/webapp/assets/imgs/OIG (6).jpeg"
-          alt="Logo"
-          class="d-inline-block align-text-top logo"
-        />
-        Lemonade
+<nav class="navbar" data-bs-theme="dark">
+  <img id="toggle-sidebar" src="app/views/pages/assets/svgs/toggle-sidebar.svg" alt="menu lateral" />
+  <a style="gap: 10px" class="navbar-brand d-flex justify-content-center align-items-center" href="{{URL}}">
+    <img src="app/views/pages/assets/imgs/OIG (6).jpeg" alt="Logo" class="d-inline-block align-text-top logo" />
+    Lemonade
+  </a>
+  <div class="userInfo">
+    <img src="app/views/pages/assets/imgs/wapp/user.png" alt="Logo" class="d-inline-block align-text-top logo" />
+    <a class="dropdown dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="true">{{userName}} {{lastName}}</a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#scrollspyHeading3">Perfil</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="{{URL}}/wapp/logout">Sair</a></li>
+    </ul>
+  </li>
+</nav>
+
+<div id="sidebar">
+  <img src="app/views/pages/assets/imgs/OIG (13).jpeg" alt="limão">
+  <ul>
+    <li>
+      <a href="#">
+      <img src="app/views/pages/assets/svgs/ranking.svg" alt="limão">
+      <span>Ranking</span>
       </a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav" style="gap: 20px; margin-left: 25%;">
-          <li class="nav-item">
-            <a class="nav-link" href="{{URL}}/#sobre-nos">Sobre nós</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{URL}}/#produtos">Produtos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{URL}}/#enade">ENADE</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{URL}}/#contato">Contato</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+    </li>
+    <li>
+      <a href="#">
+        <img src="app/views/pages/assets/svgs/exam.svg" alt="limão">
+        <span>Simulados</span>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <img src="app/views/pages/assets/svgs/target.svg" alt="limão">
+        <span>Treinar</span>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <img src="app/views/pages/assets/svgs/users.svg" alt="limão">
+        <span>Usuários</span>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <img src="app/views/pages/assets/svgs/book.svg" alt="limão">
+        <span>Questões</span>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="hidden" id="fade"></div>

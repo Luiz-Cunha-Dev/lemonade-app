@@ -1,0 +1,117 @@
+@import "variables";
+@import "wappNavbar";
+@import "reset";
+
+body {
+  &.dark-mode {
+    background-color: $dark-background-color;
+    color: $dark-text-color;
+  }
+
+  &.light-mode {
+    background-color: $light-background-color;
+    color: $light-text-color;
+  }
+  background-color: #0e141e;
+  color: white;
+  margin: 0;
+  padding: 0;
+  font-family: "Fredoka", sans-serif;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 70px;
+  font-style: normal;
+  font-weight: 600;
+  text-align: center;
+}
+
+h2 {
+  font-size: 60px;
+  font-style: normal;
+  font-weight: 600;
+  text-align: center;
+}
+
+.greeting{
+  position: absolute;
+  left: 12%;
+  top: 20%;
+}
+
+.userPicture {
+  width: 170px;
+  height: 170px;
+  border-radius: 100%;
+}
+
+.rankingPicture {
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  position: absolute;
+  bottom: -30px;
+  left: 45px;
+  z-index: 1;
+}
+
+.ranking {
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .top1 {
+    position: relative;
+  }
+  .top2 {
+    padding-top: 50%;
+    position: relative;
+  }
+  .top3 {
+    padding-top: 50%;
+    position: relative;
+  }
+  h3 {
+    width: 100%;
+    position: absolute;
+    bottom: -60px;
+    text-align: center;
+  }
+}
+
+.container {
+  flex: 1;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 15vh;
+}
+
+.footer {
+  background-color: #111827;
+  padding: 30px 0;
+  margin-top: 40px;
+  max-height: 100vh;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 1600px) {
+}
+
+@media (max-width: 1280px) {
+}
+
+@media (max-width: 768px) {
+}

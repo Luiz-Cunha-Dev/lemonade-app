@@ -1,10 +1,5 @@
+import "./darkMode";
 import axios from "axios";
-import { toggleMode, useCorrectMode } from "./darkMode";
-
-useCorrectMode();
-
-const modeButton = document.getElementById("modeButton");
-modeButton.addEventListener("click", toggleMode);
 
 const form1 = document.getElementById("form1");
 const form2 = document.getElementById("form2");
@@ -702,7 +697,7 @@ async function searchForExistingEmail(){
   try {
     const response = await axios.get(`http://localhost/lemonade/api/user?ltoken=b3050e0156cc3d05ddb7bbd9&email=${inputEmail.value}`);
 
-    if(response.data.length === 0){
+    if(response.data.length != 0){
       if (!inputEmail.classList.contains("is-invalid")) {
         inputEmail.classList.add("is-invalid");
       }
@@ -726,7 +721,7 @@ async function searchForExistingNickname(){
   try {
     const response = await axios.get(`http://localhost/lemonade/api/user?ltoken=b3050e0156cc3d05ddb7bbd9&nickname=${inputNickname.value}`);
 
-    if(response.data.length === 0){
+    if(response.data.length != 0){
       if (!inputNickname.classList.contains("is-invalid")) {
         inputNickname.classList.add("is-invalid");
       }
@@ -737,7 +732,7 @@ async function searchForExistingNickname(){
       const message = alertWindow.querySelector(".toast-body");
       alertWindow.classList.add("show");
       message.textContent =
-        "O nickname inserido já está associado a uma conta existente. Por favor, insira outro nickname para continuar.";
+        "O apelido inserido já está associado a uma conta existente. Por favor, insira outro apelido para continuar.";
       await sleep(8000);
       alertWindow.classList.remove("show");
     }
