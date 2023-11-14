@@ -5,7 +5,7 @@ namespace app\models;
 /**
  * Question model
  * 
- * Represents a questions in the application
+ * Represents a question in the application
  * 
  * @package app\models
  */ 
@@ -32,16 +32,13 @@ class QuestionModel {
      */
     private $idQuestionType;
 
-
     /**
      * Class constructor
      * 
      * @param integer $idQuestion question id
-     * @param string $statement stantement
-     * @param integer $idQuestionType type question id
-     * 
-     * 
-     * @return QuestionModel question
+     * @param string $statement statement
+     * @param integer $idQuestionType question type id (fk)
+     * @return QuestionModel
      */
     public function __construct($idQuestion, $statement, $idQuestionType) {
         $this->idQuestion = $idQuestion;
@@ -53,7 +50,7 @@ class QuestionModel {
     /**
      * Get question id
      * 
-     * @return integer Returns the question id
+     * @return integer Returns question id
      */
     public function getIdQuestion() {
         return $this->idQuestion;
@@ -71,12 +68,11 @@ class QuestionModel {
     /**
      * Get id question type
      * 
-     * @return integer Returns id question type
+     * @return integer Returns id question type (fk)
      */
     public function getIdQuestionType() {
         return $this->idQuestionType;
     }
-
 
     /**
      * Set question id
@@ -88,23 +84,22 @@ class QuestionModel {
     }
 
     /**
-     * Set statement question
+     * Set question statement
      * 
-     * @param string $statement statement question
+     * @param string $statement question statement
      */
     public function setStatement($statement) {
         $this->statement = $statement;
     }
 
     /**
-     * Set id question type
+     * Set question type id
      * 
-     * @param integer $idQuestionType the id question type
+     * @param integer $idQuestionType question type id (fk)
      */
     public function setIdQuestionType($idQuestionType) {
         $this->idQuestionType = $idQuestionType;
     }
-
 
     /**
      * Converts the question to an array.
