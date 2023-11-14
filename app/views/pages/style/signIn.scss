@@ -1,0 +1,144 @@
+@import 'variables';
+
+
+body {
+    &.dark-mode {
+        background-color: $dark-background-color;
+        color: $dark-text-color;
+    }
+
+    &.light-mode {
+        background-color: $light-background-color;
+        color: $light-text-color;
+        .signin{
+            color: $dark-text-color;
+        }
+    }
+    margin: 0;
+    padding: 0;
+    font-family: "Fredoka", sans-serif;
+    box-sizing: border-box;
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .alert{
+    top: 20%; 
+    right: 1%;
+  }
+  
+  
+  .container {
+    flex: 1;
+  }
+  
+  .signin {
+    display: flex;
+    max-width: 40%;
+    height: 430px;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 12px;
+    background: #1d2432;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+  
+  .signin button {
+    border-radius: 6px;
+    background: #28a745;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding-left: 18px;
+    padding-right: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .top {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    padding: 24px;
+  }
+  
+  .down {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .logo {
+    width: 50px !important;
+    border-radius: 100%;
+  }
+  
+  .navbar-brand {
+    font-weight: 600;
+    font-size: 30px;
+  }
+  
+  .title {
+    font-size: 70px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 0px;
+    width: 100%;
+  }
+  
+  .section {
+    min-height: 700px;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .navbar {
+    background-color: #0e141e;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .top-navbar {
+    height: 50px;
+    position: relative;
+  }
+  
+  .top-navbar img {
+    position: absolute;
+    right: 30px;
+    width: 25px;
+    cursor: pointer;
+  }
+  
+  .navbar-main {
+    background-color: #111827 !important;
+  }
+  
+  .footer {
+    background-color: #111827;
+    padding: 30px 0;
+    margin-top: 40px;
+    max-height: 100vh;
+  }
+  
+  @media (max-width: 1280px) {
+    .signin {
+      max-width: 50%;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .signin {
+      max-width: 90%;
+      padding-left: 6%;
+      padding-right: 6%;
+    }
+  }
+  

@@ -37,7 +37,7 @@ class SignUpController extends AbstractPageController {
         // Return page view
         
         return parent::getPage('Cadastrar-se no Lemonade', $header, $main, $footer, 
-        ['css' => 'app/views/pages/website/css/signUpDark.css', 'js' => 'app/views/pages/js/dist/signUp.js']);
+        ['css' => 'app/views/pages/style/signUp.css', 'js' => 'app/views/pages/js/dist/signUp.js']);
     }
 
 

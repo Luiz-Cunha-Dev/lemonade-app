@@ -45,6 +45,8 @@ class Session {
         $_SESSION['user'] = [
             'id' => $user->getIdUser(),
             'name' => $user->getName(),
+            'lastName' => $user->getLastName(),
+            'nickname' => $user->getNickname(),
             'email' => $user->getEmail(),
             'profilePicture' => $user->getProfilePicture(),
             'firstAccess' => $user->getFirstAccess(),
