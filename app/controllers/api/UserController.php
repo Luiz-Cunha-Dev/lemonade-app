@@ -16,7 +16,7 @@ class UserController {
 
     /**
      * Get user all users
-     * 
+     * @param Request $request
      * @return array $users
      */
     public static function getAllUsers($request) {
@@ -70,7 +70,7 @@ class UserController {
 
     /**
      * Get user by query parameter
-     * 
+     * @param Request $request
      * @return array $user
      */
     public static function getUserByParameter($request) {

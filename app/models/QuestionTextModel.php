@@ -3,9 +3,9 @@
 namespace app\models;
 
 /**
- * Question text model
+ * Question Text model
  * 
- * Represents a questions text in the application
+ * Represents a question text in the application
  * 
  * @package app\models
  */ 
@@ -21,7 +21,7 @@ class QuestionTextModel {
     /**
      * Question text
      * 
-     * @var string $test
+     * @var string $text
      */
     private $text;
 
@@ -37,11 +37,9 @@ class QuestionTextModel {
      * Class constructor
      * 
      * @param integer $idQuestionText question text id
-     * @param string $text text in the question
-     * @param integer $idQuestion question id
-     * 
-     * 
-     * @return QuestionTextModel question text
+     * @param string $text question text
+     * @param integer $idQuestion question id (fk)
+     * @return QuestionTextModel
      */
     public function __construct($idQuestionText, $text, $idQuestion) {
         $this->idQuestionText = $idQuestionText;
@@ -53,14 +51,14 @@ class QuestionTextModel {
     /**
      * Get question text id
      * 
-     * @return integer Returns the text question id
+     * @return integer Returns question text id
      */
     public function getIdQuestionText() {
         return $this->idQuestionText;
     }
 
     /**
-     * Get the question text
+     * Get question text
      * 
      * @return string Returns question text
      */
@@ -71,12 +69,11 @@ class QuestionTextModel {
     /**
      * Get id question 
      * 
-     * @return integer Returns id question 
+     * @return integer Returns question id (fk)
      */
     public function getIdQuestion() {
         return $this->idQuestion;
     }
-
 
     /**
      * Set question text id
@@ -88,9 +85,9 @@ class QuestionTextModel {
     }
 
     /**
-     * Set text question
+     * Set question text
      * 
-     * @param string $text text question
+     * @param string $text question text
      */
     public function setText($text) {
         $this->text = $text;
@@ -99,12 +96,11 @@ class QuestionTextModel {
     /**
      * Set id question
      * 
-     * @param integer $idQuestion the id question
+     * @param integer $idQuestion question id (fk)
      */
     public function setIdQuestion($idQuestion) {
         $this->idQuestion = $idQuestion;
     }
-
 
     /**
      * Converts the question text to an array.

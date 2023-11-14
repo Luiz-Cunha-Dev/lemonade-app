@@ -3,7 +3,7 @@
 namespace app\models;
 
 /**
- * Question alternative model
+ * Question Alternative model
  * 
  * Represents a questions alternative in the application
  * 
@@ -21,27 +21,24 @@ class QuestionAlternativeModel {
     /**
      * Do the question is correct?
      * 
-     * @var string $isCorrect
+     * @var boolean $isCorrect
      */
     private $isCorrect;
 
     /**
-     * Question id 
+     * Question id
      * 
      * @var string $idQuestion
      */
     private $idQuestion;
 
-
     /**
      * Class constructor
      * 
-     * @param integer $idQuestionAlternative the alternative question id
-     * @param boolean $isCorrect do the question is correct?
-     * @param integer $idQuestion question id
-     * 
-     * 
-     * @return QuestionAlternativeModel question
+     * @param integer $idQuestionAlternative question alternative id
+     * @param boolean $isCorrect is alternative correct?
+     * @param integer $idQuestion question id (fk)
+     * @return QuestionAlternativeModel
      */
     public function __construct($idQuestionAlternative, $isCorrect, $idQuestion) {
         $this->idQuestionAlternative = $idQuestionAlternative;
@@ -53,61 +50,59 @@ class QuestionAlternativeModel {
     /**
      * Get question alternative id
      * 
-     * @return integer Returns the question alternative id
+     * @return integer Returns question alternative id
      */
     public function getIdQuestionAlternative() {
         return $this->idQuestionAlternative;
     }
 
     /**
-     * Get the question correct or not
+     * Get if alternative is correct
      * 
-     * @return boolean Returns question is correct? statement
+     * @return boolean Returns if alternative is correct?
      */
     public function getIsCorrect() {
         return $this->isCorrect;
     }
 
     /**
-     * Get id question
+     * Get question id
      * 
-     * @return integer Returns id question
+     * @return integer Returns question id
      */
     public function getIdQuestion() {
         return $this->idQuestion;
     }
 
-
     /**
      * Set question alternative id
      * 
-     * @param integer $idQuestionAlternative question id
+     * @param integer $idQuestionAlternative question alternative id
      */
     public function setIdQuestionAlternative($idQuestionAlternative) {
         $this->idQuestionAlternative = $idQuestionAlternative;
     }
 
     /**
-     * Set is correct question?
+     * Set if alternative is correct
      * 
-     * @param boolean $isCorrect is correct question?
+     * @param boolean $isCorrect if alternative is correct?
      */
     public function setIsCorrect($isCorrect) {
         $this->isCorrect = $isCorrect;
     }
 
     /**
-     * Set id question type
+     * Set id question (fk)
      * 
-     * @param integer $idQuestionType the id question type
+     * @param integer $idQuestion question id
      */
-    public function setIdQuestionType($idQuestionType) {
-        $this->idQuestionType = $idQuestionType;
+    public function setIdQuestion($idQuestionType) {
+        $this->idQuestion = $idQuestionType;
     }
 
-
     /**
-     * Converts the question alternative to an array.
+     * Converts the question alternative to an array
      * 
      * @return array Returns the question alternative as an array
      */

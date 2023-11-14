@@ -11,6 +11,11 @@ use app\services\StateService;
  */ 
 class StateController {
 
+    /**
+     * Get all states
+     * 
+     * @return array $states
+     */
     public static function getStates() {
 
         $cityService = new StateService();
