@@ -45,7 +45,7 @@ class CityModel {
      * @param integer $idCity city id
      * @param string $name city name
      * @param string $uf city state
-     * @param string $idState city state(fk)
+     * @param string $idState city state (fk)
      * 
      * @return CityModel city
      */
@@ -130,7 +130,7 @@ class CityModel {
 
 
     /**
-     * Converts the city to an array.
+     * Converts the city to an array
      * 
      * @return array Returns the city as an array
      */

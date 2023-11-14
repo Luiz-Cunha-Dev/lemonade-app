@@ -63,7 +63,7 @@ class SignInController extends AbstractPageController {
      * Logs the user into the application
      * 
      * @param Request $request
-     * @return void logs the user in and redirects
+     * @return array response
      */
     public static function postSignIn($request) {
 

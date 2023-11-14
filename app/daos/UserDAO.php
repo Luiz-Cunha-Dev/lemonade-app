@@ -166,7 +166,7 @@ class UserDao extends AbstractDAO {
      * 
      * If it is null, returns an empty array
      * 
-     * @param string $nicknameUser nickname of the user
+     * @param array $parameters parameters
      * 
      * @return UserModel user
      */

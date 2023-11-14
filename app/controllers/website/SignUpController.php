@@ -3,6 +3,7 @@
 namespace app\controllers\website;
 
 use app\controllers\AbstractPageController;
+use app\routes\http\Request;
 use app\services\UserService;
 use app\session\Session;
 use app\views\View;
@@ -39,6 +40,13 @@ class SignUpController extends AbstractPageController {
         ['css' => 'app/views/pages/style/signUp.css', 'js' => 'app/views/pages/js/dist/signUp.js']);
     }
 
+
+    /**
+     * Register the user into the application
+     * 
+     * @param Request $request
+     * @return array response
+     */
     public static function postSignUp($request) {
 
         $jsonVars = $request->getJsonVars();
