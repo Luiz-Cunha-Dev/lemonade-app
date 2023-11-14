@@ -1,5 +1,5 @@
 @import 'variables';
-@import 'reset';
+
 
 body {
     &.dark-mode {
@@ -19,7 +19,6 @@ body {
 
 p {
     font-size: large;
-    margin:  0px 0px 16px;
 }
 
 .animated-image {

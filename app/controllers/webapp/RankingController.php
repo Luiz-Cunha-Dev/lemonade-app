@@ -13,14 +13,14 @@ use app\views\View;
  * 
  * @package app\controllers\webapp
  */ 
-class WappController extends AbstractPageController {
+class RankingController extends AbstractPageController {
 
     /**
      * Return the content of app home view
      * 
      * @return string app home rendered page
      */
-    public static function getWapp() {
+    public static function getRanking() {
 
         // Update user last action
 
@@ -35,7 +35,7 @@ class WappController extends AbstractPageController {
             // 'teacherType' => Session::getCurrentUserSessionData()['userType'] == 2 ? '<p>Teacher</p>' : ' '
         ]);
 
-        $main = View::render('pages/webapp/html/wapp/main', [
+        $main = View::render('pages/webapp/html/ranking/main', [
             'nickname' => Session::getCurrentUserSessionData()['nickname'],
             // 'studentType' => Session::getCurrentUserSessionData()['userType'] == 1 ? '<p>Student</p>' : '',
             // 'teacherType' => Session::getCurrentUserSessionData()['userType'] == 2 ? '<p>Teacher</p>' : ' '
@@ -46,7 +46,7 @@ class WappController extends AbstractPageController {
         // Return page view
 
         return parent::getPage('App', $header, $main, $footer, 
-        ['css' => 'app/views/pages/style/wapp.css', 'js' => 'app/views/pages/js/dist/wapp.js']);
+        ['css' => '../app/views/pages/style/ranking.css', 'js' => '../app/views/pages/js/dist/ranking.js']);
     }
 
 }

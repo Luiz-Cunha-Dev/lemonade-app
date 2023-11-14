@@ -11,7 +11,8 @@ const config = {
         signUp: './app/views/pages/js/signUp.js',
         signIn: './app/views/pages/js/signIn.js',
         darkMode: './app/views/pages/js/darkMode.js',
-        wapp: './app/views/pages/js/wapp.js'
+        wapp: './app/views/pages/js/wapp.js',
+        ranking: './app/views/pages/js/ranking.js',
     },
     output: {
         path: path.resolve(__dirname, './app/views/pages/js/dist'),
