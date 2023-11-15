@@ -1,8 +1,8 @@
 <?php
 
+use app\controllers\webapp\AppController;
 use app\controllers\webapp\LogOutController;
 use app\controllers\webapp\RankingController;
-use app\controllers\webapp\WappController;
 use app\routes\http\Response;
 
 // Web app home page route
@@ -13,16 +13,16 @@ $router->get('/wapp', [
         'IsSessionExpired',
         'IsSessionFirstAccess'
     ],
-    fn() => new Response(200, 'text/html', WappController::getWapp())
+    fn() => new Response(200, 'text/html', AppController::getApp())
 ]);
+
 
 // Web app ranking page route
 
 $router->get('/wapp/ranking', [
     'middlewares' => [
         'RequireSessionLogin',
-        'IsSessionExpired',
-        'IsSessionFirstAccess'
+        'IsSessionExpired'
     ],
     fn() => new Response(200, 'text/html', RankingController::getRanking())
 ]);
