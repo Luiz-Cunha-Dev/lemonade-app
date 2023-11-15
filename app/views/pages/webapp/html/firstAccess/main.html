@@ -1,0 +1,30 @@
+<div class="section row">
+    <!-- Tela de Primeiro Acesso para Administradores -->
+    <div class="col-md-5 first-access">
+      <div class="top d-flex flex-column">
+          <h3>Primeiro Acesso para Administradores</h3>
+      </div>
+      <form class="col-md-10">
+          <div class="row mb-4">
+              <label for="inputNewPassword" class="form-label">Nova Senha</label>
+              <input placeholder="Digite a nova senha" type="password" class="form-control" id="inputNewPassword" name="newPassword">
+          </div>
+          <div class="row mb-5">
+              <label for="inputConfirmPassword" class="form-label">Confirmar Senha</label>
+              <input placeholder="Confirme a nova senha" type="password" class="form-control" id="inputConfirmPassword" name="confirmPassword">
+          </div>
+            <div class="down">
+            <div></div>
+              <button id="resetPasswordButton" class="btn btn-sucess">Redefinir Senha</button>
+          </div>
+      </form>
+  </div>
+
+  <!-- Toast para mensagens/alertas (como no código original) -->
+  <div class="toast align-items-center text-bg-danger border-0 position-fixed p-3 alert" role="alert" aria-live="assertive" aria-atomic="true" id="alertWindow">
+      <div class="d-flex">
+          <div class="toast-body"></div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+  </div>
+  </div>
