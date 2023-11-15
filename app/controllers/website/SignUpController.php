@@ -12,8 +12,8 @@ use app\views\View;
  * SignUp controller
  * 
  * HTML file: ./views/pages/website/html/auth/signUp.html
- * CSS file: ./views/pages/website/css/signUp.css
- * JS file: ./views/pages/website/js/signUp.js
+ * CSS file: ./views/pages/style/signUp.css
+ * JS file: ./views/pages/js/dist/signUp.js
  * 
  * @package app\controllers\website
  */ 
@@ -37,7 +37,7 @@ class SignUpController extends AbstractPageController {
         // Return page view
         
         return parent::getPage('Cadastrar-se no Lemonade', $header, $main, $footer, 
-        ['css' => 'app/views/pages/style/signUp.css', 'js' => 'app/views/pages/js/dist/signUp.js']);
+        ['css' => './app/views/pages/style/signUp.css', 'js' => './app/views/pages/js/dist/signUp.js']);
     }
 
 
