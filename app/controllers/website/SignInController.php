@@ -12,7 +12,8 @@ use app\session\Session;
  * SignIn  controller
  * 
  * HTML file: ./views/pages/website/html/auth/signIn.html
- * CSS file: ./views/pages/website/css/signIn.css
+ * CSS file: ./views/pages/style/signIn.css
+ * JS file: ./views/pages/js/dist/signIn.js
  * 
  * @package app\controllers\website
  */ 
@@ -56,7 +57,7 @@ class SignInController extends AbstractPageController {
         // Return page view
         
         return parent::getPage('Entrar no Lemonade', $header, $main, $footer, 
-        ['css' => 'app/views/pages/style/signIn.css', 'js' => 'app/views/pages/js/dist/signIn.js']);
+        ['css' => './app/views/pages/style/signIn.css', 'js' => './app/views/pages/js/dist/signIn.js']);
     }
 
     /**

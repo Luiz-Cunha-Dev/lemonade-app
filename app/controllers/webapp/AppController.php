@@ -9,7 +9,9 @@ use app\views\View;
 /**
  * App controller
  * 
- * HTML file: ./view/pages/webapp/app.html
+ * HTML file: ./view/pages/webapp/wapp/main.html
+ * CSS file: ./views/pages/style/wapp.css
+ * JS file: ./views/pages/js/dist/wapp.js
  * 
  * @package app\controllers\webapp
  */
@@ -73,39 +75,26 @@ class WappController extends AbstractPageController
      * 
      * @return string app home rendered page
      */
-    public static function getWapp()
-    {
-
-        // Update user last action
-
-        Session::updateUserSessionLastAction();
+    public static function getApp() {
 
         // App home view
 
         $header = View::render('pages/webapp/html/header', [
             'userName' => Session::getCurrentUserSessionData()['name'],
             'lastName' => Session::getCurrentUserSessionData()['lastName'],
-            'sidebarItems' => Session::getCurrentUserSessionData()['userType'] == 1 ? self::getStudentSidebarItems() : self::getAdminSidebarItems()
-            // 'studentType' => Session::getCurrentUserSessionData()['userType'] == 1 ? '<p>Student</p>' : '',
-            // 'teacherType' => Session::getCurrentUserSessionData()['userType'] == 2 ? '<p>Teacher</p>' : ' '
+            'sidebarItems' => Session::getCurrentUserSessionData()['userType'] == 1 ? self::getStudentSidebarItems() : self::getAdminSidebarItems(),
+            'profilePicture' => Session::getCurrentUserSessionData()['profilePicture']
         ]);
 
         $main = View::render('pages/webapp/html/wapp/main', [
             'nickname' => Session::getCurrentUserSessionData()['nickname'],
-            // 'studentType' => Session::getCurrentUserSessionData()['userType'] == 1 ? '<p>Student</p>' : '',
-            // 'teacherType' => Session::getCurrentUserSessionData()['userType'] == 2 ? '<p>Teacher</p>' : ' '
         ]);
 
         $footer = View::render('pages/webapp/html/footer');
 
         // Return page view
 
-        return parent::getPage(
-            'App',
-            $header,
-            $main,
-            $footer,
-            ['css' => 'app/views/pages/style/wapp.css', 'js' => 'app/views/pages/js/dist/wapp.js']
-        );
+        return parent::getPage('App', $header, $main, $footer, 
+        ['css' => './app/views/pages/style/wapp.css', 'js' => './app/views/pages/js/dist/wapp.js']);
     }
 }
