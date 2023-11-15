@@ -1,4 +1,6 @@
-@import 'variables';
+@import "variables";
+@import "wappNavbar";
+@import "wappFooter";
 
 body {
     &.dark-mode {
@@ -28,7 +30,6 @@ body {
     right: 1%;
   }
   
-  
   .container {
     flex: 1;
   }
@@ -43,6 +44,9 @@ body {
     background: #1d2432;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     color: white;
+    label{
+      padding: 0;
+    }
   }
   
   .top {
@@ -73,27 +77,6 @@ body {
     }
   }
   
-  .logo {
-    width: 50px !important;
-    border-radius: 100%;
-  }
-  
-  .navbar-brand {
-    font-weight: 600;
-    font-size: 30px;
-  }
-  
-  .title {
-    font-size: 70px;
-    font-weight: 600;
-    line-height: 1.2;
-    text-align: center;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    padding: 0px;
-    width: 100%;
-  }
-  
   .section {
     min-height: 700px;
     margin: 0px;
@@ -102,46 +85,21 @@ body {
     align-items: center;
   }
   
-  .navbar {
-    background-color: #0e141e;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .top-navbar {
-    height: 50px;
-    position: relative;
-  }
-  
-  .top-navbar img {
-    position: absolute;
-    right: 30px;
-    width: 25px;
-    cursor: pointer;
-  }
-  
-  .navbar-main {
-    background-color: #111827 !important;
-  }
-  
-  .footer {
-    background-color: #111827;
-    padding: 30px 0;
-    margin-top: 40px;
-    max-height: 100vh;
-  }
-  
-  @media (max-width: 1280px) {
+  @media (max-width: 1400px) {
     .first-access {
-      max-width: 50%;
+      width: 60%;
+      height: 400px;
     }
   }
   
   @media (max-width: 768px) {
     .first-access {
-      max-width: 90%;
+      width: 90%;
       padding-left: 6%;
       padding-right: 6%;
+      h3{
+        width: 100%;
+      }
     }
   }
   

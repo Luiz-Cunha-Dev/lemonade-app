@@ -15,7 +15,7 @@ use app\views\View;
  * 
  * @package app\controllers\webapp
  */
-class WappController extends AbstractPageController
+class AppController extends AbstractPageController
 {
 
     public static function getStudentSidebarItems() {

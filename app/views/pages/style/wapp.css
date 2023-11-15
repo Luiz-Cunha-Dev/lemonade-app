@@ -10,6 +10,10 @@ a {
   color: white;
 }
 
+.hidden {
+  display: none;
+}
+
 .left {
   left: -400px;
 }
@@ -263,10 +267,6 @@ h2 {
   height: fit-content;
   min-height: 90vh;
   padding-top: 20vh;
-}
-
-.hidden {
-  display: none;
 }
 
 @media (max-width: 768px) {
