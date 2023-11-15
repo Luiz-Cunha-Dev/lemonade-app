@@ -21,19 +21,19 @@ class AppController extends AbstractPageController {
 
         $item1 = View::render('pages/components/sidebarItem', [
             'itemUrl' => 'wapp/ranking',
-            'imageUrl' => 'app/views/pages/assets/svgs/ranking.svg',
+            'imageUrl' => './app/views/pages/assets/svgs/ranking.svg',
             'itemName' => 'Ranking'
         ]);
 
         $item2 = View::render('pages/components/sidebarItem', [
             'itemUrl' => '#',
-            'imageUrl' => 'app/views/pages/assets/svgs/exam.svg',
+            'imageUrl' => './app/views/pages/assets/svgs/exam.svg',
             'itemName' => 'Simulados'
         ]);
 
         $item3 = View::render('pages/components/sidebarItem', [
             'itemUrl' => '#',
-            'imageUrl' => 'app/views/pages/assets/svgs/target.svg',
+            'imageUrl' => './app/views/pages/assets/svgs/target.svg',
             'itemName' => 'Treinar'
         ]);
 
@@ -44,25 +44,25 @@ class AppController extends AbstractPageController {
         
         $item1 = View::render('pages/components/sidebarItem', [
             'itemUrl' => 'wapp/ranking',
-            'imageUrl' => 'app/views/pages/assets/svgs/ranking.svg',
+            'imageUrl' => './app/views/pages/assets/svgs/ranking.svg',
             'itemName' => 'Ranking'
         ]);
 
         $item2 = View::render('pages/components/sidebarItem', [
             'itemUrl' => '#',
-            'imageUrl' => 'app/views/pages/assets/svgs/exam.svg',
+            'imageUrl' => './app/views/pages/assets/svgs/exam.svg',
             'itemName' => 'Simulados'
         ]);
 
         $item3 = View::render('pages/components/sidebarItem', [
             'itemUrl' => '#',
-            'imageUrl' => 'app/views/pages/assets/svgs/users.svg',
+            'imageUrl' => './app/views/pages/assets/svgs/users.svg',
             'itemName' => 'Usuários'
         ]);
 
         $item4 = View::render('pages/components/sidebarItem', [
             'itemUrl' => '#',
-            'imageUrl' => 'app/views/pages/assets/svgs/book.svg',
+            'imageUrl' => './app/views/pages/assets/svgs/book.svg',
             'itemName' => 'Questões'
         ]);
 

@@ -95,6 +95,8 @@ CREATE TABLE IF NOT EXISTS questionText(
 
 CREATE TABLE IF NOT EXISTS questionAlternative(
 	idQuestionAlternative INT NOT NULL AUTO_INCREMENT,
+    letter CHAR(1) NOT NULL,
+    `text` TEXT(2000) NOT NULL,
     isCorrect BOOLEAN NOT NULL,
     idQuestion INT NOT NULL,
 	CONSTRAINT questionAlternativePk PRIMARY KEY (idQuestionAlternative)

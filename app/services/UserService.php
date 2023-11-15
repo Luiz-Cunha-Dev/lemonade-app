@@ -45,7 +45,7 @@ class UserService extends AbstractService {
 
         $temp = array_slice($userData, 0, 7);
 
-        $temp['profilePicture'] = '../lemonade/images/userDefaultProfilePicture.jpg';
+        $temp['profilePicture'] = '../lemonade/images/userDefaultProfilePicture.jpeg';
 
         $userData = array_merge($temp, array_slice($userData, 7));
 

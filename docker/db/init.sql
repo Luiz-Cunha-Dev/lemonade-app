@@ -95,6 +95,8 @@ CREATE TABLE IF NOT EXISTS questionText(
 
 CREATE TABLE IF NOT EXISTS questionAlternative(
 	idQuestionAlternative INT NOT NULL AUTO_INCREMENT,
+    letter CHAR(1) NOT NULL,
+    `text` TEXT(2000) NOT NULL,
     isCorrect BOOLEAN NOT NULL,
     idQuestion INT NOT NULL,
 	CONSTRAINT questionAlternativePk PRIMARY KEY (idQuestionAlternative)
@@ -215,8 +217,8 @@ Teacher Test User: teacherTest@test.com / teacher123
 */
 
 INSERT INTO user (`name`, `lastName`, `email`, `nickname`, `password`, `phone`, `birthDate`, `profilePicture`,`street`, `streetNumber`, `district`, `postalCode`, `idCity`, `idUserType`)
-    VALUES ('Estudante', 'Teste', 'studentTest@test.com', 'sdtTest', '$2y$10$SAyLpRcaRefh2/zHGLxLquZTDOrsBf76KDDVp1aFejV/WKAfPDtVy', '11111111111', '1995-10-11', '../lemonade/images/userDefaultProfilePicture.jpg', 'street test', 404, 'test district', '11111111', 951, 1),
-        ('Professor', 'Teste', 'teacherTest@test.com', 'tcrTest', '$2y$10$Vlwatf3ISmtIiCoKf4oDa.q1Lo9goVaPp0G3j/k/SAKm5B6Srl2.K', '11111111111', '1985-05-12', '../lemonade/images/adminDefaultProfilePicture.jpg', 'street test', 404, 'test district', '11111111', 2067, 2);
+    VALUES ('Estudante', 'Teste', 'studentTest@test.com', 'sdtTest', '$2y$10$SAyLpRcaRefh2/zHGLxLquZTDOrsBf76KDDVp1aFejV/WKAfPDtVy', '11111111111', '1995-10-11', '../lemonade/images/userDefaultProfilePicture.jpeg', 'street test', 404, 'test district', '11111111', 951, 1),
+        ('Professor', 'Teste', 'teacherTest@test.com', 'tcrTest', '$2y$10$Vlwatf3ISmtIiCoKf4oDa.q1Lo9goVaPp0G3j/k/SAKm5B6Srl2.K', '11111111111', '1985-05-12', '../lemonade/images/adminDefaultProfilePicture.jpeg', 'street test', 404, 'test district', '11111111', 2067, 2);
 
 -- Table: questionType
 
