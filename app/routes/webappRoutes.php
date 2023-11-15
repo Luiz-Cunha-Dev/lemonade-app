@@ -12,20 +12,10 @@ $router->get('/wapp', [
     'middlewares' => [
         'RequireSessionLogin',
         'IsSessionExpired',
+        'SessionRefresh',
         'IsSessionFirstAccess'
     ],
     fn() => new Response(200, 'text/html', AppController::getApp())
-]);
-
-// Web app first access page route
-
-$router->get('/wapp/firstAccess', [
-    'middlewares' => [
-        'RequireSessionLogin',
-        'IsSessionExpired',
-        'IsSessionFirstAccess'
-    ],
-    fn() => new Response(200, 'text/html', FirstAccessController::getFirstAccess())
 ]);
 
 // Web app ranking page route
@@ -33,7 +23,9 @@ $router->get('/wapp/firstAccess', [
 $router->get('/wapp/ranking', [
     'middlewares' => [
         'RequireSessionLogin',
-        'IsSessionExpired'
+        'IsSessionExpired',
+        'SessionRefresh',
+        'IsSessionFirstAccess'
     ],
     fn() => new Response(200, 'text/html', RankingController::getRanking())
 ]);
@@ -42,8 +34,7 @@ $router->get('/wapp/ranking', [
 
 $router->get('/wapp/logout', [
     'middlewares' => [
-        'RequireSessionLogin',
-        'IsSessionExpired'
+        'RequireSessionLogin'
     ],
     fn($request) => new Response(200, 'text/html', LogOutController::getLogOut($request))
 ]);

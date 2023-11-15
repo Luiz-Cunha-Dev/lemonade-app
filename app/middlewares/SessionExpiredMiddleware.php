@@ -21,6 +21,8 @@ class SessionExpiredMiddleware implements IMiddleware {
             $request->getRouter()->redirect('/signin');
         }
 
+        // If the user session is not expired, continue the request
+
        return $next($request);
     }
 

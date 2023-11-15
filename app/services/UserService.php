@@ -45,7 +45,7 @@ class UserService extends AbstractService {
 
         $temp = array_slice($userData, 0, 7);
 
-        $temp['profilePicture'] = '../lemonade/images/userDefaultProfilePicture.jpg';
+        $temp['profilePicture'] = '../lemonade/images/userDefaultProfilePicture.jpeg';
 
         $userData = array_merge($temp, array_slice($userData, 7));
 
@@ -199,6 +199,35 @@ class UserService extends AbstractService {
     }
 
     /**
+     * Update user by id
+     * @param array $newUserData
+     * @param integer $idUser
+     * @return boolean
+     */
+    public function updateUserById($newUserData, $idUser){
+        
+        try {
+            
+            // Password encrypt
+
+            if (isset($newUserData['password'])) $newUserData['password'] = password_hash($newUserData['password'], PASSWORD_DEFAULT);
+
+            $this->userDao->beginTransaction();
+
+            $updatedUser = $this->userDao->updateUserById($newUserData, $idUser);
+             
+            $this->userDao->commitTransaction();
+            $this->userDao->closeConnection();
+
+            return $updatedUser;
+
+        } catch (mysqli_sql_exception $e) {
+            $this->userDao->rollbackTransaction();
+            throw new $e;
+        }
+    }
+
+    /**
      * Delete user by id
      * @param integer $id
      * @return boolean
@@ -221,31 +250,6 @@ class UserService extends AbstractService {
             throw $e;
         }
  
-    }
-
-    /**
-     * Update user by id
-     * @param array $newUserData
-     * @param integer $idUser
-     * @return boolean
-     */
-    public function updateUserById($newUserData, $idUser){
-        
-        try {
-
-            $this->userDao->beginTransaction();
-
-            $updatedUser = $this->userDao->updateUserById($newUserData, $idUser);
-             
-            $this->userDao->commitTransaction();
-            $this->userDao->closeConnection();
-
-            return $updatedUser;
-
-        } catch (mysqli_sql_exception $e) {
-            $this->userDao->rollbackTransaction();
-            throw new $e;
-        }
     }
 
 }

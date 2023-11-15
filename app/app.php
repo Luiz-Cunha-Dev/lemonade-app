@@ -9,8 +9,8 @@ use app\errors\ExceptionHandler;
 
 //Error and Exception handling
 
-new ExceptionHandler();
-new ErrorHandler();
+//new ExceptionHandler();
+//new ErrorHandler();
 
 // Environment variables
 
@@ -35,5 +35,6 @@ MiddlewareQueue::setMiddlewareMap([
        'RequireSessionLogin' => app\middlewares\SessionLoginMiddleware::class,
        'IsSessionExpired' => app\middlewares\SessionExpiredMiddleware::class,
        'RequireSessionAdmin' => app\middlewares\SessionAdminMiddleware::class,
-       'IsSessionFirstAccess' => app\middlewares\SessionFirstAccessMiddleware::class
+       'IsSessionFirstAccess' => app\middlewares\SessionFirstAccessMiddleware::class,
+       'SessionRefresh' => app\middlewares\SessionRefreshMiddleware::class
 ]);

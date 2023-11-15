@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS state(
 
 CREATE TABLE IF NOT EXISTS practiceExam(
 	idPracticeExam INT NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(50) NOT NULL,
+    `name` VARCHAR(80) NOT NULL,
     `description` VARCHAR(255),
 	CONSTRAINT practiceExamPk PRIMARY KEY (idPracticeExam)
 );
@@ -95,6 +95,8 @@ CREATE TABLE IF NOT EXISTS questionText(
 
 CREATE TABLE IF NOT EXISTS questionAlternative(
 	idQuestionAlternative INT NOT NULL AUTO_INCREMENT,
+    letter CHAR(1) NOT NULL,
+    `text` TEXT(2000) NOT NULL,
     isCorrect BOOLEAN NOT NULL,
     idQuestion INT NOT NULL,
 	CONSTRAINT questionAlternativePk PRIMARY KEY (idQuestionAlternative)

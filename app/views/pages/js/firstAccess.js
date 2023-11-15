@@ -68,6 +68,7 @@ function validPasswordMatch() {
 async function changePassword() {
   const user = {
     password: inputNewPassword.value,
+    firstAccess: 0
   };
 
   try {
