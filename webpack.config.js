@@ -13,6 +13,7 @@ const config = {
         darkMode: './app/views/pages/js/darkMode.js',
         wapp: './app/views/pages/js/wapp.js',
         ranking: './app/views/pages/js/ranking.js',
+        firstAccess: './app/views/pages/js/firstAccess.js'
     },
     output: {
         path: path.resolve(__dirname, './app/views/pages/js/dist'),

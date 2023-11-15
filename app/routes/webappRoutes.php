@@ -1,6 +1,7 @@
 <?php
 
 use app\controllers\webapp\AppController;
+use app\controllers\webapp\FirstAccessController;
 use app\controllers\webapp\LogOutController;
 use app\controllers\webapp\RankingController;
 use app\routes\http\Response;
@@ -16,6 +17,16 @@ $router->get('/wapp', [
     fn() => new Response(200, 'text/html', AppController::getApp())
 ]);
 
+// Web app first access page route
+
+$router->get('/wapp/firstAccess', [
+    'middlewares' => [
+        'RequireSessionLogin',
+        'IsSessionExpired',
+        'IsSessionFirstAccess'
+    ],
+    fn() => new Response(200, 'text/html', FirstAccessController::getFirstAccess())
+]);
 
 // Web app ranking page route
 

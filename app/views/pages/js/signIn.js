@@ -48,7 +48,7 @@ async function signIn() {
     alertWindow.classList.add("show");
     message.textContent =
       "Houve um erro ao tentar entrar na conta. Por favor, tente novamente mais tarde.";
-    await sleep(5000);
+    await sleep(10000);
     alertWindow.classList.remove("show");
   }
 }
