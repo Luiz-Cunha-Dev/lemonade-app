@@ -7,26 +7,24 @@ use app\session\Session;
 use app\views\View;
 
 /**
- * App controller
+ * First Access (admin) controller
  * 
- * HTML file: ./view/pages/webapp/app.html
+ * Only available through first access middleware
+ * 
+ * HTML file: ./view/pages/webapp/firstAccess/main.html
  * 
  * @package app\controllers\webapp
  */ 
 class FirstAccessController extends AbstractPageController {
 
     /**
-     * Return the content of app home view
+     * Return the content of first access view
      * 
-     * @return string app home rendered page
+     * @return string first access rendered page
      */
     public static function getFirstAccess() {
 
-        // Update user last action
-
-        Session::updateUserSessionLastAction();
-
-        // App home view
+        // First access view
 
         $header = View::render('pages/webapp/html/header', [
             'userName' => Session::getCurrentUserSessionData()['name'],

@@ -15,10 +15,9 @@ use app\views\View;
  * 
  * @package app\controllers\webapp
  */
-class AppController extends AbstractPageController
-{
+class AppController extends AbstractPageController {
 
-    public static function getStudentSidebarItems() {
+    private static function getStudentSidebarItems() {
 
         $item1 = View::render('pages/components/sidebarItem', [
             'itemUrl' => 'wapp/ranking',
@@ -41,7 +40,7 @@ class AppController extends AbstractPageController
         return $item1 . $item2 . $item3;
     }
 
-    public static function getAdminSidebarItems() {
+    private static function getAdminSidebarItems() {
         
         $item1 = View::render('pages/components/sidebarItem', [
             'itemUrl' => 'wapp/ranking',
@@ -97,4 +96,5 @@ class AppController extends AbstractPageController
         return parent::getPage('App', $header, $main, $footer, 
         ['css' => './app/views/pages/style/wapp.css', 'js' => './app/views/pages/js/dist/wapp.js']);
     }
+
 }

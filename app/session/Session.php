@@ -3,6 +3,7 @@
 namespace app\session;
 
 use app\models\UserModel;
+use app\services\UserService;
 
 /**
  * Handles user sessions in the application
@@ -27,6 +28,40 @@ class Session {
             session_start();
         }
 
+    }
+
+    /**
+     * Refresh user session data
+     * @param integer $userId
+     * @return boolean
+     */
+    public static function refreshSession($userId) {
+
+        // Get user updated data
+
+        $userService = new UserService();
+
+        $newUserData = ($userService->getUserById($userId));
+
+        // Start session
+
+        self::startSession();
+
+        // Refresh user session data
+
+        $_SESSION['user'] = [
+            'id' => $newUserData->getIdUser(),
+            'name' => $newUserData->getName(),
+            'lastName' => $newUserData->getLastName(),
+            'nickname' => $newUserData->getNickname(),
+            'email' => $newUserData->getEmail(),
+            'profilePicture' => $newUserData->getProfilePicture(),
+            'firstAccess' => $newUserData->getFirstAccess(),
+            'userType' => $newUserData->getIdUserType(),
+            'lastAction' => time()
+        ];
+
+        return true;
     }
 
     /**
