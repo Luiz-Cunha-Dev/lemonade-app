@@ -1,10 +1,13 @@
 <?php
 
+use app\controllers\webapp\QuestionController;
 use app\controllers\webapp\AppController;
 use app\controllers\webapp\FirstAccessController;
 use app\controllers\webapp\LogOutController;
 use app\controllers\webapp\RankingController;
 use app\routes\http\Response;
+
+use app\daos\QuestionAlternativeDAO;
 
 // Web app home page route
 
@@ -38,3 +41,6 @@ $router->get('/wapp/logout', [
     ],
     fn($request) => new Response(200, 'text/html', LogOutController::getLogOut($request))
 ]);
+
+
+

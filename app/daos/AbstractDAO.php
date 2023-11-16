@@ -27,7 +27,7 @@ abstract class AbstractDAO {
      * 
      * Instantiates a connection
      */
-    final public function __construct ($connection) {
+    final public function __construct($connection) {
         $this->conn = $connection;
     }
 
@@ -37,7 +37,7 @@ abstract class AbstractDAO {
      * @return array array without null values
      */
     final protected function removeArrayNullValues($array) {
-        return array_filter($array, function($value) {
+        return array_filter($array, function ($value) {
             return isset($value);
         });
     }
@@ -137,9 +137,9 @@ abstract class AbstractDAO {
 
         try {
 
-            $sql = 'WITH tableaux AS (SELECT *, ROW_NUMBER() OVER () AS rowNumber FROM ' . $tableName . ') SELECT * FROM tableaux WHERE rowNumber >= '. $offset . 
-            ' AND rowNumber <= ' . $offset . ' + ' . $limit;
-            
+            $sql = 'WITH tableaux AS (SELECT *, ROW_NUMBER() OVER () AS rowNumber FROM ' . $tableName . ') SELECT * FROM tableaux WHERE rowNumber >= ' . $offset .
+                ' AND rowNumber <= ' . $offset . ' + ' . $limit;
+
             $result = $this->conn->query($sql);
 
             if ($result) {
@@ -155,6 +155,7 @@ abstract class AbstractDAO {
             throw $e;
         }
     }
+
 
     /**
      * Get element by parameter
@@ -190,6 +191,45 @@ abstract class AbstractDAO {
             $result->free();
 
             return $element;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Get elements by parameter
+     * 
+     * If it is null, returns an empty array
+     * 
+     * @param string $tableName table name
+     * 
+     * @param string $parameterToCompare parameter to compare
+     * 
+     * @param string $parameterToSearch parameter to search
+     * 
+     * @return array elements
+     */
+    final protected function getElementsByParameter($tableName, $parameterToCompare, $parameterToSearch) {
+
+        try {
+
+            $sql = 'SELECT * FROM ' . $tableName . ' WHERE ' . $parameterToCompare . ' = ?';
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param(self::getParameterType($parameterToSearch), $parameterToSearch);
+
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $stmt->close();
+
+            if ($result) {
+                $elements = $result->fetch_all(MYSQLI_ASSOC);
+            } else {
+                $elements = array();
+            }
+
+            $result->free();
+
+            return $elements;
         } catch (Exception $e) {
             throw $e;
         }
@@ -299,7 +339,7 @@ abstract class AbstractDAO {
      * @return boolean
      */
 
-     final protected function updateElementByParameter($tableName, $parameterToCompare, $parameterToSearch, $dataToUpdate) {
+    final protected function updateElementByParameter($tableName, $parameterToCompare, $parameterToSearch, $dataToUpdate) {
 
         $dataToUpdate = $this->removeArrayNullValues($dataToUpdate);
 
@@ -318,7 +358,7 @@ abstract class AbstractDAO {
         try {
 
             $sql = 'UPDATE ' . $tableName . ' SET '  .  $columnNames . '=? WHERE ' . $parameterToCompare . ' = ?';
-            
+
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param(implode("", $parameterTypes), ...$values);
             $stmt->execute();
@@ -369,5 +409,5 @@ abstract class AbstractDAO {
             throw $e;
         }
     }
-
+    
 }

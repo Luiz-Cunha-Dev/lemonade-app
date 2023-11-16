@@ -19,6 +19,20 @@ class QuestionAlternativeModel {
     private $idQuestionAlternative;
 
     /**
+     * Question alternative letter
+     * 
+     * @var char $letter
+     */
+    private $letter;
+
+    /**
+     * Question alternative text
+     * 
+     * @var string $text
+     */
+    private $text;
+
+    /**
      * Do the question is correct?
      * 
      * @var boolean $isCorrect
@@ -40,11 +54,12 @@ class QuestionAlternativeModel {
      * @param integer $idQuestion question id (fk)
      * @return QuestionAlternativeModel
      */
-    public function __construct($idQuestionAlternative, $isCorrect, $idQuestion) {
+    public function __construct($idQuestionAlternative, $letter, $text, $isCorrect, $idQuestion) {
         $this->idQuestionAlternative = $idQuestionAlternative;
+        $this->letter = $letter;
+        $this->text = $text;
         $this->isCorrect = $isCorrect;
         $this->idQuestion = $idQuestion;
-        
     }
 
     /**
@@ -54,6 +69,24 @@ class QuestionAlternativeModel {
      */
     public function getIdQuestionAlternative() {
         return $this->idQuestionAlternative;
+    }
+
+    /**
+     * Get question alternative lettter
+     * 
+     * @return char Returns question alternative letter
+     */
+    public function getLetter() {
+        return $this->letter;
+    }
+
+    /**
+     * Get question alternative text
+     * 
+     * @return string Returns question alternative text
+     */
+    public function getText() {
+        return $this->text;
     }
 
     /**
@@ -84,6 +117,24 @@ class QuestionAlternativeModel {
     }
 
     /**
+     * Set question letter
+     * 
+     * @param integer $letter question letter
+     */
+    public function setLetter($letter) {
+        $this->letter = $letter;
+    }
+
+    /**
+     * Set question text
+     * 
+     * @param integer text question text
+     */
+    public function setText(text) {
+        $this->text = text;
+    }
+
+    /**
      * Set if alternative is correct
      * 
      * @param boolean $isCorrect if alternative is correct?
@@ -109,6 +160,8 @@ class QuestionAlternativeModel {
     public function toArray() {
         return [
             'idQuestionAlternative' => $this->idQuestionAlternative,
+            'letter' => $this->letter,
+            'text' => $this->text,
             'isCorrect' => $this->isCorrect,
             'idQuestion' => $this->idQuestion,
         ];
