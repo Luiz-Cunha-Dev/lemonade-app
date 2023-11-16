@@ -16,16 +16,9 @@ use Exception;
  class QuestionAlternativeDAO extends AbstractDAO{
 
     /**
-     * Get all question alternatives
-     * 
-     * If it is null, returns an empty array
-     * 
-     * @return array questionAlternatives
-     */
-    
-
-    /**
      * Get question alternative by id
+     * 
+     * @param integer id question
      * 
      * If it is null, returns an empty array
      * 
@@ -52,7 +45,7 @@ use Exception;
             return $questionAlternatives;
             
         } catch (\Exception $e) {
-            throw new $e();
+            throw new Exception();
         }
     }
 

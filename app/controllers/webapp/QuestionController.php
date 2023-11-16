@@ -15,4 +15,22 @@ class QuestionController{
         return $alternatives;
     }
 
+    public static function getQuestionById($idQuestion){
+
+        $questionService = new QuestionService();
+
+        $question = $questionService->getQuestionById($idQuestion);
+
+        return $question;
+    }
+
+    public static function getQuestionTextsByIdQuestion($idQuestion){
+
+        $questionService = new QuestionService;
+
+        $texts = $questionService->getQuestionTextsByIdQuestion($idQuestion);
+
+        return $texts;
+    }
+
 }
