@@ -60,7 +60,6 @@ class QuestionAlternativeModel {
         $this->text = $text;
         $this->isCorrect = $isCorrect;
         $this->idQuestion = $idQuestion;
-        
     }
 
     /**
@@ -115,6 +114,24 @@ class QuestionAlternativeModel {
      */
     public function setIdQuestionAlternative($idQuestionAlternative) {
         $this->idQuestionAlternative = $idQuestionAlternative;
+    }
+
+    /**
+     * Set question letter
+     * 
+     * @param integer $letter question letter
+     */
+    public function setLetter($letter) {
+        $this->letter = $letter;
+    }
+
+    /**
+     * Set question text
+     * 
+     * @param integer text question text
+     */
+    public function setText(text) {
+        $this->text = text;
     }
 
     /**
