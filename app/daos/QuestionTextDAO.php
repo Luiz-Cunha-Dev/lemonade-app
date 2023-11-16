@@ -6,14 +6,13 @@ use app\models\QuestionTextModel;
 use Exception;
 
 /**
- * Question text DAO
+ * Question Text DAO
  * 
- * Responsible for reading and writing data of questionText entity
+ * Responsible for reading and writing data of question text entity
  * 
  * @package app\daos
  */
-class QuestionTextDAO extends AbstractDAO
-{
+class QuestionTextDAO extends AbstractDAO {
 
     /**
      * Get question text by question id
@@ -24,8 +23,7 @@ class QuestionTextDAO extends AbstractDAO
      * 
      * @return array texts
      */
-
-    public function getTextByIdQuestion($idQuestion) {
+    public function getQuestionTextByIdQuestion($idQuestion) {
 
         try {
 
@@ -43,8 +41,8 @@ class QuestionTextDAO extends AbstractDAO
             
             return $texts;
 
-        } catch (\Exception $e) {
-            throw new Exception();
+        } catch (Exception $e) {
+            throw $e;
         }
     }
 }
