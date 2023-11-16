@@ -42,16 +42,5 @@ $router->get('/wapp/logout', [
     fn($request) => new Response(200, 'text/html', LogOutController::getLogOut($request))
 ]);
 
-$router->get('/question/alternatives',[
-    fn() => new Response(200, 'application/json', QuestionController::getQuestionAlternativesByIdQuestion(1))
-]);
-
-$router->get('/questions',[
-    fn() => new Response(200, 'application/json', QuestionController::getQuestionById(1))
-]);
-
-$router->get('/questions/texts',[
-    fn() => new Response(200, 'application/json', QuestionController::getQuestionTextsByIdQuestion(1))
-]);
 
 
