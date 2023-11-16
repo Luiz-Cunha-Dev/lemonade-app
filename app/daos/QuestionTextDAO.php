@@ -15,15 +15,15 @@ use Exception;
 class QuestionTextDAO extends AbstractDAO {
 
     /**
-     * Get question text by question id
+     * Get question texts by question id
      * 
      * @param integer id question
      * 
      * if its null, returns empty array
      * 
-     * @return array texts
+     * @return QuestionTextModel texts
      */
-    public function getQuestionTextByIdQuestion($idQuestion) {
+    public function getQuestionTextsByIdQuestion($idQuestion) {
 
         try {
 
@@ -45,4 +45,5 @@ class QuestionTextDAO extends AbstractDAO {
             throw $e;
         }
     }
+    
 }
