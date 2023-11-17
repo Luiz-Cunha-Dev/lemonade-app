@@ -26,13 +26,13 @@ class AppController extends AbstractPageController {
         ]);
 
         $item2 = View::render('pages/components/sidebarItem', [
-            'itemUrl' => '#',
+            'itemUrl' => 'wapp/exam',
             'imageUrl' => './app/views/pages/assets/svgs/exam.svg',
             'itemName' => 'Simulados'
         ]);
 
         $item3 = View::render('pages/components/sidebarItem', [
-            'itemUrl' => '#',
+            'itemUrl' => 'wapp/train',
             'imageUrl' => './app/views/pages/assets/svgs/target.svg',
             'itemName' => 'Treinar'
         ]);
@@ -49,19 +49,19 @@ class AppController extends AbstractPageController {
         ]);
 
         $item2 = View::render('pages/components/sidebarItem', [
-            'itemUrl' => '#',
+            'itemUrl' => 'wapp/exam',
             'imageUrl' => './app/views/pages/assets/svgs/exam.svg',
             'itemName' => 'Simulados'
         ]);
 
         $item3 = View::render('pages/components/sidebarItem', [
-            'itemUrl' => '#',
+            'itemUrl' => 'wapp/users',
             'imageUrl' => './app/views/pages/assets/svgs/users.svg',
             'itemName' => 'Usuários'
         ]);
 
         $item4 = View::render('pages/components/sidebarItem', [
-            'itemUrl' => '#',
+            'itemUrl' => 'wapp/questions',
             'imageUrl' => './app/views/pages/assets/svgs/book.svg',
             'itemName' => 'Questões'
         ]);

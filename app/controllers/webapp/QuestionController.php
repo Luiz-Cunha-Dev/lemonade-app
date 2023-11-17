@@ -15,9 +15,9 @@ class QuestionController {
         return $question;
     }
 
-    public static function getQuestionTextsByIdQuestion($idQuestion) n{
+    public static function getQuestionTextsByIdQuestion($idQuestion) {
 
-        $questionService = new QuestionService;
+        $questionService = new QuestionService();
 
         $texts = $questionService->getQuestionTextsByIdQuestion($idQuestion);
 

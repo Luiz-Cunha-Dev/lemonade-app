@@ -7,15 +7,15 @@ use app\session\Session;
 use app\views\View;
 
 /**
- * Ranking controller
+ * Train controller
  * 
- * HTML file: ./view/pages/webapp/ranking/main.html
- * CSS file: ./views/pages/style/ranking.css
- * JS file: ./views/pages/js/dist/ranking.js
+ * HTML file: ./view/pages/webapp/train/main.html
+ * CSS file: ./views/pages/style/train.css
+ * JS file: ./views/pages/js/dist/train.js
  * 
  * @package app\controllers\webapp
  */ 
-class RankingController extends AbstractPageController {
+class TrainController extends AbstractPageController {
 
     private static function getStudentSidebarItems() {
 
@@ -70,13 +70,13 @@ class RankingController extends AbstractPageController {
     }
 
     /**
-     * Return the content of app ranking view
+     * Return the content of app train view
      * 
-     * @return string app ranking rendered page
+     * @return string app train rendered page
      */
-    public static function getRanking() {
+    public static function getTrain() {
 
-        // App Ranking view
+        // App Train view
 
         $header = View::render('pages/webapp/html/header', [
             'userName' => Session::getCurrentUserSessionData()['name'],
@@ -85,7 +85,7 @@ class RankingController extends AbstractPageController {
             'profilePicture' => Session::getCurrentUserSessionData()['profilePicture']
         ]);
 
-        $main = View::render('pages/webapp/html/ranking/main', [
+        $main = View::render('pages/webapp/html/train/main', [
             'nickname' => Session::getCurrentUserSessionData()['nickname'],
         ]);
 
@@ -94,7 +94,7 @@ class RankingController extends AbstractPageController {
         // Return page view
 
         return parent::getPage('App', $header, $main, $footer, 
-        ['css' => './app/views/pages/style/ranking.css', 'js' => './app/views/pages/js/dist/ranking.js']);
+        ['css' => './app/views/pages/style/train.css', 'js' => './app/views/pages/js/dist/train.js']);
     }
 
 }
