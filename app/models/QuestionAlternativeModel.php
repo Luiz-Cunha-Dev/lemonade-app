@@ -130,8 +130,8 @@ class QuestionAlternativeModel {
      * 
      * @param integer text question text
      */
-    public function setText(text) {
-        $this->text = text;
+    public function setText($text) {
+        $this->text = $text;
     }
 
     /**
