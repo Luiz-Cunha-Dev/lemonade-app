@@ -209,10 +209,17 @@ h2 {
   text-align: center;
 }
 
-.greeting {
+.pageTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   left: 12%;
   top: 20%;
+  gap: 20px;
+}
+.pageTitle img {
+  height: 60px;
 }
 
 .userPicture {
@@ -229,30 +236,6 @@ h2 {
   bottom: -30px;
   left: 45px;
   z-index: 1;
-}
-
-.ranking {
-  width: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.ranking .top1 {
-  position: relative;
-}
-.ranking .top2 {
-  padding-top: 50%;
-  position: relative;
-}
-.ranking .top3 {
-  padding-top: 50%;
-  position: relative;
-}
-.ranking h3 {
-  width: 100%;
-  position: absolute;
-  bottom: -80px;
-  text-align: center;
 }
 
 .container {
@@ -276,31 +259,10 @@ h2 {
   h2 {
     font-size: 40px;
   }
-  .greeting {
-    left: 12%;
-    top: 15%;
-  }
-  .userPicture {
-    width: 25vw;
-    height: 25vw;
-  }
-  .rankingPicture {
-    width: 12vw;
-    height: 12vw;
-    border-radius: 100%;
-    position: absolute;
-    bottom: -30px;
-    left: 6.5vw;
-    z-index: 1;
-  }
-  .ranking {
-    width: 60%;
-    height: 60%;
-  }
-  .ranking h3 {
-    bottom: -70px;
+  .pageTitle img {
+    height: 45px;
   }
   .section {
     padding-top: 15vh;
   }
-}/*# sourceMappingURL=wapp.css.map */
+}/*# sourceMappingURL=users.css.map */
