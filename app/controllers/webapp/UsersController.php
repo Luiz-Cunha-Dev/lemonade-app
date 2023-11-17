@@ -7,15 +7,15 @@ use app\session\Session;
 use app\views\View;
 
 /**
- * Ranking controller
+ * Users controller
  * 
- * HTML file: ./view/pages/webapp/ranking/main.html
- * CSS file: ./views/pages/style/ranking.css
- * JS file: ./views/pages/js/dist/ranking.js
+ * HTML file: ./view/pages/webapp/users/main.html
+ * CSS file: ./views/pages/style/users.css
+ * JS file: ./views/pages/js/dist/users.js
  * 
  * @package app\controllers\webapp
  */ 
-class RankingController extends AbstractPageController {
+class UsersController extends AbstractPageController {
 
     private static function getStudentSidebarItems() {
 
@@ -70,13 +70,13 @@ class RankingController extends AbstractPageController {
     }
 
     /**
-     * Return the content of app ranking view
+     * Return the content of app users view
      * 
-     * @return string app ranking rendered page
+     * @return string app users rendered page
      */
-    public static function getRanking() {
+    public static function getUsers() {
 
-        // App Ranking view
+        // App Users view
 
         $header = View::render('pages/webapp/html/header', [
             'userName' => Session::getCurrentUserSessionData()['name'],
@@ -85,7 +85,7 @@ class RankingController extends AbstractPageController {
             'profilePicture' => Session::getCurrentUserSessionData()['profilePicture']
         ]);
 
-        $main = View::render('pages/webapp/html/ranking/main', [
+        $main = View::render('pages/webapp/html/users/main', [
             'nickname' => Session::getCurrentUserSessionData()['nickname'],
         ]);
 
@@ -94,7 +94,7 @@ class RankingController extends AbstractPageController {
         // Return page view
 
         return parent::getPage('App', $header, $main, $footer, 
-        ['css' => './app/views/pages/style/ranking.css', 'js' => './app/views/pages/js/dist/ranking.js']);
+        ['css' => './app/views/pages/style/users.css', 'js' => './app/views/pages/js/dist/users.js']);
     }
 
 }

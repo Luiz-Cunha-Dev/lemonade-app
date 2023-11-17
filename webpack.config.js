@@ -10,10 +10,12 @@ const config = {
         home: './app/views/pages/js/home.js',
         signUp: './app/views/pages/js/signUp.js',
         signIn: './app/views/pages/js/signIn.js',
-        darkMode: './app/views/pages/js/darkMode.js',
+        firstAccess: './app/views/pages/js/firstAccess.js',
         wapp: './app/views/pages/js/wapp.js',
         ranking: './app/views/pages/js/ranking.js',
-        firstAccess: './app/views/pages/js/firstAccess.js'
+        users: './app/views/pages/js/users.js',
+        train: './app/views/pages/js/train.js',
+        exam: './app/views/pages/js/exam.js',
     },
     output: {
         path: path.resolve(__dirname, './app/views/pages/js/dist'),
