@@ -12,10 +12,11 @@ const config = {
         signIn: './app/views/pages/js/signIn.js',
         firstAccess: './app/views/pages/js/firstAccess.js',
         wapp: './app/views/pages/js/wapp.js',
+        editAccount: './app/views/pages/js/editAccount.js',
         ranking: './app/views/pages/js/ranking.js',
         users: './app/views/pages/js/users.js',
         train: './app/views/pages/js/train.js',
-        exam: './app/views/pages/js/exam.js',
+        exam: './app/views/pages/js/exam.js'
     },
     output: {
         path: path.resolve(__dirname, './app/views/pages/js/dist'),

@@ -82,7 +82,8 @@ class TrainController extends AbstractPageController {
             'userName' => Session::getCurrentUserSessionData()['name'],
             'lastName' => Session::getCurrentUserSessionData()['lastName'],
             'sidebarItems' => Session::getCurrentUserSessionData()['userType'] == 1 ? self::getStudentSidebarItems() : self::getAdminSidebarItems(),
-            'profilePicture' => Session::getCurrentUserSessionData()['profilePicture']
+            'profilePicture' => Session::getCurrentUserSessionData()['profilePicture'],
+            'userId' => Session::getCurrentUserSessionData()['id'],
         ]);
 
         $main = View::render('pages/webapp/html/train/main', [
