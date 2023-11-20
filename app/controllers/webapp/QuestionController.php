@@ -1,7 +1,7 @@
 <?php
 
 namespace app\controllers\webapp;
-
+/*
 use app\services\QuestionService;
 
 class QuestionController {
