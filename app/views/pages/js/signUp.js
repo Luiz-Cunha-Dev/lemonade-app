@@ -631,9 +631,9 @@ async function signUp() {
       );
       buttonForm3.innerText = "Enviar";
 
-      if(response.data.success){
+      if (response.data.success) {
         window.location.href = "http://localhost/lemonade/wapp";
-      }else{
+      } else {
         buttonForm3.disabled = false;
         const message = alertWindow.querySelector(".toast-body");
         alertWindow.classList.add("show");
@@ -660,9 +660,14 @@ async function signUp() {
 }
 
 async function insertCities() {
-
   try {
-    cities = (await axios.get("http://localhost/lemonade/api/cities?ltoken=b3050e0156cc3d05ddb7bbd9")).data;
+    cities = (
+      await axios.get("http://localhost/lemonade/api/cities", {
+        headers: {
+          ltoken: "b3050e0156cc3d05ddb7bbd9",
+        },
+      })
+    ).data;
 
     for (const city of cities) {
       const option = document.createElement("option");
@@ -673,13 +678,17 @@ async function insertCities() {
   } catch (error) {
     console.log(error);
   }
-
 }
 
 async function insertStates() {
-
   try {
-    states = (await axios.get("http://localhost/lemonade/api/states?ltoken=b3050e0156cc3d05ddb7bbd9")).data;
+    states = (
+      await axios.get("http://localhost/lemonade/api/states", {
+        headers: {
+          ltoken: "b3050e0156cc3d05ddb7bbd9",
+        },
+      })
+    ).data;
 
     for (const state of states) {
       const option = document.createElement("option");
@@ -690,18 +699,24 @@ async function insertStates() {
   } catch (error) {
     console.log(error);
   }
-
 }
 
-async function searchForExistingEmail(){
+async function searchForExistingEmail() {
   try {
-    const response = await axios.get(`http://localhost/lemonade/api/user?ltoken=b3050e0156cc3d05ddb7bbd9&email=${inputEmail.value}`);
+    const response = await axios.get(
+      `http://localhost/lemonade/api/user?email=${inputEmail.value}`,
+      {
+        headers: {
+          ltoken: "b3050e0156cc3d05ddb7bbd9",
+        },
+      }
+    );
 
-    if(response.data.length != 0){
+    if (response.data.length != 0) {
       if (!inputEmail.classList.contains("is-invalid")) {
         inputEmail.classList.add("is-invalid");
       }
-  
+
       if (inputEmail.classList.contains("is-valid")) {
         inputEmail.classList.remove("is-valid");
       }
@@ -717,15 +732,22 @@ async function searchForExistingEmail(){
   }
 }
 
-async function searchForExistingNickname(){
+async function searchForExistingNickname() {
   try {
-    const response = await axios.get(`http://localhost/lemonade/api/user?ltoken=b3050e0156cc3d05ddb7bbd9&nickname=${inputNickname.value}`);
+    const response = await axios.get(
+      `http://localhost/lemonade/api/user?nickname=${inputNickname.value}`,
+      {
+        headers: {
+          ltoken: "b3050e0156cc3d05ddb7bbd9",
+        },
+      }
+    );
 
-    if(response.data.length != 0){
+    if (response.data.length != 0) {
       if (!inputNickname.classList.contains("is-invalid")) {
         inputNickname.classList.add("is-invalid");
       }
-  
+
       if (inputNickname.classList.contains("is-valid")) {
         inputNickname.classList.remove("is-valid");
       }
