@@ -82,8 +82,8 @@ class EditAccountController extends AbstractPageController {
             'userName' => Session::getCurrentUserSessionData()['name'],
             'lastName' => Session::getCurrentUserSessionData()['lastName'],
             'sidebarItems' => Session::getCurrentUserSessionData()['userType'] == 1 ? self::getStudentSidebarItems() : self::getAdminSidebarItems(),
-            'profilePicture' => Session::getCurrentUserSessionData()['profilePicture'],
             'userId' => Session::getCurrentUserSessionData()['id'],
+            'profilePicture' => Session::getCurrentUserSessionData()['profilePicture']
         ]);
 
         $main = View::render('pages/webapp/html/editAccount/main', [

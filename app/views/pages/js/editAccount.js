@@ -13,6 +13,7 @@ const editCEP = document.getElementById("editCEP");
 const editNumber = document.getElementById("editNumber");
 const editComplement = document.getElementById("editComplement");
 const userImage = document.querySelector("nav .userImage");
+const userPhoto = document.getElementById("userPhoto");
 
 editName.addEventListener("click", () => {
   editField("inputName");
@@ -94,9 +95,17 @@ function editField(inputId) {
       saveButton.remove();
       cancelButton.remove();
       inputField.toggleAttribute("disabled");
+      if (inputField.classList.contains("is-valid")) {
+        inputField.classList.remove("is-valid");
+      }
+      if (inputField.classList.contains("is-invalid")) {
+        inputField.classList.remove("is-invalid");
+      }
       return;
-    } 
-    else if (inputField.classList.contains("is-invalid") || (inputField.value == "" && inputId !== "inputComplement")) {
+    } else if (
+      inputField.classList.contains("is-invalid") ||
+      (inputField.value == "" && inputId !== "inputComplement")
+    ) {
       const message = alertWindow.querySelector(".toast-body");
       alertWindow.classList.remove("text-bg-danger", "text-bg-success");
       alertWindow.classList.add("show", "text-bg-danger");
@@ -105,8 +114,7 @@ function editField(inputId) {
       await sleep(5000);
       alertWindow.classList.remove("show", "text-bg-danger");
       return;
-    } 
-    else if (
+    } else if (
       !inputField.classList.contains("is-invalid") &&
       !inputField.classList.contains("is-valid") &&
       inputId !== "inputComplement"
@@ -140,6 +148,9 @@ function editField(inputId) {
       inputField.classList.remove("is-invalid");
     }
     if (response.data.success) {
+      if(inputId === "inputPassword"){
+        inputField.value = "";
+      }
       const message = alertWindow.querySelector(".toast-body");
       alertWindow.classList.remove("text-bg-danger", "text-bg-success");
       alertWindow.classList.add("show", "text-bg-success");
@@ -314,18 +325,49 @@ function editPhoto() {
   let fileInput = document.createElement("input");
   fileInput.type = "file";
 
-  fileInput.addEventListener("change", function () {
-    let selectedFile = fileInput.files[0];
+  fileInput.addEventListener("change", async () => {
+    try {
+      let selectedFile = fileInput.files[0];
 
-    if (selectedFile) {
-      let userPhoto = document.querySelector("#userPhoto");
+      if (selectedFile) {
+        let formData = new FormData();
+        formData.append("file", selectedFile);
 
-      let reader = new FileReader();
-      reader.onload = function (e) {
-        userPhoto.src = e.target.result;
-        console.log(e.target.result);
-      };
-      reader.readAsDataURL(selectedFile);
+        const response = await axios.post(
+          `http://localhost/lemonade/api/user/uploadProfilePicture/${userImage.id}?ltoken=b3050e0156cc3d05ddb7bbd9`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        if (response.data.success) {
+          let reader = new FileReader();
+          reader.onload = function (e) {
+            userPhoto.src = e.target.result;
+            userImage.src = e.target.result;
+          };
+          reader.readAsDataURL(selectedFile);
+
+          const message = alertWindow.querySelector(".toast-body");
+          alertWindow.classList.remove("text-bg-danger", "text-bg-success");
+          alertWindow.classList.add("show", "text-bg-success");
+          message.textContent = response.data.message;
+          await sleep(5000);
+          alertWindow.classList.remove("show", "text-bg-success");
+        } else {
+          const message = alertWindow.querySelector(".toast-body");
+          alertWindow.classList.remove("text-bg-danger", "text-bg-success");
+          alertWindow.classList.add("show", "text-bg-danger");
+          message.textContent = response.data.message;
+          await sleep(5000);
+          alertWindow.classList.remove("show", "text-bg-danger");
+        }
+      }
+    } catch (error) {
+      console.log(error);
     }
   });
 
@@ -748,24 +790,30 @@ async function searchForUserInfo() {
   try {
     const email = document.querySelector("form").id;
     const response = await axios.get(
-      `http://localhost/lemonade/api/user?ltoken=b3050e0156cc3d05ddb7bbd9&email=${email}`
+      `http://localhost/lemonade/api/user?ltoken=b3050e0156cc3d05ddb7bbd9&email=${encodeURIComponent(
+        email
+      )}`
     );
 
-    inputName.value = response.data[0].name;
-    inputLastName.value = response.data[0].lastName;
-    inputEmail.value = response.data[0].email;
-    inputNickname.value = response.data[0].nickname;
-    inputPhone.value = response.data[0].phone;
-    inputBirthDate.value = response.data[0].birthDate;
-    inputCep.value = response.data[0].postalCode;
-    inputStreet.value = response.data[0].street;
-    inputNumber.value = response.data[0].streetNumber;
-    inputNeighborhood.value = response.data[0].district;
-    inputComplement.value = response.data[0].complement;
-    inputCity.value = `${response.data[0].idCity}`;
-    // inputState.value = response.data[0];
+    const userData = response.data[0];
+
+    console.log(userData);
+
+    inputName.value = userData.name;
+    inputLastName.value = userData.lastName;
+    inputEmail.value = userData.email;
+    inputNickname.value = userData.nickname;
+    inputPhone.value = `(${userData.phone.slice(0, 2)}) ${userData.phone.slice(2, 7)}-${userData.phone.slice(7)}`;
+    inputBirthDate.value = userData.birthDate;
+    inputCep.value = `${userData.postalCode.slice(0, 5)}-${userData.postalCode.slice(5)}`;
+    inputStreet.value = userData.street;
+    inputNumber.value = userData.streetNumber;
+    inputNeighborhood.value = userData.district;
+    inputComplement.value = userData.complement;
+    inputCity.value = `${userData.idCity}`;
+    // inputState.value = userData.state;
   } catch (error) {
-    console.log(error);
+    console.error("Error fetching user information:", error);
   }
 }
 
