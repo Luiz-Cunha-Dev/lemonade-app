@@ -185,6 +185,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 body.dark-mode {
   background-color: #0e141e;
@@ -193,6 +194,23 @@ body.dark-mode {
 body.light-mode {
   background-color: #fff;
   color: #333;
+}
+
+#userPhoto {
+  min-width: 160px;
+  width: 160px;
+  min-height: 160px;
+  height: 160px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
+}
+
+.alert {
+  position: absolute;
+  top: 20%;
+  right: 1%;
+  z-index: 10;
 }
 
 h1 {
@@ -236,6 +254,26 @@ h2 {
   padding-top: 20vh;
 }
 
+@media (max-width: 1280px) {
+  form {
+    padding: 0;
+  }
+  .pageTitle {
+    top: 160px;
+  }
+  .row {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+  }
+  .col {
+    max-width: 95%;
+  }
+  .section {
+    padding-top: 15vh;
+  }
+}
 @media (max-width: 768px) {
   h1 {
     font-size: 50px;
@@ -246,7 +284,4 @@ h2 {
   .pageTitle img {
     height: 45px;
   }
-  .section {
-    padding-top: 15vh;
-  }
-}/*# sourceMappingURL=users.css.map */
+}/*# sourceMappingURL=editAccount.css.map */

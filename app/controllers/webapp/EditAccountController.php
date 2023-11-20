@@ -9,13 +9,13 @@ use app\views\View;
 /**
  * Users controller
  * 
- * HTML file: ./view/pages/webapp/users/main.html
- * CSS file: ./views/pages/style/users.css
- * JS file: ./views/pages/js/dist/users.js
+ * HTML file: ./view/pages/webapp/editAccount/main.html
+ * CSS file: ./views/pages/style/editAccount.css
+ * JS file: ./views/pages/js/dist/editAccount.js
  * 
  * @package app\controllers\webapp
  */ 
-class UsersController extends AbstractPageController {
+class EditAccountController extends AbstractPageController {
 
     private static function getStudentSidebarItems() {
 
@@ -70,24 +70,25 @@ class UsersController extends AbstractPageController {
     }
 
     /**
-     * Return the content of app users view
+     * Return the content of app editAccount view
      * 
-     * @return string app users rendered page
+     * @return string app editAccount rendered page
      */
-    public static function getUsers() {
+    public static function getEditAccount() {
 
-        // App Users view
+        // App EditAccount view
 
         $header = View::render('pages/webapp/html/header', [
             'userName' => Session::getCurrentUserSessionData()['name'],
             'lastName' => Session::getCurrentUserSessionData()['lastName'],
             'sidebarItems' => Session::getCurrentUserSessionData()['userType'] == 1 ? self::getStudentSidebarItems() : self::getAdminSidebarItems(),
             'profilePicture' => Session::getCurrentUserSessionData()['profilePicture'],
-            'userId' => Session::getCurrentUserSessionData()['id']
+            'userId' => Session::getCurrentUserSessionData()['id'],
         ]);
 
-        $main = View::render('pages/webapp/html/users/main', [
-            'nickname' => Session::getCurrentUserSessionData()['nickname'],
+        $main = View::render('pages/webapp/html/editAccount/main', [
+            'email' => Session::getCurrentUserSessionData()['email'],
+            'profilePicture' => Session::getCurrentUserSessionData()['profilePicture']
         ]);
 
         $footer = View::render('pages/webapp/html/footer');
@@ -95,7 +96,7 @@ class UsersController extends AbstractPageController {
         // Return page view
 
         return parent::getPage('App', $header, $main, $footer, 
-        ['css' => './app/views/pages/style/users.css', 'js' => './app/views/pages/js/dist/users.js']);
+        ['css' => './app/views/pages/style/editAccount.css', 'js' => './app/views/pages/js/dist/editAccount.js']);
     }
 
 }

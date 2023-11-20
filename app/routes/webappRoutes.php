@@ -2,6 +2,7 @@
 
 use app\controllers\webapp\QuestionController;
 use app\controllers\webapp\AppController;
+use app\controllers\webapp\EditAccountController;
 use app\controllers\webapp\ExamController;
 use app\controllers\webapp\FirstAccessController;
 use app\controllers\webapp\LogOutController;
@@ -22,6 +23,18 @@ $router->get('/wapp', [
         'IsSessionFirstAccess'
     ],
     fn() => new Response(200, 'text/html', AppController::getApp())
+]);
+
+// Web app first access page route
+
+$router->get('/wapp/firstAccess', [
+    'middlewares' => [
+        'RequireSessionLogin',
+        'IsSessionExpired',
+        'SessionRefresh',
+        'IsSessionFirstAccess'
+    ],
+    fn() => new Response(200, 'text/html', FirstAccessController::getFirstAccess())
 ]);
 
 // Web app ranking page route
@@ -70,6 +83,18 @@ $router->get('/wapp/exam', [
         'IsSessionFirstAccess'
     ],
     fn() => new Response(200, 'text/html', ExamController::getExam())
+]);
+
+// Web app editAccount page route
+
+$router->get('/wapp/editAccount', [
+    'middlewares' => [
+        'RequireSessionLogin',
+        'IsSessionExpired',
+        'SessionRefresh',
+        'IsSessionFirstAccess'
+    ],
+    fn() => new Response(200, 'text/html', EditAccountController::getEditAccount())
 ]);
 
 // LogOut page route
