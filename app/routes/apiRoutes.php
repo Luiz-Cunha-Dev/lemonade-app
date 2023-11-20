@@ -48,6 +48,13 @@ $router->put('/api/user/update/{id}', [
     fn ($request, $id) => new Response(200, 'application/json', UserController::updateUserById($request, $id))
 ]);
 
+$router->post('/api/user/uploadProfilePicture/{id}', [
+    'middlewares' => [
+        'InternalApiToken'
+    ],
+    fn ($request, $id) => new Response(200, 'application/json', UserController::updateUserProfilePictureById($request, $id))
+]);
+
 $router->delete('/api/user/delete/{id}', [
     'middlewares' => [
         'InternalApiToken'

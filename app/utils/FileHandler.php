@@ -16,11 +16,11 @@ class FileHandler {
      * @param array $file
      * @return boolean
      */
-    public static function handleFile($file) {
+    public static function handleFile($file, $userNickname) {
 
-        $targetDir = '../lemonade/images/';
+        $targetFile = self::getProfilePicturePath($file, $userNickname);
 
-        $targetFile = $targetDir . basename($file["name"]);
+        $targetFile = $targetFile . "." . self::getFileExtension($file['name']);
 
         $isUploadOk = true;
 
@@ -28,12 +28,29 @@ class FileHandler {
 
         $isUploadOk = self::checkFileSize($file);
 
-        $isUploadOk = self::checkFileFormat($targetFile);
+        $isUploadOk = self::checkFileFormat($file);
 
         $isUploadOk = move_uploaded_file($file["tmp_name"], $targetFile);
 
         return $isUploadOk;
 
+    }
+
+    /**
+     * Get profile picture path
+     * @param array $file
+     * @param string $userNickname
+     * @return string $targetFile
+     */
+    public static function getProfilePicturePath($file, $userNickname) {
+
+        $targetDir = '../lemonade/images/';
+
+        $file["name"] = $userNickname . "_" . "ProfilePicture";
+
+        $targetFile = $targetDir . basename($file["name"]);
+
+        return $targetFile;
     }
 
     /**
@@ -70,12 +87,12 @@ class FileHandler {
 
     /**
      * Allow certain file formats
-     * @param string $fileString
+     * @param array $file
      * @return boolean
      */
-    private static function checkFileFormat($fileString) {
+    private static function checkFileFormat($file) {
 
-        $fileExtension = strtolower(pathinfo($fileString,PATHINFO_EXTENSION));
+        $fileExtension = self::getFileExtension($file['name']);
 
         if($fileExtension != "jpg" && $fileExtension != "png" && $fileExtension != "jpeg"
         && $fileExtension != "gif" ) {
@@ -84,6 +101,15 @@ class FileHandler {
 
         return true;
 
+    }
+
+    /**
+     * Get file extension
+     * @param string $file
+     * @return string $fileExtension
+     */
+    public static function getFileExtension($fileString) {
+        return strtolower(pathinfo($fileString,PATHINFO_EXTENSION));
     }
     
 }

@@ -5,6 +5,7 @@ namespace app\controllers\api;
 use app\routes\http\Request;
 use app\routes\http\Response;
 use app\services\UserService;
+use app\utils\FileHandler;
 use Exception;
 
 /**
@@ -137,6 +138,48 @@ class UserController {
             if (!$updatedUser) {
                 return (new Response(204, 'application/json', ['message' => 'Usuário não encontrado', 'success' => false]))->sendResponse();
             }
+
+            return ['message' => 'Usuario atualizado', 'success' => true];
+
+        } catch (Exception $e) {
+
+            return (new Response(500, 'application/json', [
+                'status' => 500,
+                'error' => 'Erro interno do servidor',
+                'message' => $e->getMessage()
+            ]))->sendResponse();
+
+        }
+
+    }
+
+    /**
+     * Update user profile picture by id
+     * @param Request $request
+     * @param integer $idUser
+     * @return boolean
+     */
+    public static function updateUserProfilePictureById($request, $idUser){
+        
+        $file = $request->getFiles()['file'];
+
+        try {
+
+            $userService = new UserService();
+
+            $userNickname = $userService->getUserById($idUser)->getNickname();
+
+            if (!$userNickname) {
+                return (new Response(404, 'application/json', ['message' => 'Usuário não encontrado', 'success' => false]))->sendResponse();
+            }
+
+            if (!FileHandler::handleFile($file, $userNickname)) {
+                return (new Response(204, 'application/json', ['message' => 'Arquivo não encontrado', 'success' => false]))->sendResponse();
+            }
+
+            $profilePicture = FileHandler::getProfilePicturePath($file, $userNickname) . "." . FileHandler::getFileExtension($file['name'], $userNickname);
+
+            (new UserService())->updateUserById(['profilePicture' => $profilePicture], $idUser);
 
             return ['message' => 'Usuario atualizado', 'success' => true];
 
