@@ -61,11 +61,12 @@ class UserPracticeExamModel{
      * @param string $description patice exam description
      * @return practiceExamModel
      */
-    public function __construct($idUserPracticeExam, $startDate, $endDate, $idUser, $idPracticeExam)
+    public function __construct($idUserPracticeExam, $startDate, $endDate, $grade,  $idUser, $idPracticeExam)
     {
         $this->idUserPracticeExam = $idUserPracticeExam;
         $this->startDate = $startDate;
         $this->endDate = $endDate;
+        $this->grade = $grade;
         $this->idUser = $idUser;
         $this->idPracticeExam = $idPracticeExam;
     }
@@ -95,6 +96,15 @@ class UserPracticeExamModel{
      */
     public function getEndDate() {
         return $this->endDate;
+    }
+
+    /**
+     * Get user practice exam grade
+     * 
+     * @return integer Returns user practice exam grade
+     */
+    public function getGrade() {
+        return $this->grade;
     }
 
     /**
@@ -143,6 +153,15 @@ class UserPracticeExamModel{
     }
 
     /**
+     * Set user practice exam grade
+     * 
+     * @param integer $startDate user practice exam grade
+     */
+    public function setGrade($grade) {
+        $this->grade = $grade;
+    }
+
+    /**
      * Set user practice exam id user
      * 
      * @param integer $idUserpracticeExam user practice exam id user
@@ -170,6 +189,7 @@ class UserPracticeExamModel{
             'idUserPracticeExam' => $this->idUserPracticeExam,
             'startDate' => $this->startDate,
             'endDate' => $this->endDate,
+            'grade' => $this->grade,
             'idUser' => $this->idUser,
             'idPracticeExam' => $this->idPracticeExam
         ];
