@@ -136,10 +136,10 @@ class UserController {
             $updatedUser = $userService->updateUserById($jsonVars, $idUser);
 
             if (!$updatedUser) {
-                return (new Response(204, 'application/json', ['message' => 'Usuário não encontrado', 'success' => false]))->sendResponse();
+                return (new Response(404, 'application/json', ['message' => 'Usuário não encontrado!', 'success' => false]))->sendResponse();
             }
 
-            return ['message' => 'Usuario atualizado', 'success' => true];
+            return (new Response(204, 'application/json', ['message' => 'Usuário atualizado com sucesso!', 'success' => true]))->sendResponse();
 
         } catch (Exception $e) {
 
@@ -170,18 +170,18 @@ class UserController {
             $userNickname = $userService->getUserById($idUser)->getNickname();
 
             if (!$userNickname) {
-                return (new Response(404, 'application/json', ['message' => 'Usuário não encontrado', 'success' => false]))->sendResponse();
+                return (new Response(404, 'application/json', ['message' => 'Usuário não encontrado!', 'success' => false]))->sendResponse();
             }
 
             if (!FileHandler::handleFile($file, $userNickname)) {
-                return (new Response(204, 'application/json', ['message' => 'Arquivo não encontrado', 'success' => false]))->sendResponse();
+                return (new Response(400, 'application/json', ['message' => 'Erro ao fazer uploado do arquivo!', 'success' => false]))->sendResponse();
             }
 
             $profilePicture = FileHandler::getProfilePicturePath($file, $userNickname) . "." . FileHandler::getFileExtension($file['name'], $userNickname);
 
             (new UserService())->updateUserById(['profilePicture' => $profilePicture], $idUser);
 
-            return ['message' => 'Usuario atualizado', 'success' => true];
+            return (new Response(204, 'application/json', ['message' => 'Usuário atualizado com sucesso!', 'success' => true]))->sendResponse();
 
         } catch (Exception $e) {
 
@@ -207,10 +207,10 @@ class UserController {
             $deletedUser = $userService->deleteUserById($idUser);
 
             if (!$deletedUser) {
-                return (new Response(204, 'application/json', ['message' => 'Usuário não encontrado', 'success' => false]))->sendResponse();
+                return (new Response(204, 'application/json', ['message' => 'Usuário não encontrado!', 'success' => false]))->sendResponse();
             }
 
-            return ['message' => 'Usuário deletado com sucesso', 'success' => true];
+            return (new Response(204, 'application/json', ['message' => 'Usuário deletado com sucesso!', 'success' => true]))->sendResponse();
 
         } catch (Exception $e) {
 

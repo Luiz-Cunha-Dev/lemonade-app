@@ -15,7 +15,7 @@ class InternalApiTokenMiddleware implements IMiddleware {
 
     public function handle($request, $next) {
 
-        if (!(isset($request->getQueryParams()['ltoken']))) {
+        if (!(isset($request->getHeaders()['ltoken']))) {
             return new Response(401, 'application/json', [
                 'status' => 401,
                 'error' => 'Unauthorized',
@@ -23,7 +23,7 @@ class InternalApiTokenMiddleware implements IMiddleware {
             ]);
         }
 
-        if ($request->getQueryParams()['ltoken'] != $_ENV['INTERNAL_API_TOKEN']) {
+        if ($request->getHeaders()['ltoken'] != $_ENV['INTERNAL_API_TOKEN']) {
             return new Response(401, 'application/json', [
                 'status' => 401,
                 'error' => 'Unauthorized',

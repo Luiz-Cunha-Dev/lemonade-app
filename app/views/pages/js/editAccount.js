@@ -133,7 +133,12 @@ function editField(inputId) {
 
     const response = await axios.put(
       `http://localhost/lemonade/api/user/update/${userImage.id}?ltoken=b3050e0156cc3d05ddb7bbd9`,
-      body
+      body,
+      {
+        headers: {
+          ltoken: "b3050e0156cc3d05ddb7bbd9",
+        },
+      }
     );
 
     saveButton.disabled = false;
@@ -148,7 +153,7 @@ function editField(inputId) {
       inputField.classList.remove("is-invalid");
     }
     if (response.data.success) {
-      if(inputId === "inputPassword"){
+      if (inputId === "inputPassword") {
         inputField.value = "";
       }
       const message = alertWindow.querySelector(".toast-body");
@@ -339,6 +344,7 @@ function editPhoto() {
           {
             headers: {
               "Content-Type": "multipart/form-data",
+              ltoken: "b3050e0156cc3d05ddb7bbd9",
             },
           }
         );
@@ -682,7 +688,12 @@ async function insertCities() {
   try {
     cities = (
       await axios.get(
-        "http://localhost/lemonade/api/cities?ltoken=b3050e0156cc3d05ddb7bbd9"
+        "http://localhost/lemonade/api/cities?ltoken=b3050e0156cc3d05ddb7bbd9",
+        {
+          headers: {
+            ltoken: "b3050e0156cc3d05ddb7bbd9",
+          },
+        }
       )
     ).data;
 
@@ -701,7 +712,12 @@ async function insertStates() {
   try {
     states = (
       await axios.get(
-        "http://localhost/lemonade/api/states?ltoken=b3050e0156cc3d05ddb7bbd9"
+        "http://localhost/lemonade/api/states?ltoken=b3050e0156cc3d05ddb7bbd9",
+        {
+          headers: {
+            ltoken: "b3050e0156cc3d05ddb7bbd9",
+          },
+        }
       )
     ).data;
 
@@ -719,7 +735,12 @@ async function insertStates() {
 async function searchForExistingEmail() {
   try {
     const response = await axios.get(
-      `http://localhost/lemonade/api/user?ltoken=b3050e0156cc3d05ddb7bbd9&email=${inputEmail.value}`
+      `http://localhost/lemonade/api/user?ltoken=b3050e0156cc3d05ddb7bbd9&email=${inputEmail.value}`,
+      {
+        headers: {
+          ltoken: "b3050e0156cc3d05ddb7bbd9",
+        },
+      }
     );
 
     if (response.data.length != 0) {
@@ -754,7 +775,12 @@ async function searchForExistingEmail() {
 async function searchForExistingNickname() {
   try {
     const response = await axios.get(
-      `http://localhost/lemonade/api/user?ltoken=b3050e0156cc3d05ddb7bbd9&nickname=${inputNickname.value}`
+      `http://localhost/lemonade/api/user?ltoken=b3050e0156cc3d05ddb7bbd9&nickname=${inputNickname.value}`,
+      {
+        headers: {
+          ltoken: "b3050e0156cc3d05ddb7bbd9",
+        },
+      }
     );
 
     if (response.data.length != 0) {
@@ -792,26 +818,41 @@ async function searchForUserInfo() {
     const response = await axios.get(
       `http://localhost/lemonade/api/user?ltoken=b3050e0156cc3d05ddb7bbd9&email=${encodeURIComponent(
         email
-      )}`
+      )}`,
+      {
+        headers: {
+          ltoken: "b3050e0156cc3d05ddb7bbd9",
+        },
+      }
     );
 
     const userData = response.data[0];
 
-    console.log(userData);
+    const [userCity] = cities.filter((city) => {
+      return city.idCity == userData.idCity;
+    });
+
+    console.log(userCity);
 
     inputName.value = userData.name;
     inputLastName.value = userData.lastName;
     inputEmail.value = userData.email;
     inputNickname.value = userData.nickname;
-    inputPhone.value = `(${userData.phone.slice(0, 2)}) ${userData.phone.slice(2, 7)}-${userData.phone.slice(7)}`;
+    inputPhone.value = `(${userData.phone.slice(0, 2)}) ${userData.phone.slice(
+      2,
+      7
+    )}-${userData.phone.slice(7)}`;
     inputBirthDate.value = userData.birthDate;
-    inputCep.value = `${userData.postalCode.slice(0, 5)}-${userData.postalCode.slice(5)}`;
+    inputCep.value = `${userData.postalCode.slice(
+      0,
+      5
+    )}-${userData.postalCode.slice(5)}`;
     inputStreet.value = userData.street;
     inputNumber.value = userData.streetNumber;
     inputNeighborhood.value = userData.district;
     inputComplement.value = userData.complement;
     inputCity.value = `${userData.idCity}`;
-    // inputState.value = userData.state;
+    inputState.value = `${userCity.idState}`;
   } catch (error) {
     console.error("Error fetching user information:", error);
   }
