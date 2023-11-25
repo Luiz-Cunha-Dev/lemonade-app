@@ -77,10 +77,10 @@ class PracticeExamModel {
     /**
      * Set practice exam id
      * 
-     * @param integer $idpracticeExam practice exam id
+     * @param integer $idPracticeExam practice exam id
      */
-    public function setpracticeExamId($idpracticeExam) {
-        $this->idPracticeExam = $idpracticeExam;
+    public function setPracticeExamId($idPracticeExam) {
+        $this->idPracticeExam = $idPracticeExam;
     }
 
     /**
@@ -108,7 +108,7 @@ class PracticeExamModel {
      */
     public function toArray() {
         return [
-            'idpracticeExam' => $this->idPracticeExam,
+            'idPracticeExam' => $this->idPracticeExam,
             'name' => $this->name,
             'description' => $this->description,
         ];

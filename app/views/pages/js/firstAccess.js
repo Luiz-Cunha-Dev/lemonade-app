@@ -68,7 +68,7 @@ function validPasswordMatch() {
 async function changePassword() {
   const user = {
     password: inputNewPassword.value,
-    firstAccess: 0
+    firstAccess: 0,
   };
 
   try {
@@ -78,7 +78,15 @@ async function changePassword() {
           </div>`;
     buttonForm.disabled = true;
 
-    const response = await axios.put(`http://localhost/lemonade/api/user/update/${userImage.id}?ltoken=b3050e0156cc3d05ddb7bbd9`, user);
+    const response = await axios.put(
+      `http://localhost/lemonade/api/user/update/${userImage.id}`,
+      user,
+      {
+        headers: {
+          ltoken: "b3050e0156cc3d05ddb7bbd9",
+        },
+      }
+    );
     buttonForm.innerText = "Enviar";
 
     if (response.data.success) {

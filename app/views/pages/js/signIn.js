@@ -20,7 +20,7 @@ async function signIn() {
   const user = {
     email: inputEmail.value,
     password: inputPassword.value,
-    rememberme: inputRememberme.checked
+    rememberme: inputRememberme.checked,
   };
 
   try {
