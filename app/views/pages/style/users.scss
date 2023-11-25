@@ -2,7 +2,6 @@
 @import "wappNavbar";
 @import "wappFooter";
 
-
 body {
   &.dark-mode {
     background-color: $dark-background-color;
@@ -16,14 +15,75 @@ body {
 
   background-color: #0e141e;
   color: white;
-  margin: 0;
-  padding: 0;
+  margin: 5;
+  padding: 5;
   font-family: "Fredoka", sans-serif;
   box-sizing: border-box;
   position: relative;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+
+.userPopup {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  left: 10%;
+  top: 5%;
+  z-index: 100;
+  width: 80%;
+  height: 90%;
+  background: #151e30;
+  border-radius: 20px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+  animation-duration: 1s;
+  animation-name: fadeInDown;
+  padding-bottom: 30px;
+  overflow: hidden;
+  h1 {
+    color: #fff;
+    font-family: Fredoka;
+    font-size: 48px;
+    margin-bottom: 30px;
+    margin-top: 60px;
+  }
+  .formContainer{
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    img{
+      min-width: 100px;
+      width: 100px;
+      min-height: 100px;
+      height: 100px;
+    }
+    form{
+      width: 100%;
+    }
+  }
+  .loading-form{
+    width: 100%;
+  }
+  .forms{
+    width: 80%;
+  }
+  .row {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  .closeButton {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+  }
 }
 
 h1 {
@@ -40,7 +100,45 @@ h2 {
   text-align: center;
 }
 
-.pageTitle{
+.users {
+  margin-top: 100px;
+  margin-bottom: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+
+.user {
+  display: flex;
+  width: 346px;
+  height: 110px;
+  padding: 24px;
+  align-items: center;
+  justify-content: start;
+  gap: 24px;
+  border-radius: 12px;
+  background: #1a253c;
+  cursor: pointer;
+  &:hover {
+    background: #334467;
+  }
+  img {
+    width: 69px;
+    height: 69px;
+    border-radius: 100%;
+    object-fit: cover;
+  }
+  span {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 18px;
+  }
+}
+
+.pageTitle {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,7 +146,7 @@ h2 {
   left: 12%;
   top: 15%;
   gap: 20px;
-  img{
+  img {
     height: 60px;
   }
 }
@@ -61,30 +159,96 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   height: fit-content;
   min-height: 90vh;
   padding-top: 20vh;
 }
 
-@media (max-width: 1280px) {
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+
+@keyframes fadeInDown {
+  0% {
+    transform: translate3d(0, 100%, 0);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+@media (max-width: 1430px) {
+  .pageTitle {
+    top: 160px;
+  }
+  .users {
+    gap: 30px;
+  }
+  .userPopup {
+    left: 2.5%;
+    top: 5%;
+    width: 95%;
+    height: 90%;
+    h1 {
+      font-size: 34px;
+      margin-bottom: 20px;
+    }
+    .loading-form{
+      width: 100%;
+    }
+    .formContainer{
+      width: 100%;
+      flex-direction: column;
+      img{
+        min-width: 150px;
+        width: 150px;
+        min-height: 150px;
+        height: 150px;
+      }
+    }
+    .forms{
+      overflow-y: scroll;
+    }
+    .row {
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+    }
+    .closeButton {
+      top: 25px;
+      right: 25px;
+      width: 30px;
+      height: 30px;
+    }
+  }
 }
 
 @media (max-width: 768px) {
   h1 {
     font-size: 50px;
   }
-  
+
   h2 {
     font-size: 40px;
   }
 
-  .pageTitle{
-    img{
+  .pageTitle {
+    img {
       height: 45px;
     }
   }
 
   .section {
     padding-top: 15vh;
+  }
+
+  .searchUser {
+    width: 95%;
+  }
+
+  .users {
+    margin-top: 60px;
   }
 }

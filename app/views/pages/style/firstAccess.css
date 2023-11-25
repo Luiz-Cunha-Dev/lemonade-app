@@ -1,3 +1,19 @@
+html {
+  scrollbar-width: auto;
+  scrollbar-color: #fff;
+}
+html ::-webkit-scrollbar {
+  width: 7px;
+}
+html ::-webkit-scrollbar-track {
+  background: #000000;
+}
+html ::-webkit-scrollbar-thumb {
+  background-color: #a0a0a0;
+  border-radius: 10px;
+  border: 3px none #000;
+}
+
 #toggle-sidebar {
   height: 25px;
   position: absolute;
@@ -11,7 +27,7 @@ a {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .left {

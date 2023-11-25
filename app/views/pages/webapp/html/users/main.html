@@ -3,4 +3,302 @@
     <h2>Usuários</h2>
 </div>
 <div class="section row">
+    <div class="input-group searchUser">
+        <input placeholder="Digite o nome de um usuario" type="text" class="form-control" id="inputSeachUsers">
+        <button class="btn btn-outline-secondary" type="button" id="buttonSeachUsers">Pesquisar</button>
+    </div>
+
+    <div class="users">
+        <div class="user">
+            <img src="app/views/pages/assets/imgs/wapp/user.png" alt="foto de usuario">
+            <span>Luiz Miguel da Cunha</span>
+        </div>
+        <div class="user">
+            <img src="app/views/pages/assets/imgs/wapp/user.png" alt="foto de usuario">
+            <span>Luiz Miguel da Cunha</span>
+        </div>
+        <div class="user">
+            <img src="app/views/pages/assets/imgs/wapp/user.png" alt="foto de usuario">
+            <span>Luiz Miguel da Cunha</span>
+        </div>
+        <div class="user">
+            <img src="app/views/pages/assets/imgs/wapp/user.png" alt="foto de usuario">
+            <span>Luiz Miguel da Cunha</span>
+        </div>
+        <div class="user">
+            <img src="app/views/pages/assets/imgs/wapp/user.png" alt="foto de usuario">
+            <span>Luiz Miguel da Cunha</span>
+        </div>
+        <div class="user">
+            <img src="app/views/pages/assets/imgs/wapp/user.png" alt="foto de usuario">
+            <span>Luiz Miguel da Cunha</span>
+        </div>
+        <div class="user">
+            <img src="app/views/pages/assets/imgs/wapp/user.png" alt="foto de usuario">
+            <span>Luiz Miguel da Cunha</span>
+        </div>
+        <div class="user">
+            <img src="app/views/pages/assets/imgs/wapp/user.png" alt="foto de usuario">
+            <span>Luiz Miguel da Cunha</span>
+        </div>
+        <div class="user">
+            <img src="app/views/pages/assets/imgs/wapp/user.png" alt="foto de usuario">
+            <span>Luiz Miguel da Cunha</span>
+        </div>
+    </div>
+
+
+    <div aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item disabled">
+              <a class="page-link">Anterior</a>
+            </li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item" aria-current="page">
+              <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#">Próximo</a>
+            </li>
+          </ul>
+      </div>
+
+
+      <div class="userPopup hidden">
+        <img class="closeButton" src="./app/views/pages/assets/svgs/close-button.svg" alt="close button">
+        <h1>Dados do Usuário</h1>
+        <div class="formContainer">
+
+            <div class="row">
+                <div class="col-md-2 d-flex flex-column align-items-center">
+                    <img id="userPhoto" src="app/views/pages/assets/imgs/wapp/user.png" alt="User Photo" class="img-fluid rounded-circle">
+                    <button class="btn btn-outline-secondary mt-2" type="button" id="editPhoto">Alterar Foto</button>
+                </div>
+            </div>
+            
+            <div class="row forms">
+                <div class="loading-form col-md-10">
+                    <div class="row g-3 mb-5">
+                        <div class="col">
+                            <label for="inputName" class="form-label">Nome</label>
+                            <p class="card-text placeholder-glow">
+                                <span class="placeholder col-12 placeholder-lg"></span>
+                            </p>
+                        </div>
+                        <div class="col">
+                            <label for="inputLastName" class="form-label">Sobrenome</label>
+                            <p class="card-text placeholder-glow">
+                                <span class="placeholder col-12 placeholder-lg"></span>
+                            </p>
+                        </div>
+                        <div class="col">
+                            <label for="inputNickname" class="form-label">Apelido</label>
+                            <p class="card-text placeholder-glow">
+                                <span class="placeholder col-12 placeholder-lg"></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row g-3 mb-5">
+                        <div class="col">
+                            <label for="inputPhone" class="form-label">Telefone</label>
+                            <p class="card-text placeholder-glow">
+                                <span class="placeholder col-12 placeholder-lg"></span>
+                            </p>
+                        </div>
+                        <div class="col">
+                            <label for="inputBirthDate" class="form-label">Data de Nascimento</label>
+                            <p class="card-text placeholder-glow">
+                                <span class="placeholder col-12 placeholder-lg"></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row g-3 mb-5">
+                        <div class="col">
+                            <label for="inputEmail" class="form-label">Email</label>
+                            <p class="card-text placeholder-glow">
+                                <span class="placeholder col-12 placeholder-lg"></span>
+                            </p>
+                        </div>
+                        <div class="col">
+                            <label for="inputPassword" class="form-label">Nova Senha</label>
+                            <p class="card-text placeholder-glow">
+                                <span class="placeholder col-12 placeholder-lg"></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row g-3 mb-5">
+                        <div class="col">
+                            <label for="inputCEP" class="form-label">CEP</label>
+                            <p class="card-text placeholder-glow">
+                                <span class="placeholder col-12 placeholder-lg"></span>
+                            </p>
+                        </div>
+                        <div class="col">
+                            <label for="inputStreet" class="form-label">Rua</label>
+                            <p class="card-text placeholder-glow">
+                                <span class="placeholder col-12 placeholder-lg"></span>
+                            </p>
+                        </div>
+                        <div class="col">
+                            <label for="inputNumber" class="form-label">Número</label>
+                            <p class="card-text placeholder-glow">
+                                <span class="placeholder col-12 placeholder-lg"></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row g-3 mb-5">
+                        <div class="col">
+                            <label for="inputNeighborhood" class="form-label">Bairro</label>
+                            <p class="card-text placeholder-glow">
+                                <span class="placeholder col-12 placeholder-lg"></span>
+                            </p>
+                        </div>
+                        <div class="col">
+                            <label for="inputComplement" class="form-label">Complemento</label>
+                            <p class="card-text placeholder-glow">
+                                <span class="placeholder col-12 placeholder-lg"></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row g-3 mb-5">
+                        <div class="col">
+                            <label for="inputCity" class="form-label">Cidade</label>
+                            <p class="card-text placeholder-glow">
+                                <span class="placeholder col-12 placeholder-lg"></span>
+                            </p>
+                        </div>
+                        <div class="col">
+                            <label for="inputState" class="form-label">Estado</label>
+                            <p class="card-text placeholder-glow">
+                                <span class="placeholder col-12 placeholder-lg"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            
+                <form id="{{email}}" class="col-md-10 hidden">
+                    <div class="row g-3 mb-4">
+                      <div class="col">
+                        <label for="inputName" class="form-label">Nome</label>
+                        <div class="input-group">
+                          <input disabled name="firstName" type="text" class="form-control" placeholder="Digite seu nome" id="inputName" aria-label="Nome">
+                          <button class="btn btn-outline-secondary" type="button" id="editName">Editar</button>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <label for="inputLastName" class="form-label">Sobrenome</label>
+                        <div class="input-group">
+                          <input disabled type="text" class="form-control" placeholder="Digite seu sobrenome" id="inputLastName" aria-label="Sobrenome">
+                          <button class="btn btn-outline-secondary" type="button" id="editLastName">Editar</button>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <label for="inputNickname" class="form-label">Apelido</label>
+                        <div class="input-group">
+                          <input disabled type="text" class="form-control" placeholder="Digite seu sobrenome" id="inputNickname" aria-label="Sobrenome">
+                          <button class="btn btn-outline-secondary" type="button" id="editNickname">Editar</button>
+                        </div>
+                      </div>
+                    </div>
+                  
+                    <div class="row g-3 mb-4">
+                        <div class="col">
+                            <label for="inputPhone" class="form-label">Telefone</label>
+                            <div class="input-group">
+                                <input disabled placeholder="Digite seu número" type="tel" class="form-control" id="inputPhone">
+                                <button class="btn btn-outline-secondary" type="button" id="editPhone">Editar</button>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="inputBirthDate" class="form-label">Data de Nascimento</label>
+                            <div class="input-group">
+                                <input disabled type="date" class="form-control" id="inputBirthDate">
+                                <button class="btn btn-outline-secondary" type="button" id="editBirthDate">Editar</button>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="row g-3 mb-4">
+                        <div class="col">
+                            <label for="inputEmail" class="form-label">Email</label>
+                            <div class="input-group">
+                              <input disabled placeholder="Digite seu email" type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
+                              <button class="btn btn-outline-secondary" type="button" id="editEmail">Editar</button>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="inputPassword" class="form-label">Nova Senha</label>
+                            <div class="input-group">
+                              <input disabled placeholder="Digite sua nova senha" type="password" class="form-control" id="inputPassword">
+                              <button class="btn btn-outline-secondary" type="button" id="editPassword">Editar</button>
+                            </div>
+                        </div>
+                    </div>
+                      
+                    <div class="row g-3 mb-4">
+                    <div class="col">
+                        <label for="inputCEP" class="form-label">CEP</label>
+                        <div class="input-group">
+                            <input disabled name="cep" placeholder="Digite seu CEP" type="text" maxlength="9" class="form-control" id="inputCEP">
+                            <button class="btn btn-outline-secondary" type="button" id="editCEP">Editar</button>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="inputStreet" class="form-label">Rua</label>
+                        <div class="input-group">
+                        <input disabled type="text" class="form-control" placeholder="Digite sua rua" id="inputStreet" aria-label="Rua">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="inputNumber" class="form-label">Número</label>
+                        <div class="input-group">
+                        <input disabled type="text" class="form-control" placeholder="Digite seu número" id="inputNumber" aria-label="Número">
+                        <button class="btn btn-outline-secondary" type="button" id="editNumber">Editar</button>
+                        </div>
+                    </div>
+                    </div>
+                      
+                    <div class="row g-3 mb-4">
+                        <div class="col">
+                            <label for="inputNeighborhood" class="form-label">Bairro</label>
+                            <div class="input-group">
+                                <input disabled placeholder="Digite seu bairro" type="text" class="form-control" id="inputNeighborhood">
+                            </div>
+                        </div>
+                        <div class="col">
+                                <label for="inputComplement" class="form-label">Complemento</label>
+                                <div class="input-group">
+                                    <input disabled placeholder="Digite seu complemento" type="text" class="form-control" id="inputComplement">
+                                    <button class="btn btn-outline-secondary" type="button" id="editComplement">Editar</button>
+                                </div>
+                        </div>
+                    </div>
+                            
+                    <div class="row g-3 mb-4">
+                        <div class="col">
+                            <label for="inputCity" class="form-label">Cidade</label>
+                            <div class="input-group">
+                                <select disabled name="city" class="form-select" id="inputCity">
+                                    <option value="0">-</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="inputState" class="form-label">Estado</label>
+                            <div class="input-group">
+                                <select disabled name="state" class="form-select" id="inputState">
+                                    <option value="0">-</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+            
+                  </form>
+            </div>
+
+        </div>
+
+
+      </div>
 </div>
