@@ -118,6 +118,20 @@ class UserService extends AbstractService {
     }
 
     /**
+     * Count all users
+     * @return array number of users
+     */
+    public function countAllUsers() {
+        
+        $user = $this->userDao->countAllUsers();
+
+        $this->userDao->closeConnection();
+
+        return $user;
+    
+    }
+
+    /**
      * Get all users with pagination
      * @param integer $offset offset
      * @param integer $limit limit
