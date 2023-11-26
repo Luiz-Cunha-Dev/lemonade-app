@@ -2,6 +2,7 @@ import "./darkMode";
 import "./sidebar";
 import axios from "axios";
 
+let page = 1;
 const popup = document.querySelector(".userPopup");
 const closeButton = document.querySelector(".userPopup .closeButton");
 
@@ -812,16 +813,81 @@ async function searchForExistingNickname() {
   }
 }
 
+async function getPagination() {
+    try {
+        const response = await axios.get(
+            `http://localhost/lemonade/api/users?count=true`,
+            {
+                headers: {
+                    ltoken: "b3050e0156cc3d05ddb7bbd9",
+                },
+            }
+        );
+        const userCount = response.data.userCount;
+        const itemsPerPage = 9;
+        const numberOfPages = Math.ceil(Number(userCount) / itemsPerPage);
+
+        console.log(response.data);
+        console.log(numberOfPages);
+
+        const pagination = document.querySelector("ul.pagination");
+        pagination.innerHTML = '';
+
+        const previousPageItem = createPaginationItem('Anterior', page - 1, page === 1);
+        pagination.append(previousPageItem);
+
+        for (let i = 1; i <= numberOfPages; i++) {
+            const pageItem = createPaginationItem(i, page);
+            pagination.append(pageItem);
+        }
+
+        const nextPageItem = createPaginationItem('Próximo', page + 1, page === numberOfPages);
+        pagination.append(nextPageItem);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+function createPaginationItem(label, pageNumber, isDisabled) {
+    const li = document.createElement('li');
+    li.classList.add('page-item');
+    if (isDisabled) li.classList.add('disabled');
+    
+    if (pageNumber === page) {
+        li.classList.add('active');
+    }
+
+    const link = document.createElement('a');
+    link.classList.add('page-link');
+    link.href = '#';
+    link.textContent = label;
+
+    if (!isDisabled) {
+        link.addEventListener('click', () => getPagination(pageNumber));
+    }
+
+    li.appendChild(link);
+
+    return li;
+}
+
+
+
+
+
+
 async function searchForUsers(page) {
     try {
       const response = await axios.get(
-        `http://localhost/lemonade/api/users?offset=${(page*9)-9}&limit=9`,
+        `http://localhost/lemonade/api/users?offset=${(page*9)-9}&limit=9&count=admin`,
         {
           headers: {
             ltoken: "b3050e0156cc3d05ddb7bbd9",
           },
         }
       );
+      console.log(response.data); 
+      await getPagination();
 
       const loadingUsers = document.querySelector(".loading-users");
       if(loadingUsers){
@@ -874,5 +940,5 @@ function showForm() {
 
 await insertCities();
 await insertStates();
-await searchForUsers(1);
+await searchForUsers(page);
 showForm();
