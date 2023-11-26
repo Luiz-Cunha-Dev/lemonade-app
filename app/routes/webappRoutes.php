@@ -9,6 +9,7 @@ use app\controllers\webapp\LogOutController;
 use app\controllers\webapp\RankingController;
 use app\controllers\webapp\TrainController;
 use app\controllers\webapp\UsersController;
+use app\controllers\webapp\UserPracticeExamController;
 use app\routes\http\Response;
 
 use app\daos\QuestionAlternativeDAO;
@@ -104,6 +105,12 @@ $router->get('/wapp/logout', [
         'RequireSessionLogin'
     ],
     fn($request) => new Response(200, 'text/html', LogOutController::getLogOut($request))
+]);
+
+// User Practice exam routes
+
+$router->post('/wapp/userPracticeExam/start', [
+    fn($request) => new Response(200, 'application/json', UserPracticeExamController::starUserPracticeExam($request))
 ]);
 
 

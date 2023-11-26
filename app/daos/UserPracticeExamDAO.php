@@ -20,31 +20,33 @@ class UserPracticeExamDAO extends AbstractDAO
      * 
      * @param integer id user 
      * 
+     * @param integer id practice exam
+     * 
      * If it is null, returns an empty array
      * 
      * @return UserPracticeExamModel user practice exam
      */
-    public function getUserPracticeExamsByIdUser($idUser)
+    public function getUserPracticeExamsByIdUserAndIdUserPracticeExam($idUser, $idUserPracticeExam)
     {
 
         try {
 
-            $usersPracticeExam = parent::getElementsByParameter('userPracticeExam', 'idUser', $idUser);
+            $usersPracticeExam = parent::getElementByParameters('userPracticeExam', [
+                'idUser' => $idUser,
+                'idPracticeExam' => $idUserPracticeExam
+            ]);
 
             if (empty($usersPracticeExam)) {
                 return array();
             }
 
-            for($i = 0; $i <= count($usersPracticeExam); $i ++){
-
-            }
             $usersPracticeExam = new UserPracticeExamModel(
-                $usersPracticeExam[$i]['idUserPracticeExam'], 
-                $usersPracticeExam[$i]['startDate'], 
-                $usersPracticeExam[$i]['endDate'], 
-                $usersPracticeExam[$i]['grade'], 
-                $usersPracticeExam[$i]['idUser'], 
-                $usersPracticeExam[$i]['idPracticeExam']
+                $usersPracticeExam['idUserPracticeExam'],
+                $usersPracticeExam['startDate'],
+                $usersPracticeExam['endDate'],
+                $usersPracticeExam['grade'],
+                $usersPracticeExam['idUser'],
+                $usersPracticeExam['idPracticeExam']
             );
 
             return $usersPracticeExam;
