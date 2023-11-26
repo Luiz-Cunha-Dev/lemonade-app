@@ -28,7 +28,11 @@ class UserController {
 
         try {
 
-            if (!isset($queryParams['offset']) && !isset($queryParams['limit'])) {
+            if (isset($queryParams['count']) && $queryParams['count'] == 'true') {
+
+                $users = $userService->countAllUsers();
+
+            } elseif (!isset($queryParams['offset']) && !isset($queryParams['limit'])) {
             
                 $users = $userService->getAllUsers();
 
@@ -55,6 +59,13 @@ class UserController {
 
             if (!$users) {
                 return (new Response(204, 'application/json', []))->sendResponse();
+            }
+
+            if (isset($queryParams['admin']) && $queryParams['admin'] == 'false') {
+                $users = array_filter($users, function($user) {
+                    return $user['idUserType'] == 1;
+                });
+            
             }
 
             return $users;

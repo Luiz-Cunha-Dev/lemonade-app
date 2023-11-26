@@ -44,6 +44,25 @@ class UserDao extends AbstractDAO {
     }
 
     /**
+     * Count all users
+     * 
+     * If it is null, returns 0
+     * 
+     * @return array number of users
+     */
+    public function countAllUsers() {
+
+        try {
+            $users = parent::countAllElements('user');
+
+            return $users;
+        } catch(Exception $e ) {
+            throw $e;
+        }
+
+    }
+
+    /**
      * Get all users with pagination
      * 
      * If it is null, returns an empty array
