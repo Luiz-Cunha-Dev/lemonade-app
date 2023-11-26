@@ -28,9 +28,22 @@ class UserController {
 
         try {
 
-            if (isset($queryParams['count']) && $queryParams['count'] == 'true') {
+            if (isset($queryParams['count'])) {
 
-                $users = $userService->countAllUsers();
+                if ($queryParams['count'] == 'all') {
+                    return $userService->countAllUsers();
+                } elseif ($queryParams['count'] == 'common') {
+                    return $userService->countAllUsers('common');
+                } elseif ($queryParams['count'] == 'admin') {
+                    return $userService->countAllUsers('admin');
+                } else {
+                    return (new Response(400, 'application/json', [
+                        'status' => 400,
+                        'error' => 'Parâmetro inválido',
+                        'message' => 'O parâmetro count deve ser "all", "common" ou "admin"'
+                    ]))->sendResponse();
+                
+                }
 
             } elseif (!isset($queryParams['offset']) && !isset($queryParams['limit'])) {
             

@@ -119,11 +119,15 @@ class UserService extends AbstractService {
 
     /**
      * Count all users
+     * 
+     * If it is null, returns 0
+     * 
+     * @param string $countType type of users to count [all(default), common, admin]
      * @return array number of users
      */
-    public function countAllUsers() {
+    public function countAllUsers($countType='all') {
         
-        $user = $this->userDao->countAllUsers();
+        $user = $this->userDao->countAllUsers($countType);
 
         $this->userDao->closeConnection();
 

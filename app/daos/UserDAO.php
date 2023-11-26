@@ -48,13 +48,23 @@ class UserDao extends AbstractDAO {
      * 
      * If it is null, returns 0
      * 
+     * @param string $countType type of users to count [all, common, admin]
      * @return array number of users
      */
-    public function countAllUsers() {
+    public function countAllUsers($countType) {
 
         try {
-            $users = parent::countAllElements('user');
-
+            
+            if ($countType == 'all') {
+                $users = parent::countAllElements('user');
+            } elseif ($countType == 'common') {
+                $users = parent::countAllElementsByParameter('user', 'idUserType', 1);
+            } elseif ($countType == 'admin') {
+                $users = parent::countAllElementsByParameter('user', 'idUserType', 2);
+            } else {
+                throw new Exception('Invalid count type');
+            }
+            
             return $users;
         } catch(Exception $e ) {
             throw $e;
