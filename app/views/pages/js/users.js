@@ -4,16 +4,9 @@ import axios from "axios";
 
 const popup = document.querySelector(".userPopup");
 const closeButton = document.querySelector(".userPopup .closeButton");
-let users = document.querySelectorAll(".user");
 
 closeButton.addEventListener("click", () => {
     popup.classList.add("hidden");
-});
-
-users.forEach((user) => {
-    user.addEventListener("click", () => {
-        popup.classList.remove("hidden");
-    });
 });
 
 const editName = document.getElementById("editName");
@@ -146,8 +139,13 @@ function editField(inputId) {
     const body = getBodyByInputType(inputId, inputField.value);
 
     const response = await axios.put(
-      `http://localhost/lemonade/api/user/update/${userImage.id}?ltoken=b3050e0156cc3d05ddb7bbd9`,
-      body
+      `http://localhost/lemonade/api/user/update/${popup.id}`,
+      body,
+      {
+        headers: {
+          ltoken: "b3050e0156cc3d05ddb7bbd9",
+        },
+      }
     );
 
     saveButton.disabled = false;
@@ -348,23 +346,17 @@ function editPhoto() {
         formData.append("file", selectedFile);
 
         const response = await axios.post(
-          `http://localhost/lemonade/api/user/uploadProfilePicture/${userImage.id}?ltoken=b3050e0156cc3d05ddb7bbd9`,
+          `http://localhost/lemonade/api/user/uploadProfilePicture/${popup.id}`,
           formData,
           {
             headers: {
+              ltoken: "b3050e0156cc3d05ddb7bbd9",
               "Content-Type": "multipart/form-data",
             },
-          }
+          },
         );
 
         if (response.data.success) {
-          let reader = new FileReader();
-          reader.onload = function (e) {
-            userPhoto.src = e.target.result;
-            userImage.src = e.target.result;
-          };
-          reader.readAsDataURL(selectedFile);
-
           const message = alertWindow.querySelector(".toast-body");
           alertWindow.classList.remove("text-bg-danger", "text-bg-success");
           alertWindow.classList.add("show", "text-bg-success");
@@ -696,7 +688,12 @@ async function insertCities() {
   try {
     cities = (
       await axios.get(
-        "http://localhost/lemonade/api/cities?ltoken=b3050e0156cc3d05ddb7bbd9"
+        "http://localhost/lemonade/api/cities",
+        {
+          headers: {
+            ltoken: "b3050e0156cc3d05ddb7bbd9",
+          },
+        }
       )
     ).data;
 
@@ -715,7 +712,12 @@ async function insertStates() {
   try {
     states = (
       await axios.get(
-        "http://localhost/lemonade/api/states?ltoken=b3050e0156cc3d05ddb7bbd9"
+        "http://localhost/lemonade/api/states",
+        {
+          headers: {
+            ltoken: "b3050e0156cc3d05ddb7bbd9",
+          },
+        }
       )
     ).data;
 
@@ -733,7 +735,12 @@ async function insertStates() {
 async function searchForExistingEmail() {
   try {
     const response = await axios.get(
-      `http://localhost/lemonade/api/user?ltoken=b3050e0156cc3d05ddb7bbd9&email=${inputEmail.value}`
+      `http://localhost/lemonade/api/user?email=${inputEmail.value}`,
+      {
+        headers: {
+          ltoken: "b3050e0156cc3d05ddb7bbd9",
+        },
+      }
     );
 
     if (response.data.length != 0) {
@@ -768,7 +775,12 @@ async function searchForExistingEmail() {
 async function searchForExistingNickname() {
   try {
     const response = await axios.get(
-      `http://localhost/lemonade/api/user?ltoken=b3050e0156cc3d05ddb7bbd9&nickname=${inputNickname.value}`
+      `http://localhost/lemonade/api/user?nickname=${inputNickname.value}`,
+      {
+        headers: {
+          ltoken: "b3050e0156cc3d05ddb7bbd9",
+        },
+      }
     );
 
     if (response.data.length != 0) {
@@ -800,36 +812,58 @@ async function searchForExistingNickname() {
   }
 }
 
-async function searchForUserInfo() {
-  try {
-    const email = document.querySelector("form").id;
-    const response = await axios.get(
-      `http://localhost/lemonade/api/user?ltoken=b3050e0156cc3d05ddb7bbd9&email=${encodeURIComponent(
-        email
-      )}`
-    );
+async function searchForUsers(page) {
+    try {
+      const response = await axios.get(
+        `http://localhost/lemonade/api/users?offset=${(page*9)-9}&limit=9`,
+        {
+          headers: {
+            ltoken: "b3050e0156cc3d05ddb7bbd9",
+          },
+        }
+      );
 
-    const userData = response.data[0];
+      const loadingUsers = document.querySelector(".loading-users");
+      if(loadingUsers){
+        loadingUsers.classList.add("hidden")
+      }
 
-    console.log(userData);
-
-    inputName.value = userData.name;
-    inputLastName.value = userData.lastName;
-    inputEmail.value = userData.email;
-    inputNickname.value = userData.nickname;
-    inputPhone.value = `(${userData.phone.slice(0, 2)}) ${userData.phone.slice(2, 7)}-${userData.phone.slice(7)}`;
-    inputBirthDate.value = userData.birthDate;
-    inputCep.value = `${userData.postalCode.slice(0, 5)}-${userData.postalCode.slice(5)}`;
-    inputStreet.value = userData.street;
-    inputNumber.value = userData.streetNumber;
-    inputNeighborhood.value = userData.district;
-    inputComplement.value = userData.complement;
-    inputCity.value = `${userData.idCity}`;
-    // inputState.value = userData.state;
-  } catch (error) {
-    console.error("Error fetching user information:", error);
+      response.data.forEach(user =>{
+        const userCard = document.createElement("div");
+        userCard.classList.add("user");
+        userCard.innerHTML = `
+            <img src="${user.profilePicture || "./app/views/pages/assets/imgs/wapp/user.png"}" alt="foto de usuario">
+            <span>${user.name} ${user.lastName}</span>
+        `
+        userCard.addEventListener("click", () => {
+            const [userCity] = cities.filter((city) => {
+                return city.idCity == user.idCity;
+              });
+            userPhoto.src = user.profilePicture || "./app/views/pages/assets/imgs/wapp/user.png"
+            inputName.value = user.name;
+            inputLastName.value = user.lastName;
+            inputEmail.value = user.email;
+            inputNickname.value = user.nickname;
+            inputPhone.value = `(${user.phone.slice(0, 2)}) ${user.phone.slice(2, 7)}-${user.phone.slice(7)}`;
+            inputBirthDate.value = user.birthDate;
+            inputCep.value = `${user.postalCode.slice(0, 5)}-${user.postalCode.slice(5)}`;
+            inputStreet.value = user.street;
+            inputNumber.value = user.streetNumber;
+            inputNeighborhood.value = user.district;
+            inputComplement.value = user.complement;
+            inputCity.value = `${user.idCity}`;
+            inputState.value = `${userCity.idState}`;
+            popup.id = user.idUser;
+            popup.classList.remove("hidden");
+        });
+        const usersDiv = document.querySelector(".users");
+        usersDiv.append(userCard);
+      })
+  
+    } catch (error) {
+      console.log(error);
+    }
   }
-}
 
 function showForm() {
   const formLoading = document.querySelector(".loading-form");
@@ -840,5 +874,5 @@ function showForm() {
 
 await insertCities();
 await insertStates();
-await searchForUserInfo();
+await searchForUsers(1);
 showForm();

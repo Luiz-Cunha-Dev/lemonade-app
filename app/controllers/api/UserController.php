@@ -139,7 +139,7 @@ class UserController {
                 return (new Response(404, 'application/json', ['message' => 'Usuário não encontrado!', 'success' => false]))->sendResponse();
             }
 
-            return (new Response(204, 'application/json', ['message' => 'Usuário atualizado com sucesso!', 'success' => true]))->sendResponse();
+            return (new Response(200, 'application/json', ['message' => 'Usuário atualizado com sucesso!', 'success' => true]))->sendResponse();
 
         } catch (Exception $e) {
 
@@ -181,7 +181,7 @@ class UserController {
 
             (new UserService())->updateUserById(['profilePicture' => $profilePicture], $idUser);
 
-            return (new Response(204, 'application/json', ['message' => 'Usuário atualizado com sucesso!', 'success' => true]))->sendResponse();
+            return (new Response(200, 'application/json', ['message' => 'Usuário atualizado com sucesso!', 'success' => true]))->sendResponse();
 
         } catch (Exception $e) {
 
@@ -207,10 +207,10 @@ class UserController {
             $deletedUser = $userService->deleteUserById($idUser);
 
             if (!$deletedUser) {
-                return (new Response(204, 'application/json', ['message' => 'Usuário não encontrado!', 'success' => false]))->sendResponse();
+                return (new Response(400, 'application/json', ['message' => 'Usuário não encontrado!', 'success' => false]))->sendResponse();
             }
 
-            return (new Response(204, 'application/json', ['message' => 'Usuário deletado com sucesso!', 'success' => true]))->sendResponse();
+            return (new Response(200, 'application/json', ['message' => 'Usuário deletado com sucesso!', 'success' => true]))->sendResponse();
 
         } catch (Exception $e) {
 

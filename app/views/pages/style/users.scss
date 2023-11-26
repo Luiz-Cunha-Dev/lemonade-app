@@ -108,6 +108,13 @@ h2 {
   justify-content: space-around;
   flex-wrap: wrap;
   gap: 50px;
+  .loading-users{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 50px;
+  }
 }
 
 .user {
@@ -121,6 +128,13 @@ h2 {
   border-radius: 12px;
   background: #1a253c;
   cursor: pointer;
+  span {
+    display: inline-block;
+    max-width: 195px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }  
   &:hover {
     background: #334467;
   }

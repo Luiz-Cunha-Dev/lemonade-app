@@ -1,6 +1,9 @@
 html {
   scrollbar-width: auto;
   scrollbar-color: #fff;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100vw;
 }
 html ::-webkit-scrollbar {
   width: 7px;
@@ -295,6 +298,13 @@ h2 {
   flex-wrap: wrap;
   gap: 50px;
 }
+.users .loading-users {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 50px;
+}
 
 .user {
   display: flex;
@@ -307,6 +317,13 @@ h2 {
   border-radius: 12px;
   background: #1a253c;
   cursor: pointer;
+}
+.user span {
+  display: inline-block;
+  max-width: 195px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .user:hover {
   background: #334467;
