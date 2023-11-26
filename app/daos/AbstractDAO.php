@@ -187,6 +187,39 @@ abstract class AbstractDAO {
         }
     }
 
+    /**
+     * Count all elements
+     * 
+     * If it is null, returns 0
+     * 
+     * @param string $tableName table name
+     * @param string $parameterToCompare parameter to compare
+     * @param string $parameterToSearch parameter to search
+     * 
+     * @return array number of elements
+     */
+    final protected function countAllElementsByParameter($tableName, $parameterToCompare, $parameterToSearch) {
+
+        try {
+
+            $sql = 'SELECT COUNT(1) AS ' . '"' . $tableName . 'Count"' . ' FROM ' . $tableName . ' WHERE ' . $parameterToCompare . ' = ' . $parameterToSearch;
+
+            $result = $this->conn->query($sql);
+
+            if ($result) {
+                $elements = $result->fetch_all(MYSQLI_ASSOC);
+            } else {
+                $elements = array();
+            }
+
+            $result->free();
+
+            return $elements[0];
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
 
     /**
      * Get element by parameter
