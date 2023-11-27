@@ -59,7 +59,15 @@ class UserController {
 
                 // Pagination
 
-                $users = $userService->getAllUsersWithPagination($queryParams['offset'] ?? null, $queryParams['limit'] ?? null);
+                if (isset($queryParams['commonUser']) && $queryParams['commonUser'] == 'true') {
+
+                    $users = $userService->getAllCommonUsersWithPagination($queryParams['offset'] ?? null, $queryParams['limit'] ?? null);
+
+                } else {
+
+                    $users = $userService->getAllUsersWithPagination($queryParams['offset'] ?? null, $queryParams['limit'] ?? null);
+
+                }
 
                 $users = array_map(function($user) {
                     $user = $user->toArray();
@@ -72,13 +80,6 @@ class UserController {
 
             if (!$users) {
                 return (new Response(204, 'application/json', []))->sendResponse();
-            }
-
-            if (isset($queryParams['admin']) && $queryParams['admin'] == 'false') {
-                $users = array_filter($users, function($user) {
-                    return $user['idUserType'] == 1;
-                });
-                $users = array_values($users);
             }
 
             return $users;
