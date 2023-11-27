@@ -9,7 +9,6 @@ use app\daos\QuestionAlternativeDAO;
 use app\daos\QuestionTextDAO;
 use app\daos\PracticeExamQuestionDao;
 use app\models\UserPracticeExamModel;
-use app\models\QuestionTextModel;
 use Exception;
 
 define("NUMBER_OF_ALTERNATIVES", 5);
@@ -80,6 +79,7 @@ class UserPracticeExamService extends AbstractService
             $this->userPracticeExamDAO->closeConnection();
 
             return array('idUserPracticeExam' => $idUserPracticeExam->getIdUserpracticeExam());
+
         } catch (mysqli_sql_exception $e) {
             $this->userPracticeExamDAO->rollbackTransaction();
             throw $e;
@@ -149,5 +149,22 @@ class UserPracticeExamService extends AbstractService
         }
     }
 
-    
+    public function insertUserPracticeExamQuestionAlternative($userPracticeExamQuestionAlternativeData) {
+
+        try {
+
+            $this->userPracticeExamQuestionAlternativeDAO->beginTransaction();
+
+            $insertUserQuestionAlternative = $this->userPracticeExamQuestionAlternativeDAO->insertUserPracticeExamQuestionAlternative($userPracticeExamQuestionAlternativeData);
+
+            $this->userPracticeExamQuestionAlternativeDAO->commitTransaction();
+
+            $this->userPracticeExamQuestionAlternativeDAO->closeConnection();
+
+            return $insertUserQuestionAlternative;
+        } catch (mysqli_sql_exception $e) {
+            $this->userPracticeExamDAO->rollbackTransaction();
+            throw $e;
+        }
+    }
 }

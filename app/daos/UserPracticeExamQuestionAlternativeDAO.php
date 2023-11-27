@@ -38,10 +38,10 @@ class UserPracticeExamQuestionAlternativeDAO extends AbstractDAO{
         }
     }
 
-    public function insertUserPracticeExamQuestionAlternatives($userQuestionAlternatives){
+    public function insertUserPracticeExamQuestionAlternative($userQuestionAlternativeData){
 
         try {
-            return parent::insertElement('userPracticeExamQuestionAlternative', $userQuestionAlternatives);
+            return parent::insertElement('userPracticeExamQuestionAlternative', $userQuestionAlternativeData);
         } catch (Exception $e) {
             throw $e;
         }

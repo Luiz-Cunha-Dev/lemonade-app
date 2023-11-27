@@ -117,5 +117,9 @@ $router->get('/wapp/userPracticeExam/questions',[
     fn($request) => new Response(200, 'application/json', UserPracticeExamController::getUserPracticeExamQuestions($request))
 ]);
 
+$router->post('/wapp/userPracticeExam/questions/insert', [
+    fn($request) => new Response(200, 'application/json', UserPracticeExamController::insertUserPracticeExamQuestionAlternative($request))
+]);
+
 
 

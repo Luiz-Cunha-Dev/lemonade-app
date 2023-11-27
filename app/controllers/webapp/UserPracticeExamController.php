@@ -30,4 +30,16 @@ class UserPracticeExamController{
         return $userPracticeExamQuestions;
 
     }
+
+    public static function insertUserPracticeExamQuestionAlternative($request){
+
+        $jsonVars = $request->getJsonVars();
+
+        $userPracticeExamService = new UserPracticeExamService;
+
+        $insertUserPracticeExamQuestionAlternative = $userPracticeExamService->insertUserPracticeExamQuestionAlternative($jsonVars);
+
+        return $insertUserPracticeExamQuestionAlternative;
+         
+    }
 }
