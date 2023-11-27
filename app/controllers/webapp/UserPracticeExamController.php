@@ -11,12 +11,23 @@ class UserPracticeExamController{
 
         $jsonVars = $request->getJsonVars();
 
-        //print_r($jsonVars);
-
         $userPracticeExamService = new UserPracticeExamService;
 
         $idUserPracticeExam = $userPracticeExamService->startUserPracticeExam($jsonVars);
 
         return $idUserPracticeExam;
+    }
+
+    public static function getUserPracticeExamQuestions($request){
+
+        $jsonVars = $request->getJsonVars();
+        
+        $userPracticeExamService = new UserPracticeExamService;
+
+        $userPracticeExamQuestions = $userPracticeExamService->getUserPracticeExamQuestions($jsonVars['idPracticeExam']);
+
+        
+        return $userPracticeExamQuestions;
+
     }
 }

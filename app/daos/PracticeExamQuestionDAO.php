@@ -45,8 +45,49 @@ class PracticeExamQuestionDao extends AbstractDAO
             $practiceExamQuestion = new PracticeExamQuestionModel($practiceExamQuestion['idPracticeExam'], $practiceExamQuestion['idQuestion']);
 
             return $practiceExamQuestion;
-        } catch (\Exception $e) {
-            throw new Exception();
+        } catch (Exception $e) {
+            throw $e;
         }
     }
+
+    /**
+     * Get practice exam questions by id practice exam
+     * 
+     * @param integer id practice exam
+     * 
+     * If it is null, returns an empty array
+     * 
+     * @return array practiceExamQuestionModel practice exam questions
+     */
+    public function getPracticeExamQuestionsByIdpracticeExam($idPracticeExam){
+
+        try {
+            $practiceExamQuestions = parent::getElementsByParameter(
+                'practiceExamQuestion', 
+                'idPracticeExam', 
+                $idPracticeExam
+            );
+
+            if(empty($practiceExamQuestions)){
+                
+                return array();
+            }
+
+            $practiceExamQuestions = array_map(function($peq){
+
+                return new PracticeExamQuestionModel(
+                    $peq['idPracticeExam'], 
+                    $peq['idQuestion']
+                );
+            }, $practiceExamQuestions);
+
+            return $practiceExamQuestions;
+
+        } catch (Exception $e) {
+            throw $e;
+        }
+
+    }
+
+    
 }
