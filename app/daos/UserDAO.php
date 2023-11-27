@@ -79,12 +79,13 @@ class UserDao extends AbstractDAO {
      * 
      * @param integer $offset offset
      * @param integer $limit limit
+     * @param array $where where clause
      * @return array users
      */
-    public function getAllUsersWithPagination($offset, $limit) {
+    public function getAllUsersWithPagination($offset, $limit, $where=null) {
 
         try {
-            $users = parent::getAllElementsWithPagination('user', $offset, $limit);
+            $users = parent::getAllElementsWithPagination('user', $offset, $limit, $where);
 
             if (empty($users)) {
                 return array();
