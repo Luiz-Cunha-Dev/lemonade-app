@@ -1516,6 +1516,7 @@ async function getPagination() {
         },
       }
     );
+
     const userCount = response.data.userCount;
     const itemsPerPage = 9;
     const numberOfPages = Math.ceil(Number(userCount) / itemsPerPage);
@@ -1598,9 +1599,9 @@ async function searchForUsers(page) {
     }
 
     const response = await axios.get(
-      `http://localhost/lemonade/api/users?admin=false&offset=${
-        page * 9 - 9
-      }&limit=9`,
+      `http://localhost/lemonade/api/users?commonUser=true&offset=${
+        page * 10 - 10
+      }&limit=10`,
       {
         headers: {
           ltoken: "b3050e0156cc3d05ddb7bbd9",
