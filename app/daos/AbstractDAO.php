@@ -131,16 +131,43 @@ abstract class AbstractDAO {
      * @param string $tableName table name
      * @param integer $offset offset
      * @param integer $limit limit
+     * @param array $where where array ['parameter' => 'value']
      * @return array elements
      */
-    final protected function getAllElementsWithPagination($tableName, $offset, $limit) {
+    final protected function getAllElementsWithPagination($tableName, $offset, $limit, $where) {
 
         try {
 
-            $sql = 'WITH tableaux AS (SELECT *, ROW_NUMBER() OVER () AS rowNumber FROM ' . $tableName . ') SELECT * FROM tableaux WHERE rowNumber >= ' . $offset .
+            $sql = 'WITH tableaux AS (SELECT *, ROW_NUMBER() OVER () AS rowNumber FROM ' . $tableName . ') SELECT * FROM tableaux WHERE rowNumber > ' . $offset .
                 ' AND rowNumber <= ' . $offset . ' + ' . $limit;
 
-            $result = $this->conn->query($sql);
+            if ($where) {
+
+                $parametersKeys = array_keys($where);
+
+                $parametersValues = array_values($where);
+    
+                $sql .= ' AND ' . implode(' = ? AND ', ($parametersKeys)) . ' = ?';
+    
+                $parametersTypes = array_map(function ($parameterType) {
+                    return self::getParameterType($parameterType);
+                }, $parametersValues);
+
+                $stmt = $this->conn->prepare($sql);
+ 
+                $stmt->bind_param(implode('', $parametersTypes), ...$parametersValues);
+
+                $stmt->execute();
+
+                $result = $stmt->get_result();
+
+                $stmt->close();
+
+            } else {
+
+                $result = $this->conn->query($sql);
+
+            }
 
             if ($result) {
                 $elements = $result->fetch_all(MYSQLI_ASSOC);
