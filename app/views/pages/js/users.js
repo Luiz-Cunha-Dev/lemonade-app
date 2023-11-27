@@ -1214,11 +1214,15 @@ async function insertCities() {
     ).data;
 
     for (const city of cities) {
-      const option = document.createElement("option");
-      option.value = city.idCity;
-      option.text = city.name;
-      inputCity.appendChild(option);
-      inputCityNewUser.appendChild(option);
+        const optionForCity = document.createElement("option");
+        optionForCity.value = city.idCity;
+        optionForCity.text = city.name;
+        inputCity.append(optionForCity);
+        
+        const optionForNewUser = document.createElement("option");
+        optionForNewUser.value = city.idCity;
+        optionForNewUser.text = city.name;
+        inputCityNewUser.append(optionForNewUser);
     }
   } catch (error) {
     console.log(error);
@@ -1236,11 +1240,15 @@ async function insertStates() {
     ).data;
 
     for (const state of states) {
-      const option = document.createElement("option");
-      option.value = state.idState;
-      option.text = state.acronym;
-      inputState.appendChild(option);
-      inputStateNewUser.appendChild(option);
+        const optionForState = document.createElement("option");
+        optionForState.value = state.idState;
+        optionForState.text = state.acronym;
+        inputState.append(optionForState);
+        
+        const optionForNewUserState = document.createElement("option");
+        optionForNewUserState.value = state.idState;
+        optionForNewUserState.text = state.acronym;
+        inputStateNewUser.append(optionForNewUserState);
     }
   } catch (error) {
     console.log(error);
