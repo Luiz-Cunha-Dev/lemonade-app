@@ -21,7 +21,7 @@ use Exception;
      * 
      * If it is null, returns an empty array
      * 
-     * @return QuestionAlternative alternatives
+     * @return array QuestionAlternative alternatives
      */
     public function getQuestionAlternativesByIdQuestion($idQuestion) {
 
