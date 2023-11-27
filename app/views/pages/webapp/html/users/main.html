@@ -3,9 +3,12 @@
     <h2>Usuários</h2>
 </div>
 <div class="section row">
-    <div class="input-group searchUser">
-        <input placeholder="Digite o nome de um usuario" type="text" class="form-control" id="inputSeachUsers">
-        <button class="btn btn-outline-secondary" type="button" id="buttonSeachUsers">Pesquisar</button>
+    <div class="searchUser">
+        <div class="input-group">
+            <input placeholder="Digite o nome de um usuario" type="text" class="form-control" id="inputSeachUsers">
+            <button class="btn btn-outline-secondary" type="button" id="buttonSeachUsers">Pesquisar</button>
+        </div>
+        <img id="createUserButton" src="./app/views/pages/assets/svgs/plus-circle.svg" alt="Create New User Button">
     </div>
 
     <div class="users">
@@ -51,19 +54,7 @@
 
 
     <div aria-label="Page navigation">
-        <ul class="pagination">
-            <!-- <li class="page-item disabled">
-              <a class="page-link">Anterior</a>
-            </li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item" aria-current="page">
-              <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#">Próximo</a>
-            </li> -->
-          </ul>
+        <ul class="pagination"></ul>
       </div>
 
 
@@ -72,10 +63,16 @@
         <h1>Dados do Usuário</h1>
         <div class="formContainer">
 
-            <div class="row">
+            <div class="row flex-column">
                 <div class="col-md-2 d-flex flex-column align-items-center">
                     <img id="userPhoto" src="app/views/pages/assets/imgs/wapp/user.png" alt="User Photo" class="img-fluid rounded-circle">
                     <button class="btn btn-outline-secondary mt-2" type="button" id="editPhoto">Alterar Foto</button>
+                </div>
+
+                <div class="col-md-2 d-flex flex-column align-items-center mt-3">
+                    <button class="btn btn-outline-danger mt-2" type="button" id="deleteUser" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal">
+                        Excluir Usuario
+                    </button>
                 </div>
             </div>
             
@@ -179,7 +176,7 @@
                     </div>
                 </div>
             
-                <form id="{{email}}" class="col-md-10 hidden">
+                <form class="col-md-10 hidden">
                     <div class="row g-3 mb-4">
                       <div class="col">
                         <label for="inputName" class="form-label">Nome</label>
@@ -300,7 +297,154 @@
             </div>
 
         </div>
+      </div>
 
+      <div class="createUserPopup hidden">
 
+        <img class="closeButton" src="./app/views/pages/assets/svgs/close-button.svg" alt="close button">
+
+        <h1>Criar Novo Usuário</h1>
+
+        <div class="formContainer">
+
+            <div class="row forms">
+                <form class="col-md-10">
+                    <div class="row g-3 mb-4">
+                      <div class="col">
+                        <label for="inputName" class="form-label">Nome</label>
+                        <div class="input-group">
+                          <input name="firstName" type="text" class="form-control" placeholder="Digite seu nome" id="inputNameNewUser" aria-label="Nome">
+                        </div>
+                      </div>
+                      <div class="col">
+                        <label for="inputLastName" class="form-label">Sobrenome</label>
+                        <div class="input-group">
+                          <input type="text" class="form-control" placeholder="Digite seu sobrenome" id="inputLastNameNewUser" aria-label="Sobrenome">
+                        </div>
+                      </div>
+                      <div class="col">
+                        <label for="inputNickname" class="form-label">Apelido</label>
+                        <div class="input-group">
+                          <input type="text" class="form-control" placeholder="Digite seu sobrenome" id="inputNicknameNewUser" aria-label="Sobrenome">
+                        </div>
+                      </div>
+                    </div>
+                  
+                    <div class="row g-3 mb-4">
+                        <div class="col">
+                            <label for="inputPhone" class="form-label">Telefone</label>
+                            <div class="input-group">
+                                <input placeholder="Digite seu número" type="tel" class="form-control" id="inputPhoneNewUser">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="inputBirthDate" class="form-label">Data de Nascimento</label>
+                            <div class="input-group">
+                                <input type="date" class="form-control" id="inputBirthDateNewUser">
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="row g-3 mb-4">
+                        <div class="col">
+                            <label for="inputEmail" class="form-label">Email</label>
+                            <div class="input-group">
+                              <input placeholder="Digite seu email" type="email" class="form-control" id="inputEmailNewUser" aria-describedby="emailHelp">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="inputPassword" class="form-label">Senha</label>
+                            <div class="input-group">
+                              <input placeholder="Digite sua nova senha" type="password" class="form-control" id="inputPasswordNewUser">
+                            </div>
+                        </div>
+                    </div>
+                      
+                    <div class="row g-3 mb-4">
+                    <div class="col">
+                        <label for="inputCEP" class="form-label">CEP</label>
+                        <div class="input-group">
+                            <input name="cep" placeholder="Digite seu CEP" type="text" maxlength="9" class="form-control" id="inputCEPNewUser">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="inputStreet" class="form-label">Rua</label>
+                        <div class="input-group">
+                        <input disabled type="text" class="form-control" placeholder="Digite sua rua" id="inputStreetNewUser" aria-label="Rua">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="inputNumber" class="form-label">Número</label>
+                        <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Digite seu número" id="inputNumberNewUser" aria-label="Número">
+                        </div>
+                    </div>
+                    </div>
+                      
+                    <div class="row g-3 mb-4">
+                        <div class="col">
+                            <label for="inputNeighborhood" class="form-label">Bairro</label>
+                            <div class="input-group">
+                                <input disabled placeholder="Digite seu bairro" type="text" class="form-control" id="inputNeighborhoodNewUser">
+                            </div>
+                        </div>
+                        <div class="col">
+                                <label for="inputComplement" class="form-label">Complemento</label>
+                                <div class="input-group">
+                                    <input placeholder="Digite seu complemento" type="text" class="form-control" id="inputComplementNewUser">
+                                </div>
+                        </div>
+                    </div>
+                            
+                    <div class="row g-3 mb-4">
+                        <div class="col">
+                            <label for="inputCity" class="form-label">Cidade</label>
+                            <div class="input-group">
+                                <select disabled name="city" class="form-select" id="inputCityNewUser">
+                                    <option value="0">-</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="inputState" class="form-label">Estado</label>
+                            <div class="input-group">
+                                <select disabled name="state" class="form-select" id="inputStateNewUser">
+                                    <option value="0">-</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+            
+                  </form>
+            </div>
+
+            <button id="signupButton" class="btn btn-success">Criar Usuário</button>
+
+        </div>
+      </div>
+
+      <div class="modal fade" id="deleteConfirmationModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteConfirmationModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div style="background-color: #212529;" class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5 text-light" id="deleteConfirmationLabel">Confirmação de Exclusão</h1>
+              <button id="closeModalButton" type="button" class="btn-close text-light" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-light">
+              Tem certeza de que deseja excluir este usuário? Esta ação não pode ser desfeita.
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button id="deleteConfirmationButton" type="button" class="btn btn-danger">Excluir</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="toast align-items-center border-0 position-fixed p-3 alert" role="alert" aria-live="assertive" aria-atomic="true" id="alertWindow">
+        <div class="d-flex">
+          <div class="toast-body"></div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
       </div>
 </div>

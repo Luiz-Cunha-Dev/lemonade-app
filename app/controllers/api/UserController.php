@@ -78,7 +78,7 @@ class UserController {
                 $users = array_filter($users, function($user) {
                     return $user['idUserType'] == 1;
                 });
-            
+                $users = array_values($users);
             }
 
             return $users;
