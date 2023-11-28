@@ -14,7 +14,7 @@ class UserPracticeExamQuestionAlternativeDAO extends AbstractDAO{
      * 
      * If it is null, returns an empty array
      * 
-     * @return UserPracticeExamQuestionAlternative user practice exam
+     * @return array UserPracticeExamQuestionAlternative user practice exam
      */
     public function getUserPracticeExamQuestionAlternatives ($idUserPracticeExam){
 
@@ -25,12 +25,10 @@ class UserPracticeExamQuestionAlternativeDAO extends AbstractDAO{
                 return array();
             }
 
-            for ($i = 0; $i <= count($userQuestionAlternatives); $i++){
-
-                $userQuestionAlternatives = new UserPracticeExamQuestionAlternativeModel(
-                    $userQuestionAlternatives[$i]['idUserPracticeExam'],
-                    $userQuestionAlternatives[$i]['idQuestionAlternative']);
-            }
+            $userQuestionAlternatives = array_map(function($qa){
+                return new UserPracticeExamQuestionAlternativeModel($qa['idUserPracticeExam'], $qa['idQuestionAlternative']);
+            }, $userQuestionAlternatives);
+            
 
             return $userQuestionAlternatives;
         } catch (Exception $e) {
@@ -41,7 +39,7 @@ class UserPracticeExamQuestionAlternativeDAO extends AbstractDAO{
     public function insertUserPracticeExamQuestionAlternative($userQuestionAlternativeData){
 
         try {
-            return parent::insertElement('userPracticeExamQuestionAlternative', $userQuestionAlternativeData);
+            return parent::insertElement('userPracticeExamQuestionAlternative', $userQuestionAlternativeData->toArray());
         } catch (Exception $e) {
             throw $e;
         }
