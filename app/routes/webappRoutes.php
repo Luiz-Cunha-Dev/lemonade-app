@@ -109,17 +109,14 @@ $router->get('/wapp/logout', [
 
 // User Practice exam routes
 
-$router->post('/wapp/userPracticeExam/start', [
-    fn($request) => new Response(200, 'application/json', UserPracticeExamController::starUserPracticeExam($request))
+$router->post('/wapp/userPracticeExam/finish', [
+    fn($request) => new Response(200, 'application/json', UserPracticeExamController::finishUserPracticeExam($request))
 ]);
 
 $router->get('/wapp/userPracticeExam/questions',[
     fn($request) => new Response(200, 'application/json', UserPracticeExamController::getUserPracticeExamQuestions($request))
 ]);
 
-$router->post('/wapp/userPracticeExam/questions/insert', [
-    fn($request) => new Response(200, 'application/json', UserPracticeExamController::insertUserPracticeExamQuestionAlternative($request))
-]);
 
 
 

@@ -116,7 +116,7 @@ class UserPracticeExamDAO extends AbstractDAO
     {
 
         try {
-            return parent::updateElementByParameter('userPracticeExam', 'idUserPracticeExam', $idUserPracticeExam, $userPracticeExamData);
+            return parent::updateElementByParameter('userPracticeExam', 'idUserPracticeExam', $idUserPracticeExam, $userPracticeExamData->toArray());
         } catch (Exception $e) {
             throw $e;
         }

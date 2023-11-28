@@ -3,19 +3,23 @@
 namespace app\controllers\webapp;
 
 use app\services\UserPracticeExamService;
+use app\routes\http\Response;
 
 class UserPracticeExamController{
 
 
-    public static function starUserPracticeExam($request){
+    public static function finishUserPracticeExam($request){
 
         $jsonVars = $request->getJsonVars();
 
         $userPracticeExamService = new UserPracticeExamService;
 
-        $idUserPracticeExam = $userPracticeExamService->startUserPracticeExam($jsonVars);
+        $insertUserPracticeExam = $userPracticeExamService->insertUserPracticeExam($jsonVars);
 
-        return $idUserPracticeExam;
+        if(!$insertUserPracticeExam){
+            return (new Response(400, 'application/json', ['message' => 'Não foi possível concluir a prova', 'success' => false]))->sendResponse();
+        }
+        return (new Response(201, 'application/json', ['message' => 'Prova concluida!', 'success' => true]))->sendResponse();
     }
 
     public static function getUserPracticeExamQuestions($request){
@@ -29,17 +33,5 @@ class UserPracticeExamController{
         
         return $userPracticeExamQuestions;
 
-    }
-
-    public static function insertUserPracticeExamQuestionAlternative($request){
-
-        $jsonVars = $request->getJsonVars();
-
-        $userPracticeExamService = new UserPracticeExamService;
-
-        $insertUserPracticeExamQuestionAlternative = $userPracticeExamService->insertUserPracticeExamQuestionAlternative($jsonVars);
-
-        return $insertUserPracticeExamQuestionAlternative;
-         
     }
 }

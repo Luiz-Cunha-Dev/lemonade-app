@@ -8,6 +8,8 @@ use app\daos\QuestionDAO;
 use app\daos\QuestionAlternativeDAO;
 use app\daos\QuestionTextDAO;
 use app\daos\PracticeExamQuestionDao;
+
+use app\models\UserPracticeExamQuestionAlternativeModel;
 use app\models\UserPracticeExamModel;
 use Exception;
 
@@ -42,48 +44,6 @@ class UserPracticeExamService extends AbstractService
         $this->questionAlternativeDAO = new QuestionAlternativeDAO($this->conn->getConnection());
         $this->questionTextDAO = new QuestionTextDAO($this->conn->getConnection());
         $this->practiceExamQuestionDAO = new PracticeExamQuestionDAO($this->conn->getConnection());
-    }
-
-    public function startUserPracticeExam($userPracticeExamStartData)
-    {
-
-        $userPracticeExam = array_merge(
-            ['idUserPracticeExam' => null],
-            ['startDate' => $userPracticeExamStartData['startDate']],
-            ['endDate' => null],
-            ['grade' => null],
-            ['idUser' => $userPracticeExamStartData['idUser']],
-            ['idPracticeExam' => $userPracticeExamStartData['idPracticeExam']]
-        );
-
-        $userPracticeExam = new UserPracticeExamModel(...array_values($userPracticeExam));
-
-        try {
-
-            $this->userPracticeExamDAO->beginTransaction();
-
-            $insertUserPracticeExam = $this->userPracticeExamDAO->insertUserPracticeExam($userPracticeExam);
-
-            if (!$insertUserPracticeExam) {
-                return false;
-            }
-
-            $this->userPracticeExamDAO->commitTransaction();
-
-            $idUser = $userPracticeExamStartData['idUser'];
-
-            $idPracticeExam = $userPracticeExamStartData['idPracticeExam'];
-
-            $idUserPracticeExam = $this->userPracticeExamDAO->getUserPracticeExamsByIdUserAndIdUserPracticeExam($idUser, $idPracticeExam);
-
-            $this->userPracticeExamDAO->closeConnection();
-
-            return array('idUserPracticeExam' => $idUserPracticeExam->getIdUserpracticeExam());
-
-        } catch (mysqli_sql_exception $e) {
-            $this->userPracticeExamDAO->rollbackTransaction();
-            throw $e;
-        }
     }
 
     public function getUserPracticeExamQuestions($idPracticeExam)
@@ -149,22 +109,94 @@ class UserPracticeExamService extends AbstractService
         }
     }
 
-    public function insertUserPracticeExamQuestionAlternative($userPracticeExamQuestionAlternativeData) {
+    public function insertUserPracticeExam($userPracticeExamData)
+    {
+        //Build array with user practice exam data and convert in to model
+        $userPracticeExam = array_merge(
+            ['idUserPracticeExam' => null],
+            ['startDate' => $userPracticeExamData['startDate']],
+            ['endDate' => $userPracticeExamData['endDate']],
+            ['grade' => null],
+            ['idUser' => $userPracticeExamData['idUser']],
+            ['idPracticeExam' => $userPracticeExamData['idPracticeExam']]
+        );
+
+        $userPracticeExam = new UserPracticeExamModel(...array_values($userPracticeExam));
 
         try {
 
+            //insert user practice exam on database
+            $this->userPracticeExamDAO->beginTransaction();
+
+            $insertUserPracticeExam = $this->userPracticeExamDAO->insertUserPracticeExam($userPracticeExam);
+
+            if (!$insertUserPracticeExam) {
+                return false;
+            }
+
+            $this->userPracticeExamDAO->commitTransaction();
+
+            //get id user practice exam
+            $idUserPracticeExam = $this->userPracticeExamDAO->getUserPracticeExamsByIdUserAndIdUserPracticeExam(
+                $userPracticeExamData['idUser'], 
+                $userPracticeExamData['idPracticeExam']
+            )->getIdUserPracticeExam();
+            
             $this->userPracticeExamQuestionAlternativeDAO->beginTransaction();
 
-            $insertUserQuestionAlternative = $this->userPracticeExamQuestionAlternativeDAO->insertUserPracticeExamQuestionAlternative($userPracticeExamQuestionAlternativeData);
+            //Create user practice exam question alternative model and insert in to database
+            for($i = 0; $i < count($userPracticeExamData['alternatives']); $i++){
 
+                $userPracticeExamQuestionAlternative = new UserPracticeExamQuestionAlternativeModel($idUserPracticeExam, $userPracticeExamData['alternatives'][$i]);
+                $insert = $this->userPracticeExamQuestionAlternativeDAO->insertUserPracticeExamQuestionAlternative($userPracticeExamQuestionAlternative);
+                if(!$insert){
+                    return $insert;
+                }
+            }
+            
             $this->userPracticeExamQuestionAlternativeDAO->commitTransaction();
 
+            //Calculate grade
+            $grade = 0;
+
+            foreach ($userPracticeExamData['alternatives'] as $ic){
+                $ic = $this->questionAlternativeDAO->getQuestionAlternativeByIdQuestionAlternative($ic)->getIsCorrect();
+                if($ic){
+                    $grade += 1;
+                }
+            }
+
+            //Insert grade in to user practice exam table on db
+            $userPracticeExamWithGrade = array_merge(
+                ['idUserPracticeExam' => null],
+                ['startDate' => $userPracticeExamData['startDate']],
+                ['endDate' => $userPracticeExamData['endDate']],
+                ['grade' => $grade],
+                ['idUser' => $userPracticeExamData['idUser']],
+                ['idPracticeExam' => $userPracticeExamData['idPracticeExam']]
+            );
+    
+            $userPracticeExamWithGrade = new UserPracticeExamModel(...array_values($userPracticeExamWithGrade));
+
+            $this->userPracticeExamDAO->beginTransaction();
+
+            $updateGrade = $this->userPracticeExamDAO->updateUserPracticeExamById($userPracticeExamWithGrade, $idUserPracticeExam);
+
+            if(!$updateGrade){
+                return false;
+            }
+
+            $this->userPracticeExamDAO->commitTransaction();
+
+            $this->userPracticeExamDAO->closeConnection();
             $this->userPracticeExamQuestionAlternativeDAO->closeConnection();
 
-            return $insertUserQuestionAlternative;
+            return true;
+
         } catch (mysqli_sql_exception $e) {
             $this->userPracticeExamDAO->rollbackTransaction();
             throw $e;
         }
     }
+
 }
