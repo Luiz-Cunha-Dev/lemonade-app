@@ -8,7 +8,7 @@ use Exception;
 class UserPracticeExamQuestionAlternativeDAO extends AbstractDAO{
 
     /**
-     * Get user question alternatives by id user practice exam and id question alternative  
+     * Get user practice exam question alternatives by id user practice exam and id question alternative  
      * 
      * @param integer id user practice exam
      * 
@@ -36,6 +36,13 @@ class UserPracticeExamQuestionAlternativeDAO extends AbstractDAO{
         }
     }
 
+    /**
+     * Insert user practice exam question alternatives  
+     * 
+     * @param array user practice exam question alternative data
+     * 
+     * @return boolean
+     */
     public function insertUserPracticeExamQuestionAlternative($userQuestionAlternativeData){
 
         try {

@@ -25,16 +25,49 @@ use mysqli_sql_exception;
  * @package app\services
  */
 class UserPracticeExamService extends AbstractService
-{
+{   
+    /**
+     * User practice exam DAO
+     * @var UserPracticeExamDAO $userPracticeExamDAO
+     */
     private $userPracticeExamDAO;
+
+    /**
+     * User practice exam question alternative DAO
+     * @var UserPracticeExamQuestionAlternativeDAO $userPracticeExamQuestionAlternativeDAO
+     */
     private $userPracticeExamQuestionAlternativeDAO;
+
+    /**
+     * Question DAO
+     * @var questionDAO $questionDAO
+     */
     private $questionDAO;
+
+    /**
+     * Question alternative DAO
+     * @var questionAlternativeDAO $questionAlternativeDAO
+     */
     private $questionAlternativeDAO;
+
+    /**
+     * Question text DAO
+     * @var questionTextDAO $questionTextDAO
+     */
     private $questionTextDAO;
+
+    /**
+     * Practice Exam question DAO
+     * @var practoceExamQuestionDAO $practoceExamQuestionDAO
+     */
     private $practiceExamQuestionDAO;
 
 
-
+    /**
+     * Class constructor
+     * 
+     * Return a new UserPracticeExam instance
+     */
     public function __construct()
     {
         parent::__construct();
@@ -46,6 +79,10 @@ class UserPracticeExamService extends AbstractService
         $this->practiceExamQuestionDAO = new PracticeExamQuestionDAO($this->conn->getConnection());
     }
 
+    /**
+     * Get and handle user practice exam questions
+     * @param integer idPracticeExam 
+     */
     public function getUserPracticeExamQuestions($idPracticeExam)
     {
         try {
@@ -109,7 +146,11 @@ class UserPracticeExamService extends AbstractService
         }
     }
 
-    public function insertUserPracticeExam($userPracticeExamData)
+    /**
+     * Insert user practice exam and user practice exam questions alternatives in to database 
+     * @param array $userPracticeExam
+     */
+    public function finishUserPracticeExam($userPracticeExamData)
     {
         //Build array with user practice exam data and convert in to model
         $userPracticeExam = array_merge(
