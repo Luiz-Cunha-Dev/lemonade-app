@@ -32,7 +32,12 @@ $router->get('/api/users', [
     fn ($request) => new Response(200, 'application/json', UserController::getAllUsers($request))
 ]);
 
-// User api routes
+$router->post('/api/users', [
+    'middlewares' => [
+        'InternalApiToken'
+    ],
+    fn ($request) => new Response(200, 'application/json', UserController::createUser($request))
+]);
 
 $router->get('/api/user', [
     'middlewares' => [

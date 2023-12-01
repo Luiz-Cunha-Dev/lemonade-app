@@ -18,7 +18,7 @@ class UserController {
     /**
      * Get user all users
      * @param Request $request
-     * @return array $users
+     * @return Response $response
      */
     public static function getAllUsers($request) {
 
@@ -97,7 +97,7 @@ class UserController {
     /**
      * Get user by query parameter
      * @param Request $request
-     * @return array $user
+     * @return Response $response
      */
     public static function getUserByParameter($request) {
 
@@ -146,10 +146,42 @@ class UserController {
     }
 
     /**
+     * Create an user (common or admin)
+     * @param Request $request
+     * @return Response $response
+     */
+    public static function createUser($request){
+        
+        $jsonVars = $request->getJsonVars();
+
+        try {
+
+            $userService = new UserService();
+            $createdUser = $userService->createUser($jsonVars);
+
+            if (!$createdUser) {
+                return (new Response(400, 'application/json', ['message' => 'Erro ao cadastrar usuário!', 'success' => false]))->sendResponse();
+            }
+
+            return (new Response(201, 'application/json', ['message' => 'Usuário criado com sucesso!', 'success' => true]))->sendResponse();
+
+        } catch (Exception $e) {
+
+            return (new Response(500, 'application/json', [
+                'status' => 500,
+                'error' => 'Erro interno do servidor',
+                'message' => $e->getMessage()
+            ]))->sendResponse();
+
+        }
+
+    }
+
+    /**
      * Update user by id
      * @param Request $request
      * @param integer $idUser
-     * @return boolean
+     * @return Response $response
      */
     public static function updateUserById($request, $idUser){
         
@@ -182,7 +214,7 @@ class UserController {
      * Update user profile picture by id
      * @param Request $request
      * @param integer $idUser
-     * @return boolean
+     * @return Response $response
      */
     public static function updateUserProfilePictureById($request, $idUser){
         
@@ -223,7 +255,7 @@ class UserController {
     /**
      * Delete user by id
      * @param integer $idUser
-     * @return boolean
+     * @return Response $response
      */
     public static function deleteUserById($idUser){
 

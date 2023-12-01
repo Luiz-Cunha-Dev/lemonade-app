@@ -34,6 +34,7 @@ class UserService extends AbstractService {
     /**
      * Handles user register
      * @param array $userData
+     * @return UserModel $user
      */
     public function register($userData) {
 
@@ -236,6 +237,68 @@ class UserService extends AbstractService {
 
         return $user;
     
+    }
+
+    /**
+     * Handles user creation (common or admin)
+     * @param array $userData
+     * @return UserModel $user
+     */
+    public function createUser($userData) {
+
+        // Password encrypt
+
+        $userData['password'] = password_hash($userData['password'], PASSWORD_DEFAULT);
+
+        // Setting profilePicutre to default
+
+        $temp = array_slice($userData, 0, 7);
+
+        if ($userData['idUserType'] == 1) {
+
+            $temp['profilePicture'] = '../lemonade/images/userDefaultProfilePicture.jpeg';
+
+        } else {
+
+            $temp['profilePicture'] = '../lemonade/images/adminDefaultProfilePicture.jpeg';
+
+        }
+
+        $userData = array_merge($temp, array_slice($userData, 7));
+
+        $temp = array_slice($userData, 0, 13);
+
+        // Setting firstAccess to null
+
+        $temp['firstAccess'] = null;
+
+        $userData = array_merge($temp, array_slice($userData, 13));
+
+        // Setting idUser to null
+
+        $userData = array_merge(['idUser' => null], $userData);
+
+        try {
+
+            $userBeforeInsert = new UserModel(...array_values($userData));
+
+            $this->userDao->beginTransaction();
+
+            $this->userDao->insertUser($userBeforeInsert);
+
+            $this->userDao->commitTransaction();
+
+            $userAfterInsert = $this->userDao->getUserByEmail($userData['email']);
+
+            $this->userDao->closeConnection();
+
+            return $userAfterInsert;
+
+        } catch (mysqli_sql_exception $e) {
+            $this->userDao->rollbackTransaction();
+            throw $e;
+        }
+        
     }
 
     /**
