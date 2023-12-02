@@ -339,15 +339,16 @@ function editPhoto() {
         formData.append("file", selectedFile);
 
         const response = await axios.post(
-          `http://localhost/lemonade/api/user/uploadProfilePicture/${userImage.id}?ltoken=b3050e0156cc3d05ddb7bbd9`,
+          `http://localhost/lemonade/api/user/uploadProfilePicture/${userImage.id}`,
           formData,
           {
             headers: {
               "Content-Type": "multipart/form-data",
-              ltoken: "b3050e0156cc3d05ddb7bbd9",
+              ltoken: "b3050e0156cc3d05ddb7bbd9"
             },
           }
         );
+
 
         if (response.data.success) {
           let reader = new FileReader();
@@ -831,8 +832,6 @@ async function searchForUserInfo() {
     const [userCity] = cities.filter((city) => {
       return city.idCity == userData.idCity;
     });
-
-    console.log(userCity);
 
     inputName.value = userData.name;
     inputLastName.value = userData.lastName;

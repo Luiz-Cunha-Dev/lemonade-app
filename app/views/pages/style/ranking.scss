@@ -2,16 +2,33 @@
 @import "wappNavbar";
 @import "wappFooter";
 
-
 body {
   &.dark-mode {
     background-color: $dark-background-color;
     color: $dark-text-color;
+    .rankingTable {
+      tbody {
+        background-color: $dark-background-color;
+        td {
+          border: solid 1px white;
+          color: $dark-text-color;
+        }
+      }
+    }
   }
 
   &.light-mode {
     background-color: $light-background-color;
     color: $light-text-color;
+    .rankingTable {
+      tbody {
+        background-color: $light-background-color;
+        td {
+          border: solid 1px black;
+          color: $light-text-color;
+        }
+      }
+    }
   }
 
   background-color: #0e141e;
@@ -24,6 +41,46 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+
+.rankingTable {
+  margin-bottom: 60px;
+  thead {
+    background: #1a253c;
+    height: 61px;
+    tr {
+      color: white;
+      text-align: center;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      :nth-child(1) {
+        border-radius: 15px 0px 0px 0px;
+      }
+      :nth-child(4) {
+        border-radius: 0px 15px 0px 0px;
+      }
+    }
+  }
+  tbody {
+    td {
+      box-sizing: border-box;
+      text-align: center;
+      color: #000;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      width: 174px;
+      height: 61px;
+    }
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
 }
 
 h1 {
@@ -40,7 +97,7 @@ h2 {
   text-align: center;
 }
 
-.pageTitle{
+.pageTitle {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,7 +105,7 @@ h2 {
   left: 12%;
   top: 15%;
   gap: 20px;
-  img{
+  img {
     height: 60px;
   }
 }
@@ -73,18 +130,43 @@ h2 {
   h1 {
     font-size: 50px;
   }
-  
+
   h2 {
     font-size: 40px;
   }
 
-  .pageTitle{
-    img{
+  .pageTitle {
+    img {
       height: 45px;
     }
   }
 
   .section {
-    padding-top: 15vh;
+    padding-top: 20vh;
+  }
+
+  .rankingTable {
+    width: 95%;
+    thead {
+      tr {
+        font-size: 15px;
+        font-weight: 500; 
+        :nth-child(1) {
+          border-radius: 10px 0px 0px 0px;
+        }
+        :nth-child(4) {
+          border-radius: 0px 10px 0px 0px;
+        }
+      }
+    }
+    tbody {
+      td {
+        font-size: 15px;
+        font-weight: 500;
+        width: 174px;
+        height: 61px;
+        padding: 3px;
+      }
+    }
   }
 }

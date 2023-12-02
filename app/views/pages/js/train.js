@@ -1,3 +1,3 @@
 import "./darkMode";
-import "./sidebar"
+import "./sidebar";
 

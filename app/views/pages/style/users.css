@@ -1,3 +1,22 @@
+html {
+  scrollbar-width: auto;
+  scrollbar-color: #fff;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100vw;
+}
+html ::-webkit-scrollbar {
+  width: 7px;
+}
+html ::-webkit-scrollbar-track {
+  background: #000000;
+}
+html ::-webkit-scrollbar-thumb {
+  background-color: #a0a0a0;
+  border-radius: 10px;
+  border: 3px none #000;
+}
+
 #toggle-sidebar {
   height: 25px;
   position: absolute;
@@ -11,7 +30,7 @@ a {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .left {
@@ -177,8 +196,8 @@ a {
 body {
   background-color: #0e141e;
   color: white;
-  margin: 0;
-  padding: 0;
+  margin: 5;
+  padding: 5;
   font-family: "Fredoka", sans-serif;
   box-sizing: border-box;
   position: relative;
@@ -195,6 +214,158 @@ body.light-mode {
   color: #333;
 }
 
+.searchUser {
+  display: flex;
+  gap: 20px;
+}
+.searchUser img {
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+
+.alert {
+  position: absolute;
+  top: 20%;
+  right: 1%;
+  z-index: 101;
+}
+
+.page-link {
+  cursor: pointer !important;
+}
+
+.userPopup {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  left: 10%;
+  top: 5%;
+  z-index: 100;
+  width: 80%;
+  height: 90%;
+  background: #151e30;
+  border-radius: 20px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+  animation-duration: 1s;
+  animation-name: fadeInDown;
+  padding-bottom: 130px;
+  overflow: hidden;
+}
+.userPopup #editPhoto {
+  min-width: 114px;
+}
+.userPopup #deleteUser {
+  min-width: 140px;
+}
+.userPopup h1 {
+  color: #fff;
+  font-family: Fredoka;
+  font-size: 48px;
+  margin-bottom: 30px;
+  margin-top: 60px;
+}
+.userPopup .formContainer {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+}
+.userPopup .formContainer img {
+  min-width: 100px;
+  width: 100px;
+  min-height: 100px;
+  height: 100px;
+}
+.userPopup .formContainer form {
+  width: 100%;
+}
+.userPopup .loading-form {
+  width: 100%;
+}
+.userPopup .forms {
+  width: 80%;
+}
+.userPopup .row {
+  max-width: 100%;
+  max-height: 100%;
+}
+.userPopup .closeButton {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+
+.createUserPopup {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  left: 10%;
+  top: 5%;
+  z-index: 100;
+  width: 80%;
+  height: 90%;
+  background: #151e30;
+  border-radius: 20px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+  animation-duration: 1s;
+  animation-name: fadeInDown;
+  padding-bottom: 30px;
+  padding-top: 50px;
+  overflow: hidden;
+}
+.createUserPopup h1 {
+  color: #fff;
+  font-size: 48px;
+}
+.createUserPopup .formContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+}
+.createUserPopup .formContainer img {
+  min-width: 100px;
+  width: 100px;
+  min-height: 100px;
+  height: 100px;
+}
+.createUserPopup .formContainer form {
+  width: 100%;
+}
+.createUserPopup .formContainer button {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+.createUserPopup .forms {
+  width: 80%;
+}
+.createUserPopup .row {
+  max-width: 100%;
+  max-height: 100%;
+}
+.createUserPopup .closeButton {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+
 h1 {
   font-size: 70px;
   font-style: normal;
@@ -207,6 +378,59 @@ h2 {
   font-style: normal;
   font-weight: 600;
   text-align: center;
+}
+
+.users {
+  margin-top: 100px;
+  margin-bottom: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+.users .loading-users {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+
+.user {
+  display: flex;
+  width: 346px;
+  height: 110px;
+  padding: 24px;
+  align-items: center;
+  justify-content: start;
+  gap: 24px;
+  border-radius: 12px;
+  background: #1a253c;
+  cursor: pointer;
+}
+.user span {
+  display: inline-block;
+  max-width: 195px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.user:hover {
+  background: #334467;
+}
+.user img {
+  width: 69px;
+  height: 69px;
+  border-radius: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.user span {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 18px;
 }
 
 .pageTitle {
@@ -230,12 +454,106 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   height: -moz-fit-content;
   height: fit-content;
   min-height: 90vh;
   padding-top: 20vh;
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+
+@keyframes fadeInDown {
+  0% {
+    transform: translate3d(0, 100%, 0);
+  }
+  100% {
+    transform: none;
+  }
+}
+@media (max-width: 1430px) {
+  .pageTitle {
+    top: 160px;
+  }
+  .users {
+    gap: 30px;
+  }
+  .userPopup {
+    left: 2.5%;
+    top: 5%;
+    width: 95%;
+    height: 90%;
+  }
+  .userPopup h1 {
+    font-size: 34px;
+    margin-bottom: 20px;
+  }
+  .userPopup .formContainer {
+    width: 100%;
+    flex-direction: column;
+  }
+  .userPopup .formContainer img {
+    min-width: 150px;
+    width: 150px;
+    min-height: 150px;
+    height: 150px;
+  }
+  .userPopup .forms {
+    overflow-y: scroll;
+  }
+  .userPopup .row {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
+  .userPopup .closeButton {
+    top: 25px;
+    right: 25px;
+    width: 30px;
+    height: 30px;
+  }
+  .createUserPopup {
+    left: 2.5%;
+    top: 5%;
+    width: 95%;
+    height: 90%;
+    padding-bottom: 50px;
+  }
+  .createUserPopup h1 {
+    height: 100px;
+    font-size: 34px;
+    margin: 0;
+    margin-bottom: 20px;
+    margin-top: 60px;
+  }
+  .createUserPopup .formContainer {
+    width: 100%;
+    flex-direction: column;
+  }
+  .createUserPopup .formContainer img {
+    min-width: 150px;
+    width: 150px;
+    min-height: 150px;
+    height: 150px;
+  }
+  .createUserPopup .forms {
+    overflow-y: scroll;
+  }
+  .createUserPopup .row {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
+  .createUserPopup .closeButton {
+    top: 25px;
+    right: 25px;
+    width: 30px;
+    height: 30px;
+  }
+}
 @media (max-width: 768px) {
   h1 {
     font-size: 50px;
@@ -248,5 +566,11 @@ h2 {
   }
   .section {
     padding-top: 15vh;
+  }
+  .searchUser {
+    width: 95%;
+  }
+  .users {
+    margin-top: 60px;
   }
 }/*# sourceMappingURL=users.css.map */

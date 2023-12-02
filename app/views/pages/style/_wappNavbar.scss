@@ -1,4 +1,5 @@
 
+
 #toggle-sidebar {
   height: 25px;
   position: absolute;
@@ -12,7 +13,7 @@ a{
 }
 
 .hidden {
-  display: none;
+  display: none!important;
 }
 
 .left{

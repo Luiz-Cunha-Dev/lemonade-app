@@ -87,7 +87,7 @@ class UsersController extends AbstractPageController {
         ]);
 
         $main = View::render('pages/webapp/html/users/main', [
-            'nickname' => Session::getCurrentUserSessionData()['nickname'],
+            'email' => Session::getCurrentUserSessionData()['email']
         ]);
 
         $footer = View::render('pages/webapp/html/footer');

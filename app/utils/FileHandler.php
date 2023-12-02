@@ -22,17 +22,23 @@ class FileHandler {
 
         $targetFile = $targetFile . "." . self::getFileExtension($file['name']);
 
-        $isUploadOk = true;
+        if(!self::checkImage($file)) {
+            return false;
+        }
 
-        $isUploadOk = self::checkImage($file);
+        if(!self::checkFileSize($file)) {
+            return false;
+        }
 
-        $isUploadOk = self::checkFileSize($file);
+        if(!self::checkFileFormat($file)) {
+            return false;
+        }
 
-        $isUploadOk = self::checkFileFormat($file);
+        if(!move_uploaded_file($file["tmp_name"], $targetFile)) {
+            return false;
+        }
 
-        $isUploadOk = move_uploaded_file($file["tmp_name"], $targetFile);
-
-        return $isUploadOk;
+        return true;
 
     }
 
@@ -94,8 +100,7 @@ class FileHandler {
 
         $fileExtension = self::getFileExtension($file['name']);
 
-        if($fileExtension != "jpg" && $fileExtension != "png" && $fileExtension != "jpeg"
-        && $fileExtension != "gif" ) {
+        if($fileExtension != "jpg" && $fileExtension != "png" && $fileExtension != "jpeg") {
             return false;
         }
 
