@@ -357,6 +357,7 @@ const inputNameNewUser = document.getElementById("inputNameNewUser");
 const inputLastNameNewUser = document.getElementById("inputLastNameNewUser");
 const inputEmailNewUser = document.getElementById("inputEmailNewUser");
 const inputPasswordNewUser = document.getElementById("inputPasswordNewUser");
+const inputIdUserTypeNewUser = document.getElementById("inputTypeNewUser");
 const inputNicknameNewUser = document.getElementById("inputNicknameNewUser");
 const inputPhoneNewUser = document.getElementById("inputPhoneNewUser");
 const inputBirthDateNewUser = document.getElementById("inputBirthDateNewUser");
@@ -1425,11 +1426,12 @@ async function signUp() {
     phone: inputPhoneNewUser.value.replace(/\D/g, ""),
     birthDate: inputBirthDateNewUser.value,
     street: inputStreetNewUser.value,
-    number: parseInt(inputNumberNewUser.value, 10),
+    streetNumber: parseInt(inputNumberNewUser.value, 10),
     district: inputNeighborhoodNewUser.value,
     complement: inputComplementNewUser.value,
-    cep: inputCepNewUser.value.replace(/\D/g, ""),
+    postalCode: inputCepNewUser.value.replace(/\D/g, ""),
     idCity: parseInt(inputCityNewUser.value, 10),
+    idUserType: Number(inputIdUserTypeNewUser.value),
   };
 
   if (
@@ -1446,7 +1448,8 @@ async function signUp() {
     inputNumberNewUser.classList.contains("is-valid") &&
     inputNeighborhoodNewUser.classList.contains("is-valid") &&
     inputCityNewUser.value !== "0" &&
-    inputStateNewUser.value !== "0"
+    inputStateNewUser.value !== "0" &&
+    inputIdUserTypeNewUser.value !== "0"
   ) {
     try {
       signupButton.innerHTML = `
@@ -1456,8 +1459,13 @@ async function signUp() {
       signupButton.disabled = true;
 
       const response = await axios.post(
-        "http://localhost/lemonade/signup",
-        user
+        "http://localhost/lemonade/api/users",
+        user,
+        {
+          headers: {
+            ltoken: "b3050e0156cc3d05ddb7bbd9",
+          },
+        }
       );
       signupButton.innerText = "Criar Usuário";
 
@@ -1476,8 +1484,14 @@ async function signUp() {
         inputNumberNewUser.value = "";
         inputNeighborhoodNewUser.value = "";
         inputComplementNewUser.value = "";
-        inputCepNewUser.value = "0";
+        inputCepNewUser.value = "";
         inputCityNewUser.value = "0";
+        inputStateNewUser.value = "0";
+        inputIdUserTypeNewUser.value = "0";
+        const validations = document.querySelectorAll(".is-valid");
+        validations.forEach(input => {
+          input.classList.remove("is-valid");
+        })
         const message = alertWindow.querySelector(".toast-body");
         alertWindow.classList.remove("text-bg-danger", "text-bg-success");
         alertWindow.classList.add("show", "text-bg-success");

@@ -209,9 +209,61 @@ body.dark-mode {
   background-color: #0e141e;
   color: #fff;
 }
+body.dark-mode .rankingTable tbody {
+  background-color: #0e141e;
+}
+body.dark-mode .rankingTable tbody td {
+  border: solid 1px white;
+  color: #fff;
+}
 body.light-mode {
   background-color: #fff;
   color: #333;
+}
+body.light-mode .rankingTable tbody {
+  background-color: #fff;
+}
+body.light-mode .rankingTable tbody td {
+  border: solid 1px black;
+  color: #333;
+}
+
+.rankingTable {
+  margin-bottom: 60px;
+}
+.rankingTable thead {
+  background: #1a253c;
+  height: 61px;
+}
+.rankingTable thead tr {
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.rankingTable thead tr :nth-child(1) {
+  border-radius: 15px 0px 0px 0px;
+}
+.rankingTable thead tr :nth-child(4) {
+  border-radius: 0px 15px 0px 0px;
+}
+.rankingTable tbody td {
+  box-sizing: border-box;
+  text-align: center;
+  color: #000;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  width: 174px;
+  height: 61px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
 }
 
 h1 {
@@ -266,6 +318,26 @@ h2 {
     height: 45px;
   }
   .section {
-    padding-top: 15vh;
+    padding-top: 20vh;
+  }
+  .rankingTable {
+    width: 95%;
+  }
+  .rankingTable thead tr {
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .rankingTable thead tr :nth-child(1) {
+    border-radius: 10px 0px 0px 0px;
+  }
+  .rankingTable thead tr :nth-child(4) {
+    border-radius: 0px 10px 0px 0px;
+  }
+  .rankingTable tbody td {
+    font-size: 15px;
+    font-weight: 500;
+    width: 174px;
+    height: 61px;
+    padding: 3px;
   }
 }/*# sourceMappingURL=ranking.css.map */
