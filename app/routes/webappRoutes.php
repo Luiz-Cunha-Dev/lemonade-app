@@ -4,6 +4,7 @@ use app\controllers\webapp\QuestionController;
 use app\controllers\webapp\AppController;
 use app\controllers\webapp\EditAccountController;
 use app\controllers\webapp\ExamController;
+use app\controllers\webapp\ExamsController;
 use app\controllers\webapp\FirstAccessController;
 use app\controllers\webapp\LogOutController;
 use app\controllers\webapp\RankingController;
@@ -71,6 +72,18 @@ $router->get('/wapp/train', [
         'IsSessionFirstAccess'
     ],
     fn() => new Response(200, 'text/html', TrainController::getTrain())
+]);
+
+// Web app exams page route
+
+$router->get('/wapp/exams', [
+    'middlewares' => [
+        'RequireSessionLogin',
+        'IsSessionExpired',
+        'SessionRefresh',
+        'IsSessionFirstAccess'
+    ],
+    fn() => new Response(200, 'text/html', ExamsController::getExams())
 ]);
 
 // Web app exam page route

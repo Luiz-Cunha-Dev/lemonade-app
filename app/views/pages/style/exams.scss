@@ -1,0 +1,107 @@
+@import "variables";
+@import "wappNavbar";
+@import "wappFooter";
+
+body {
+  &.dark-mode {
+    background-color: $dark-background-color;
+    color: $dark-text-color;
+  }
+
+  &.light-mode {
+    background-color: $light-background-color;
+    color: $light-text-color;
+  }
+
+  background-color: #0e141e;
+  color: white;
+  margin: 0;
+  padding: 0;
+  font-family: "Fredoka", sans-serif;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.card {
+  color: white;
+  width: 350px;
+  height: 225px;
+  border-radius: 12px;
+  background: #1a253c;
+  .card-body {
+    padding: 0px 16px 0px 16px;
+  }
+  button {
+    margin-top: 20px;
+    width: 120px;
+    background: var(--cyan-700, #087990);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+}
+
+h1 {
+  font-size: 70px;
+  font-style: normal;
+  font-weight: 600;
+  text-align: center;
+}
+
+h2 {
+  font-size: 60px;
+  font-style: normal;
+  font-weight: 600;
+  text-align: center;
+}
+
+.pageTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 12%;
+  top: 15%;
+  gap: 20px;
+  img {
+    height: 60px;
+  }
+}
+
+.container {
+  flex: 1;
+}
+
+.section {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 50px;
+  height: fit-content;
+  min-height: 90vh;
+  padding-top: 20vh;
+}
+
+@media (max-width: 1280px) {
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 50px;
+  }
+
+  h2 {
+    font-size: 40px;
+  }
+
+  .pageTitle {
+    img {
+      height: 45px;
+    }
+  }
+
+  .section {
+    padding-top: 15vh;
+  }
+}

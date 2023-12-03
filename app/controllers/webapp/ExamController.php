@@ -26,7 +26,7 @@ class ExamController extends AbstractPageController {
         ]);
 
         $item2 = View::render('pages/components/sidebarItem', [
-            'itemUrl' => 'wapp/exam',
+            'itemUrl' => 'wapp/exams',
             'imageUrl' => './app/views/pages/assets/svgs/exam.svg',
             'itemName' => 'Simulados'
         ]);
@@ -49,7 +49,7 @@ class ExamController extends AbstractPageController {
         ]);
 
         $item2 = View::render('pages/components/sidebarItem', [
-            'itemUrl' => 'wapp/exam',
+            'itemUrl' => 'wapp/exams',
             'imageUrl' => './app/views/pages/assets/svgs/exam.svg',
             'itemName' => 'Simulados'
         ]);
@@ -76,7 +76,7 @@ class ExamController extends AbstractPageController {
      */
     public static function getExam() {
 
-        // App Exam view
+        // App Exams view
 
         $header = View::render('pages/webapp/html/header', [
             'userName' => Session::getCurrentUserSessionData()['name'],
