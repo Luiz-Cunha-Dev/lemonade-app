@@ -12,8 +12,6 @@ use app\controllers\webapp\UsersController;
 use app\controllers\webapp\UserPracticeExamController;
 use app\routes\http\Response;
 
-use app\daos\QuestionAlternativeDAO;
-
 // Web app home page route
 
 $router->get('/wapp', [
@@ -106,17 +104,3 @@ $router->get('/wapp/logout', [
     ],
     fn($request) => new Response(200, 'text/html', LogOutController::getLogOut($request))
 ]);
-
-// User Practice exam routes
-
-$router->post('/wapp/userPracticeExam/finish', [
-    fn($request) => new Response(200, 'application/json', UserPracticeExamController::finishUserPracticeExam($request))
-]);
-
-$router->get('/wapp/userPracticeExam/questions',[
-    fn($request) => new Response(200, 'application/json', UserPracticeExamController::getUserPracticeExamQuestions($request))
-]);
-
-
-
-
