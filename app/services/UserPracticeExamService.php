@@ -88,7 +88,7 @@ class UserPracticeExamService extends AbstractService
         try {
 
             // get practice exam questions
-            $practiceExamQuestions = $this->practiceExamQuestionDAO->getPracticeExamQuestionsByIdpracticeExam($idPracticeExam);
+            $practiceExamQuestions = $this->practiceExamQuestionDAO->getPracticeExamQuestionsByIdPracticeExam($idPracticeExam);
 
             // get id questions from practice exam questions
             $idQuestions = array_map(function ($q) {
