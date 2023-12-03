@@ -105,6 +105,56 @@ class UserDao extends AbstractDAO {
     }
 
     /**
+     * Get all users by name and last name with pagination
+     * 
+     * If it is null, returns an empty array
+     * 
+     * @param integer $offset offset
+     * @param integer $limit limit
+     * @param string $userFullName name and last name of the user
+     * @return array users
+     */
+    public function getAllUsersByNameAndLastNameWithPagination($offset, $limit, $userFullName) {
+
+        try {
+
+            $sql = 'WITH tableaux AS (SELECT *, ROW_NUMBER() OVER () AS rowNumber FROM user) SELECT * FROM tableaux WHERE rowNumber > ' . $offset .
+            ' AND rowNumber <= ' . $offset . ' + ' . $limit;
+
+            $sql .= " AND CONCAT(name, ' ', lastName) LIKE CONCAT('%', ? ,'%') ORDER BY CONCAT(name, ' ', lastName);";
+
+            $stmt = $this->conn->prepare($sql);
+
+            $stmt->bind_param('s', $userFullName);
+
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+
+            $stmt->close();
+
+            if ($result) {
+                $users = $result->fetch_all(MYSQLI_ASSOC);
+            } else {
+                $users = array();
+            }
+
+            $result->free();
+
+            for ($i=0; $i < count($users); $i++) { 
+                $users[$i] = new UserModel($users[$i]['idUser'], $users[$i]['name'], $users[$i]['lastName'], $users[$i]['email'], $users[$i]['nickname'], $users[$i]['password'],
+                $users[$i]['phone'], $users[$i]['birthDate'], $users[$i]['profilePicture'], $users[$i]['street'], $users[$i]['streetNumber'], $users[$i]['district'], $users[$i]['complement'],
+                $users[$i]['postalCode'], $users[$i]['firstAccess'], $users[$i]['idCity'], $users[$i]['idUserType']);
+            }
+
+            return $users;
+        } catch(Exception $e ) {
+            throw $e;
+        }
+
+    }
+
+    /**
      * Get a user by id
      * 
      * If it is null, returns an empty array
