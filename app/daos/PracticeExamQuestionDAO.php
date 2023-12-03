@@ -59,7 +59,7 @@ class PracticeExamQuestionDao extends AbstractDAO
      * 
      * @return array practiceExamQuestionModel practice exam questions
      */
-    public function getPracticeExamQuestionsByIdpracticeExam($idPracticeExam){
+    public function getPracticeExamQuestionsByIdPracticeExam($idPracticeExam){
 
         try {
             $practiceExamQuestions = parent::getElementsByParameter(
