@@ -4,6 +4,7 @@ use app\routes\http\Response;
 use app\controllers\api\CityController;
 use app\controllers\api\StateController;
 use app\controllers\api\UserController;
+use app\controllers\api\UserPracticeExamController;
 
 // Cities api route
 
@@ -60,4 +61,20 @@ $router->delete('/api/user/delete/{id}', [
         'InternalApiToken'
     ],
     fn ($id) => new Response(200, 'application/json', UserController::deleteUserById($id))
+]);
+
+// User Practice exam routes
+
+$router->post('/wapp/userPracticeExam/finish', [
+    'middlewares' => [
+        'InternalApiToken'
+    ],
+    fn($request) => new Response(200, 'application/json', UserPracticeExamController::finishUserPracticeExam($request))
+]);
+
+$router->get('/wapp/userPracticeExam/questions',[
+    'middlewares' => [
+       'InternalApiToken'
+    ],
+    fn($request) => new Response(200, 'application/json', UserPracticeExamController::getUserPracticeExamQuestions($request))
 ]);

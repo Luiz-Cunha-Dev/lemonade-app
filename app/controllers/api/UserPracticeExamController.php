@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers\webapp;
+namespace app\controllers\api;
 
 use app\services\UserPracticeExamService;
 use app\routes\http\Response;
@@ -34,7 +34,7 @@ class UserPracticeExamController{
     /**
      * Get user practice exam questions
      * @param Request $request
-     * @return array $userPracticeExamQuestions
+     * @return Response
      */
     public static function getUserPracticeExamQuestions($request){
 
@@ -44,6 +44,10 @@ class UserPracticeExamController{
 
         $userPracticeExamQuestions = $userPracticeExamService->getUserPracticeExamQuestions($jsonVars['idPracticeExam']);
 
+        if(!$userPracticeExamQuestions){
+            return (new Response(400, 'application/json', ['message' => 'Não foi possível recuperar as questões', 'success' => false]))->sendResponse();
+        }
+        return (new Response(200, 'application/json', ['message' => 'Prova pronta para ser iniciada!', 'success'=> true]))->sendResponse();
         
         return $userPracticeExamQuestions;
 

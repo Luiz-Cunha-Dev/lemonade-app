@@ -107,15 +107,7 @@ $router->get('/wapp/logout', [
     fn($request) => new Response(200, 'text/html', LogOutController::getLogOut($request))
 ]);
 
-// User Practice exam routes
 
-$router->post('/wapp/userPracticeExam/finish', [
-    fn($request) => new Response(200, 'application/json', UserPracticeExamController::finishUserPracticeExam($request))
-]);
-
-$router->get('/wapp/userPracticeExam/questions',[
-    fn($request) => new Response(200, 'application/json', UserPracticeExamController::getUserPracticeExamQuestions($request))
-]);
 
 
 
