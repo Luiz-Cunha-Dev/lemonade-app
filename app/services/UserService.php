@@ -179,6 +179,27 @@ class UserService extends AbstractService {
     }
 
     /**
+     * Get users by name and last name with pagination
+     * @param integer $offset offset
+     * @param integer $limit limit
+     * @param string $fullNameUser full name of the user
+     * @return UserModel $users
+     */
+    public function getAllUsersByFullNameWithPagination($offset=0, $limit=10, $fullNameUser=null) {
+
+        $offset = $offset ? $offset : 0;
+
+        $limit = $limit ? $limit : 10;
+        
+        $user = $this->userDao->getAllUsersByNameAndLastNameWithPagination($offset, $limit, $fullNameUser);
+
+        $this->userDao->closeConnection();
+
+        return $user;
+    
+    }
+
+    /**
      * Get user by id
      * @param int $userId
      * @return UserModel $user
