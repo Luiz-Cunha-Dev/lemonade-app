@@ -76,7 +76,7 @@ class UserPracticeExamModel{
      * 
      * @return integer Returns user practice exam id
      */
-    public function getIdUserpracticeExam() {
+    public function getIdUserPracticeExam() {
         return $this->idUserPracticeExam;
     }
 

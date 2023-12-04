@@ -21,7 +21,7 @@ use Exception;
      * 
      * If it is null, returns an empty array
      * 
-     * @return QuestionAlternative alternatives
+     * @return array QuestionAlternative alternatives
      */
     public function getQuestionAlternativesByIdQuestion($idQuestion) {
 
@@ -34,7 +34,10 @@ use Exception;
             }
          
             for($i = 0; $i < count($questionAlternatives); $i++) {
-                $questionAlternatives[$i] = new QuestionAlternativeModel($questionAlternatives[$i]['idQuestionAlternative'], $questionAlternatives[$i]['letter'], $questionAlternatives[$i]['text'], $questionAlternatives[$i]['isCorrect'], 
+                $questionAlternatives[$i] = new QuestionAlternativeModel(
+                $questionAlternatives[$i]['idQuestionAlternative'], 
+                $questionAlternatives[$i]['letter'], $questionAlternatives[$i]['text'], 
+                $questionAlternatives[$i]['isCorrect'], 
                 $questionAlternatives[$i]['idQuestion']);
             }
          
@@ -44,6 +47,41 @@ use Exception;
             throw $e;
         }
      
+    }
+
+    /**
+     * Get question alternative by id question alternative
+     * 
+     * @param integer id question alternative
+     * 
+     * If it is null, returns an empty array
+     * 
+     * @return QuestionAlternative alternatives
+     */
+    public function getQuestionAlternativeByIdQuestionAlternative($idQuestionAlternative){
+
+        try {
+
+            $questionAlternatives = parent::getElementByParameter('questionAlternative', 'idQuestionAlternative', $idQuestionAlternative);
+
+            if(empty($questionAlternatives)){
+                return array();
+            }
+            
+            $questionAlternatives = new QuestionAlternativeModel(
+                $questionAlternatives['idQuestionAlternative'], 
+                $questionAlternatives['letter'], 
+                $questionAlternatives['text'], 
+                $questionAlternatives['isCorrect'], 
+                $questionAlternatives['idQuestion']
+            );
+        
+            return $questionAlternatives;
+            
+        } catch (Exception $e) {
+            throw $e;
+        }
+
     }
     
  }
