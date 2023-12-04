@@ -9,7 +9,6 @@ use app\controllers\webapp\LogOutController;
 use app\controllers\webapp\RankingController;
 use app\controllers\webapp\TrainController;
 use app\controllers\webapp\UsersController;
-use app\controllers\webapp\UserPracticeExamController;
 use app\routes\http\Response;
 
 // Web app home page route
