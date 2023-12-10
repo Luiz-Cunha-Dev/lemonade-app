@@ -1,0 +1,41 @@
+idQuestionAlternative;text;isCorrect;idQuestionfalse
+1;O software deve ser operacionalizado no sistema Linux.;0;1
+2;O tempo de desenvolvimento não deve ultrapassar seis meses.;0;1
+3;O software deve emitir relatórios de compras a cada quinze dias.;1;1
+4;O tempo de resposta do sistema não deve ultrapassar 30 segundos.;0;1
+5;A base de dados deve ser protegida para acesso apenas de usuários autorizados.;0;1
+6;Identificação de itens na configuração de software, gerenciamento de alterações, validação de versões e controle de qualidade.;0;2
+7;Identificação de objetos na configuração de software, controle de versão, controle de alterações, auditoria de configuração e relatório de status;1;2
+8;Gerência de projeto, gerência de configuração de software, ciclo de vida do projeto, processo de software e evolução das configurações.;0;2
+9;Construção de modelo de requisitos, métricas para modelo de projeto, métricas de controle de versão e relatório de manutenção.;0;2
+10;Identificação de alterações, controle de versão, mapeamento de alteração e notificação da alteração aos envolvidos.;0;2
+11;custo.;0;3
+12;tempo.;0;3
+13;escopo.;0;3
+14;qualidade.;0;3
+15;partes interessadas.;1;3
+16;pilha: topo → C → A → E.<br> fila: início → D → A → A → E.;0;4
+17;pilha: topo →A.<br> fila: início → D → B → C → E.;0;4
+18;pilha: topo → C → B → A.<br> fila: início → D → C → C → E.;1;4
+19;pilha: topo → B → A.<br> fila: início → D → B → C → E.;0;4
+20;pilha: topo → C → B → A.<br> fila: início → D → B → C → E.;0;4
+21;"<pre>public void push(int elemento){<br> &#9;No novo = new No(elemento);<br> &#9;if(topo == null)<br> &#9;&#9;topo = novo;<br> &#9;else<br> &#9;&#9;topo.prox = novo;<br> }</pre>";0;5
+22;"<pre>public void push(int elemento){<br> &#9;No novo = new No(elemento);<br> &#9;topo = novo;<br> } </pre>";0;5
+23;"<pre>public void push(int elemento){<br> &#9;topo.dado = elemento;<br> } </pre>";0;5
+24;"<pre>public void push(int elemento){<br> &#9;No novo = new No(elemento);  &#9;while (topo != null)<br> &#9;&#9;topo = topo.prox;<br> &#9;&#9;topo.prox = novo;<br> } </pre>";0;5
+25;"<pre>public void push(int elemento){<br> &#9;No novo = new No(elemento);<br> &#9;novo.prox = topo;<br> &#9;topo = novo;<br> } </pre>";1;5
+26;o programa antivírus.;0;6
+27;o gerenciamento de memória.;1;6
+28;o gerenciamento de arquivos.;0;6
+29;o gerenciamento de processos.;0;6
+30;o gerenciamento de entrada e saída.;0;6
+31;Calcular a soma dos primeiros n números inteiros positivos.;0;8
+32;Calcular o termo n na sequência de Fibonacci.;0;8
+33;Calcular o fatorial de um número.;1;8
+34;Verificar se um número é primo.;0;8
+35;Calcular a soma dos termos pares da sequência de Fibonacci até o termo especificado.;0;8
+36;Cada classe de usuário é um observador que se registra para receber notificações quando um livro está disponível. A classe de livro atua como o sujeito que mantém a lista de observadores e os notifica quando há uma mudança de estado.;1;10
+37;Cada classe de livro é um observador que se registra para receber notificações quando um usuário solicita um livro. A classe de usuário atua como o sujeito que mantém a lista de observadores e os notifica quando há uma mudança de estado.;0;10
+38;Cada transação de empréstimo é um observador que se registra para receber notificações quando um livro está disponível. A classe de livro atua como o sujeito que mantém a lista de observadores e os notifica quando há uma mudança de estado.;0;10
+39;Cada classe de usuário é um observador que se registra para receber notificações quando um usuário devolve um livro. A classe de livro atua como o sujeito que mantém a lista de observadores e os notifica quando há uma mudança de estado.;0;10
+40;Cada classe de transação de empréstimo é um observador que se registra para receber notificações quando um livro está disponível. A classe de livro atua como o sujeito que mantém a lista de observadores e os notifica quando há uma mudança de estado.;0;10
