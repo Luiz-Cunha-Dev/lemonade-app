@@ -16,6 +16,48 @@ class UserPracticeExamDAO extends AbstractDAO
 {
 
     /**
+     * Get user practice exam by id user
+     * 
+     * @param integer id user 
+     * 
+     * @param integer id practice exam
+     * 
+     * If it is null, returns an empty array
+     * 
+     * @return UserPracticeExamModel user practice exam
+     */
+    public function getUserPracticeExamsByIdUserAndIdUserPracticeExam($idUser, $idUserPracticeExam)
+    {
+
+        try {
+
+            $usersPracticeExam = parent::getElementByParameters('userPracticeExam', [
+                'idUser' => $idUser,
+                'idPracticeExam' => $idUserPracticeExam
+            ]);
+
+            if (empty($usersPracticeExam)) {
+                return array();
+            }
+
+            $usersPracticeExam = new UserPracticeExamModel(
+                $usersPracticeExam['idUserPracticeExam'],
+                $usersPracticeExam['startDate'],
+                $usersPracticeExam['endDate'],
+                $usersPracticeExam['grade'],
+                $usersPracticeExam['idUser'],
+                $usersPracticeExam['idPracticeExam']
+            );
+
+            return $usersPracticeExam;
+        } catch (Exception $e) {
+            throw new Exception();
+        }
+    }
+
+
+
+    /**
      * Get user practice exam by id
      * 
      * @param integer id user practice exam
@@ -70,11 +112,11 @@ class UserPracticeExamDAO extends AbstractDAO
      * 
      * @return boolean
      */
-    public function updateUserPracticeExamById($userPracticeExam, $idUserPracticeExam)
+    public function updateUserPracticeExamById($userPracticeExamData, $idUserPracticeExam)
     {
 
         try {
-            return parent::updateElementByParameter('userPracticeExam', 'idUserPracticeExam', $idUserPracticeExam, $userPracticeExam->toArray());
+            return parent::updateElementByParameter('userPracticeExam', 'idUserPracticeExam', $idUserPracticeExam, $userPracticeExamData->toArray());
         } catch (Exception $e) {
             throw $e;
         }

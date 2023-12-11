@@ -1,0 +1,11 @@
+idQuestion;statement;idQuestionType
+1;Considerando as informações do texto, assinale a alternativa em que o item é um requisito funcional.;1
+2;Com base no texto, assinale a opção correta acerca das atividades de gestão de configuração de software.;1
+3;Considerando o cenário descrito, o gerente de projeto deve priorizar o gerenciamento de;1
+4;Após essas operações, ao imprimir o conteúdo de pilha e fila, respectivamente, seria exibido:;1
+5;Com base no exposto, assinale a opção que possui a implementação correta do método push para essa Pilha.;1
+6;Considerando que o texto alerta para a possibilidade de um programa interferir no outro, a atividade que um sistema operacional garante essa proteção é;1
+7;Com base nas informações apresentadas, desenvolva o código adequado para resolver o problema usando pseudocódigo ou uma linguagem de programação. (valor: 10,0 pontos);2
+8;Com base no código fornecido, qual é o propósito da função funcaoRecursiva no programa?  ;1
+9;Suponha que um cliente deseja consultar o saldo total em suas contas bancárias. Elabore uma consulta SQL que retorne o nome do cliente, o número total de contas que ele possui e o saldo total em suas contas. Certifique-se de incluir apenas clientes que tenham pelo menos uma conta no banco.;2
+10;"Explique sucintamente como o padrão ""Observer"" é implementado nesse contexto de gerenciamento de biblioteca.";1

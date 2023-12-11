@@ -95,11 +95,19 @@ CREATE TABLE IF NOT EXISTS questionText(
 
 CREATE TABLE IF NOT EXISTS questionAlternative(
 	idQuestionAlternative INT NOT NULL AUTO_INCREMENT,
-    letter CHAR(1) NOT NULL,
     `text` TEXT(2000) NOT NULL,
     isCorrect BOOLEAN NOT NULL,
     idQuestion INT NOT NULL,
 	CONSTRAINT questionAlternativePk PRIMARY KEY (idQuestionAlternative)
+);
+
+-- Table: questionDiscursive
+
+CREATE TABLE IF NOT EXISTS questionDiscursive(
+	idQuestionDiscursive INT NOT NULL AUTO_INCREMENT,
+    baseResponse TEXT(2000) NOT NULL,
+    idQuestion INT NOT NULL,
+	CONSTRAINT questionDiscursivePk PRIMARY KEY (idQuestionDiscursive)
 );
 
 -- Constraints // Pattern: tableName_columnFK
@@ -115,6 +123,8 @@ ALTER TABLE question ADD CONSTRAINT question_TypeFk FOREIGN KEY (idQuestionType)
 ALTER TABLE questionText ADD CONSTRAINT questionText_QuestionFk FOREIGN KEY (idQuestion) REFERENCES question(idQuestion);
 
 ALTER TABLE questionAlternative ADD CONSTRAINT questionAlternative_QuestionFk FOREIGN KEY (idQuestion) REFERENCES question(idQuestion);
+
+ALTER TABLE questionDiscursive ADD CONSTRAINT questionDiscursive_QuestionFk FOREIGN KEY (idQuestion) REFERENCES question(idQuestion);
 
 -- Table's with constraints
 
@@ -158,6 +168,7 @@ CREATE TABLE IF NOT EXISTS userPracticeExam(
 	idUser INT NOT NULL,
     idPracticeExam INT NOT NULL,
 	CONSTRAINT userPracticeExamPk PRIMARY KEY (idUserPracticeExam),
+    CONSTRAINT userPracticeExamUnique_idUser_idPracticeExam UNIQUE (idUser, idPracticeExam),
     CONSTRAINT userPracticeExam_UserFk FOREIGN KEY (idUser) REFERENCES `user`(idUser),
     CONSTRAINT userPracticeExam_PracticeExamFk FOREIGN KEY (idPracticeExam) REFERENCES practiceExam(idPracticeExam)
 );
@@ -223,3 +234,43 @@ INSERT INTO user (`name`, `lastName`, `email`, `nickname`, `password`, `phone`, 
 -- Table: questionType
 
 INSERT INTO questionType (`name`) VALUES ('Alternativa'), ('Discursiva');
+
+-- Table: practiceExam
+
+INSERT INTO practiceExam (`name`, `description`) VALUES ('Lemonade ADS 2021 – Teste', 'Simulado teste do ENADE 2021 do curso ADS com 10 perguntas');
+
+-- Table: question
+
+LOAD DATA INFILE '../mysql-files/data/questions.csv' INTO TABLE question
+    FIELDS TERMINATED BY ';'
+    ENCLOSED BY '"'
+    LINES TERMINATED BY '\n'
+    IGNORE 1 ROWS;
+
+-- Table: questionText
+
+LOAD DATA INFILE '../mysql-files/data/questionsTexts.csv' INTO TABLE questionText
+    FIELDS TERMINATED BY ';'
+    ENCLOSED BY '"'
+    LINES TERMINATED BY '\n'
+    IGNORE 1 ROWS;
+
+-- Table: questionAlternative
+
+LOAD DATA INFILE '../mysql-files/data/questionsAlternatives.csv' INTO TABLE questionAlternative
+    FIELDS TERMINATED BY ';'
+    ENCLOSED BY '"'
+    LINES TERMINATED BY '\n'
+    IGNORE 1 ROWS;
+
+-- Table: questionDiscursive
+
+LOAD DATA INFILE '../mysql-files/data/questionsDiscursives.csv' INTO TABLE questionDiscursive
+    FIELDS TERMINATED BY ';'
+    ENCLOSED BY '"'
+    LINES TERMINATED BY '\n'
+    IGNORE 1 ROWS;
+
+-- Table: practiceExamQuestion
+
+INSERT INTO practiceExamQuestion (idPracticeExam, idQuestion) VALUES (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 8), (1, 9), (1, 10);

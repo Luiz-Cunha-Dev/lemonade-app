@@ -44,8 +44,17 @@ class UserController {
                     ]))->sendResponse();
                 
                 }
+            }
 
-            } elseif (!isset($queryParams['offset']) && !isset($queryParams['limit'])) {
+            if (isset($queryParams['userFullName']) && (!isset($queryParams['offset']) || !isset($queryParams['limit']))) {
+                return (new Response(400, 'application/json', [
+                    'status' => 400,
+                    'error' => 'Parâmetro offset ou limit não foram encontrados',
+                    'message' => 'O parâmetro "offset" ou "limit" precisam ser informados para a paginação ser realizada.'
+                ]))->sendResponse();
+            }
+
+            if (!isset($queryParams['offset']) && !isset($queryParams['limit'])) {
             
                 $users = $userService->getAllUsers();
 
@@ -63,6 +72,10 @@ class UserController {
 
                     $users = $userService->getAllCommonUsersWithPagination($queryParams['offset'] ?? null, $queryParams['limit'] ?? null);
 
+                } elseif (isset($queryParams['userFullName'])) {
+                
+                    $users = $userService->getAllUsersByFullNameWithPagination($queryParams['offset'] ?? null, $queryParams['limit'] ?? null, $queryParams['userFullName']);
+                
                 } else {
 
                     $users = $userService->getAllUsersWithPagination($queryParams['offset'] ?? null, $queryParams['limit'] ?? null);

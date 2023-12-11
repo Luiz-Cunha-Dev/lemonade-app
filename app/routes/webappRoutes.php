@@ -12,8 +12,6 @@ use app\controllers\webapp\TrainController;
 use app\controllers\webapp\UsersController;
 use app\routes\http\Response;
 
-use app\daos\QuestionAlternativeDAO;
-
 // Web app home page route
 
 $router->get('/wapp', [
@@ -118,6 +116,5 @@ $router->get('/wapp/logout', [
     ],
     fn($request) => new Response(200, 'text/html', LogOutController::getLogOut($request))
 ]);
-
 
 
