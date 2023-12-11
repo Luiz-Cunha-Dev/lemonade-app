@@ -8,7 +8,7 @@ use app\routes\http\Response;
 /**
  * User PracticeExamController
  * 
- * @package app\controllers\webapp
+ * @package app\controllers\api
  */ 
 class UserPracticeExamController{
 
