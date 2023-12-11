@@ -7,6 +7,7 @@ const nextButtons = document.querySelectorAll(".nextArrow");
 const checkInputs = document.querySelectorAll(".form-check-input");
 const returnButton = document.querySelector(".popup button");
 const finalResult = document.querySelector(".finalResult");
+const texteareas = document.querySelectorAll("textarea");
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -16,23 +17,12 @@ returnButton.addEventListener("click", () => {
   window.location.href = "http://localhost/lemonade/wapp/exams";
 })
 
+texteareas.forEach(textearea => {
+  textearea.addEventListener("input", updateCount);
+})
+
 checkInputs.forEach(checkInput => {
-    checkInput.addEventListener("click", () => {
-        let answered = 0;
-        for (const input of checkInputs) {
-            if(input.checked){
-                answered++;
-            }
-        }
-        let answeredSpan = document.getElementById("answered");
-        answeredSpan.textContent = answered < 10 ? `0${answered}` : answered;
-        let unansweredSpan = document.getElementById("unanswered");
-        unansweredSpan.textContent = questions.length - answered < 10 ? `0${questions.length - answered}` : questions.length - answered;
-        if(answered === questions.length){
-            const sendButton = document.getElementById("sendExam");
-            sendButton.removeAttribute("disabled");
-        }
-    })
+    checkInput.addEventListener("click", updateCount);
 })
 
 backButtons.forEach((button, index) => {
@@ -78,6 +68,30 @@ nextButtons.forEach((button, index) => {
     questions[index + 1].classList.add("questionCenter");
   });
 });
+
+function updateCount(){
+  let answered = 0;
+  for (const input of checkInputs) {
+      if(input.checked){
+          answered++;
+      }
+  }
+
+  for (const textarea of texteareas) {
+    if(textarea.value.length != 0){
+        answered++;
+    }
+}
+
+  let answeredSpan = document.getElementById("answered");
+  answeredSpan.textContent = answered < 10 ? `0${answered}` : answered;
+  let unansweredSpan = document.getElementById("unanswered");
+  unansweredSpan.textContent = questions.length - answered < 10 ? `0${questions.length - answered}` : questions.length - answered;
+  if(answered === questions.length){
+      const sendButton = document.getElementById("sendExam");
+      sendButton.removeAttribute("disabled");
+  }
+}
 
 function formatTime(seconds) {
   const hours = Math.floor(seconds / 3600);

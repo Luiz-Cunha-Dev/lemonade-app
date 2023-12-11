@@ -215,6 +215,14 @@ body.light-mode {
   color: #333;
 }
 
+textarea {
+  resize: none;
+}
+
+label {
+  margin-bottom: 15px;
+}
+
 h1 {
   font-size: 70px;
   font-style: normal;
@@ -468,6 +476,17 @@ footer {
     width: 40px;
     height: 40px;
   }
+  .finalResult .examResult .item span {
+    font-size: 18px;
+    font-weight: 400;
+  }
+  .finalResult .examResult .item :nth-child(1) {
+    font-weight: 600;
+    font-size: 20px;
+  }
+  .finalResult .examResult span {
+    font-size: 24px;
+  }
 }
 @media (max-width: 768px) {
   body {
@@ -536,5 +555,31 @@ footer {
     bottom: 30px;
     width: 40px;
     height: 40px;
+  }
+  .finalResult .popup {
+    top: 2.5%;
+    left: 2.5%;
+    height: 95%;
+    width: 95%;
+  }
+  .finalResult .examResult {
+    height: -moz-fit-content;
+    height: fit-content;
+    flex-direction: column;
+    width: -moz-fit-content;
+    width: fit-content;
+    padding: 20px;
+    gap: 30px;
+  }
+  .finalResult .examResult .item span {
+    font-size: 18px;
+    font-weight: 400;
+  }
+  .finalResult .examResult .item :nth-child(1) {
+    font-weight: 600;
+    font-size: 20px;
+  }
+  .finalResult .examResult span {
+    font-size: 24px;
   }
 }/*# sourceMappingURL=exam.css.map */

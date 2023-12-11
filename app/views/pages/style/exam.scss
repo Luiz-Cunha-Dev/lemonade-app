@@ -26,6 +26,14 @@ body {
   margin-bottom: 250px;
 }
 
+textarea{
+  resize: none;
+}
+
+label{
+  margin-bottom: 15px;
+}
+
 h1 {
   font-size: 70px;
   font-style: normal;
@@ -201,7 +209,7 @@ h2 {
       text-align: center;
       font-style: normal;
       line-height: normal;
-      span{
+      span {
         font-size: 22px;
         font-weight: 400;
       }
@@ -282,6 +290,24 @@ footer {
       height: 40px;
     }
   }
+
+  .finalResult {
+    .examResult {
+      .item {
+        span {
+          font-size: 18px;
+          font-weight: 400;
+        }
+        :nth-child(1) {
+          font-weight: 600;
+          font-size: 20px;
+        }
+      }
+      span {
+        font-size: 24px;
+      }
+    }
+  }
 }
 
 @media (max-width: 768px) {
@@ -354,6 +380,35 @@ footer {
       bottom: 30px;
       width: 40px;
       height: 40px;
+    }
+  }
+
+  .finalResult {
+    .popup {
+      top: 2.5%;
+      left: 2.5%;
+      height: 95%;
+      width: 95%;
+    }
+    .examResult {
+      height: fit-content;
+      flex-direction: column;
+      width: fit-content;
+      padding: 20px;
+      gap: 30px;
+      .item {
+        span {
+          font-size: 18px;
+          font-weight: 400;
+        }
+        :nth-child(1) {
+          font-weight: 600;
+          font-size: 20px;
+        }
+      }
+      span {
+        font-size: 24px;
+      }
     }
   }
 }
