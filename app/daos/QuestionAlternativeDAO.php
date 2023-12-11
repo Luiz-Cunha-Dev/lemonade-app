@@ -36,7 +36,7 @@ use Exception;
             for($i = 0; $i < count($questionAlternatives); $i++) {
                 $questionAlternatives[$i] = new QuestionAlternativeModel(
                 $questionAlternatives[$i]['idQuestionAlternative'], 
-                $questionAlternatives[$i]['letter'], $questionAlternatives[$i]['text'], 
+                $questionAlternatives[$i]['text'], 
                 $questionAlternatives[$i]['isCorrect'], 
                 $questionAlternatives[$i]['idQuestion']);
             }
