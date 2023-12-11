@@ -79,15 +79,15 @@ $router->post('/api/userPracticeExam/finish', [
 ]);
 
 $router->get('/api/userPracticeExam/questions',[
-    /*'middlewares' => [
+    'middlewares' => [
        'InternalApiToken'
-    ],*/
+    ],
     fn($request) => new Response(200, 'application/json', UserPracticeExamController::getUserPracticeExamQuestions($request))
 ]);
 
 $router->get('/api/randomQuestion',[
-    /*'middlewares' => [
+    'middlewares' => [
        'InternalApiToken'
-    ],*/
+    ],
     fn() => new Response(200, 'application/json', RandomQuestionController::getRandomQuestion())
 ]);
