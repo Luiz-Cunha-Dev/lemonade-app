@@ -47,7 +47,6 @@ class UserPracticeExamController{
         if(!$userPracticeExamQuestions){
             return (new Response(400, 'application/json', ['message' => 'Não foi possível recuperar as questões', 'success' => false]))->sendResponse();
         }
-        return (new Response(200, 'application/json', ['message' => 'Prova pronta para ser iniciada!', 'success'=> true]))->sendResponse();
         
         return $userPracticeExamQuestions;
 

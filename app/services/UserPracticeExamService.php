@@ -116,7 +116,6 @@ class UserPracticeExamService extends AbstractService
                     return [
 
                             'idQuestionAlternative' => $qa->getIdQuestionAlternative(),
-                            'letter' => $qa->getLetter(),
                             'text' => $qa->getText(),
                             'isCorrect' => $qa->getIsCorrect()
                     ];
