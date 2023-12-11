@@ -43,4 +43,29 @@ class QuestionDAO extends AbstractDAO {
         
     }
 
+    /**
+     * Get total of questions
+     * 
+     * if its null, returns empty array
+     * 
+     * @return integer totalQuestions
+     */
+    public function getTotalQuestios() {
+    
+        try {
+    
+            $totalQuestions = parent::countAllElements('question');
+    
+            if(empty($totalQuestions)){
+                return array();
+            }
+    
+            return $totalQuestions;
+    
+        } catch (Exception $e) {
+            throw $e;
+        }
+        
+    }
+
 }

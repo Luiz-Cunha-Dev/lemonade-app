@@ -19,13 +19,6 @@ class QuestionAlternativeModel {
     private $idQuestionAlternative;
 
     /**
-     * Question alternative letter
-     * 
-     * @var char $letter
-     */
-    private $letter;
-
-    /**
      * Question alternative text
      * 
      * @var string $text
@@ -54,9 +47,8 @@ class QuestionAlternativeModel {
      * @param integer $idQuestion question id (fk)
      * @return QuestionAlternativeModel
      */
-    public function __construct($idQuestionAlternative, $letter, $text, $isCorrect, $idQuestion) {
+    public function __construct($idQuestionAlternative, $text, $isCorrect, $idQuestion) {
         $this->idQuestionAlternative = $idQuestionAlternative;
-        $this->letter = $letter;
         $this->text = $text;
         $this->isCorrect = $isCorrect;
         $this->idQuestion = $idQuestion;
@@ -69,15 +61,6 @@ class QuestionAlternativeModel {
      */
     public function getIdQuestionAlternative() {
         return $this->idQuestionAlternative;
-    }
-
-    /**
-     * Get question alternative lettter
-     * 
-     * @return char Returns question alternative letter
-     */
-    public function getLetter() {
-        return $this->letter;
     }
 
     /**
@@ -117,15 +100,6 @@ class QuestionAlternativeModel {
     }
 
     /**
-     * Set question letter
-     * 
-     * @param integer $letter question letter
-     */
-    public function setLetter($letter) {
-        $this->letter = $letter;
-    }
-
-    /**
      * Set question text
      * 
      * @param integer text question text
@@ -160,7 +134,6 @@ class QuestionAlternativeModel {
     public function toArray() {
         return [
             'idQuestionAlternative' => $this->idQuestionAlternative,
-            'letter' => $this->letter,
             'text' => $this->text,
             'isCorrect' => $this->isCorrect,
             'idQuestion' => $this->idQuestion,

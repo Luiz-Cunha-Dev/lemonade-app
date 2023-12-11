@@ -5,6 +5,7 @@ use app\controllers\api\CityController;
 use app\controllers\api\StateController;
 use app\controllers\api\UserController;
 use app\controllers\api\UserPracticeExamController;
+use app\controllers\api\RandomQuestionController;
 
 // Cities api route
 
@@ -70,16 +71,23 @@ $router->delete('/api/user/delete/{id}', [
 
 // User Practice exam routes
 
-$router->post('/wapp/userPracticeExam/finish', [
+$router->post('/api/userPracticeExam/finish', [
     'middlewares' => [
         'InternalApiToken'
     ],
     fn($request) => new Response(200, 'application/json', UserPracticeExamController::finishUserPracticeExam($request))
 ]);
 
-$router->get('/wapp/userPracticeExam/questions',[
+$router->get('/api/userPracticeExam/questions',[
     'middlewares' => [
        'InternalApiToken'
     ],
     fn($request) => new Response(200, 'application/json', UserPracticeExamController::getUserPracticeExamQuestions($request))
+]);
+
+$router->get('/api/randomQuestion',[
+    'middlewares' => [
+       'InternalApiToken'
+    ],
+    fn() => new Response(200, 'application/json', RandomQuestionController::getRandomQuestion())
 ]);
