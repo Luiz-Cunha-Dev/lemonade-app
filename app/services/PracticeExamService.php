@@ -20,8 +20,9 @@ define("NUMBER_OF_ALTERNATIVES", 5);
  * 
  * @package app\services
  */
-class PracticeExamService extends AbstractService{
-    
+class PracticeExamService extends AbstractService
+{
+
     /**
      * Question DAO
      * @var questionDAO $questionDAO
@@ -104,60 +105,57 @@ class PracticeExamService extends AbstractService{
                 // get questions
                 $questions[$i] = $this->questionDAO->getQuestionById($idQuestions[$i]);
 
-                if($questions[$i]->getIdQuestionType() == 1){
+                if ($questions[$i]->getIdQuestionType() == 1) {
 
                     // get questions alternatives 
                     $questionAlternatives[$i] = $this->questionAlternativeDAO->getQuestionAlternativesByIdQuestion($idQuestions[$i]);
-                }else{
+                } else {
                     $questionsDiscursive[$i] = $this->questionDiscursiveDAO->getQuestionDiscursiveByIdQuestion($questions[$i]->getIdQuestion());
                 }
-                
             }
 
             // Generate an array containing JSON representations of the properties for each question alternative or discursive question
             for ($i = 0; $i < $numberOfQuestions; $i++) {
 
-                if($questions[$i]->getIdQuestionType() == 1){
+                if ($questions[$i]->getIdQuestionType() == 1) {
 
                     $jsonQuestionAlternatives[$i] = array_map(function ($qa) {
                         return [
-    
-                                'idQuestionAlternative' => $qa->getIdQuestionAlternative(),
-                                'text' => $qa->getText(),
-                                'isCorrect' => $qa->getIsCorrect()
+
+                            'idQuestionAlternative' => $qa->getIdQuestionAlternative(),
+                            'text' => $qa->getText(),
+                            'isCorrect' => $qa->getIsCorrect()
                         ];
                     }, $questionAlternatives[$i]);
-                }else{
+                } else {
 
                     $jsonQuestionsDiscursive[$i] =  [
                         'idQuestionDiscursive' => $questionsDiscursive[$i]->getIdQuestionDiscursive(),
                         'baseResponse' => $questionsDiscursive[$i]->getbaseResponse()
                     ];
                 }
- 
             }
 
             // Generate a json with the necessary properties to build a question on client side
             for ($i = 0; $i < $numberOfQuestions; $i++) {
 
-                if($questions[$i]->getIdQuestionType() == 1){
+                if ($questions[$i]->getIdQuestionType() == 1) {
                     $jsonQuestions[$i] = array_merge(
-                    
+
                         ['idQuestion' => $questions[$i]->getIdQuestion()],
                         ['statement' => $questions[$i]->getStatement()],
                         ['text' => $questionTexts[$i][0]->getText()],
                         ['alternatives' => $jsonQuestionAlternatives[$i]]
                     );
-                }else{
+                } else {
                     $jsonQuestions[$i] = array_merge(
-                    
+
                         ['idQuestion' => $questions[$i]->getIdQuestion()],
                         ['statement' => $questions[$i]->getStatement()],
                         ['text' => $questionTexts[$i][0]->getText()],
                         ['baseResponse' => $jsonQuestionsDiscursive[$i]]
                     );
                 }
-                
             }
 
             $this->practiceExamQuestionDAO->closeConnection();
@@ -177,16 +175,20 @@ class PracticeExamService extends AbstractService{
      * 
      * @return array $practiceExams
      */
-    public function getAllPracticeExams(){
+    public function getAllPracticeExams()
+    {
+        try {
 
-        $practiceExams = $this->practiceExamDAO->getAllPracticeExams();
+            $practiceExams = $this->practiceExamDAO->getAllPracticeExams();
+            if (!$practiceExams) {
+                return array();
+            }
 
-        if(!$practiceExams){
-            return array();
-        }
+            $this->practiceExamDAO->closeConnection();
 
-        return $practiceExams;
+            return $practiceExams;
+        } catch (Exception $e) {
+            throw $e;
+        };
     }
-
-
 }

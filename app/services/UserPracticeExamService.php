@@ -4,11 +4,7 @@ namespace app\services;
 
 use app\daos\UserPracticeExamDAO;
 use app\daos\UserPracticeExamQuestionAlternativeDAO;
-use app\daos\QuestionDAO;
 use app\daos\QuestionAlternativeDAO;
-use app\daos\QuestionDiscursiveDAO;
-use app\daos\QuestionTextDAO;
-use app\daos\PracticeExamQuestionDao;
 
 use app\models\UserPracticeExamQuestionAlternativeModel;
 use app\models\UserPracticeExamModel;
@@ -41,35 +37,10 @@ class UserPracticeExamService extends AbstractService
     private $userPracticeExamQuestionAlternativeDAO;
     
     /**
-     * Question DAO
-     * @var questionDAO $questionDAO
-     */
-    private $questionDAO;
-
-    /**
      * Question alternative DAO
      * @var questionAlternativeDAO $questionAlternativeDAO
      */
     private $questionAlternativeDAO;
-
-    /**
-     * Question discursive DAO
-     * @var questionDiscursiveDAO $questionDiscursiveDAO
-     */
-    private $questionDiscursiveDAO;
-
-    /**
-     * Question text DAO
-     * @var questionTextDAO $questionTextDAO
-     */
-    private $questionTextDAO;
-
-    /**
-     * Practice Exam question DAO
-     * @var practoceExamQuestionDAO $practoceExamQuestionDAO
-     */
-    private $practiceExamQuestionDAO;
-
 
     /**
      * Class constructor
@@ -81,105 +52,31 @@ class UserPracticeExamService extends AbstractService
         parent::__construct();
         $this->userPracticeExamDAO = new UserPracticeExamDAO($this->conn->getConnection());
         $this->userPracticeExamQuestionAlternativeDAO = new UserPracticeExamQuestionAlternativeDAO($this->conn->getConnection());
-        $this->questionDAO = new QuestionDAO($this->conn->getConnection());
         $this->questionAlternativeDAO = new QuestionAlternativeDAO($this->conn->getConnection());
-        $this->questionDiscursiveDAO = new QuestionDiscursiveDAO($this->conn->getConnection());
-        $this->questionTextDAO = new QuestionTextDAO($this->conn->getConnection());
-        $this->practiceExamQuestionDAO = new PracticeExamQuestionDAO($this->conn->getConnection());
     }
 
     /**
-     * Get and handle user practice exam questions
-     * @param integer idPracticeExam 
+     * Get all user practice exams by idUser
+     * 
+     * @param integer $idUser user id
+     * 
+     * @return array $userPracticeExams
      */
-    public function getUserPracticeExamQuestions($idPracticeExam)
-    {
+    public function getAllUserPracticeExamsByIdUser($idUser){
         try {
 
-            // get practice exam questions
-            $practiceExamQuestions = $this->practiceExamQuestionDAO->getPracticeExamQuestionsByIdPracticeExam($idPracticeExam);
-
-            // get id questions from practice exam questions
-            $idQuestions = array_map(function ($q) {
-                return $q->getIdQuestion();
-            }, $practiceExamQuestions);
-
-            $numberOfQuestions = count($idQuestions);
-
-            for ($i = 0; $i < $numberOfQuestions; $i++) {
-
-                // get question texts
-                $questionTexts[$i] = $this->questionTextDAO->getQuestionTextsByIdQuestion($idQuestions[$i]);
-
-                // get questions
-                $questions[$i] = $this->questionDAO->getQuestionById($idQuestions[$i]);
-
-                if($questions[$i]->getIdQuestionType() == 1){
-
-                    // get questions alternatives 
-                    $questionAlternatives[$i] = $this->questionAlternativeDAO->getQuestionAlternativesByIdQuestion($idQuestions[$i]);
-                }else{
-                    $questionsDiscursive[$i] = $this->questionDiscursiveDAO->getQuestionDiscursiveByIdQuestion($questions[$i]->getIdQuestion());
-                }
-                
+            $userPracticeExams = $this->userPracticeExamDAO->getAllUserPracticeExamsByIdUser($idUser);
+            
+            if (!$userPracticeExams) {
+                return array();
             }
 
-            // Generate an array containing JSON representations of the properties for each question alternative or discursive question
-            for ($i = 0; $i < $numberOfQuestions; $i++) {
+            $this->userPracticeExamDAO->closeConnection();
 
-                if($questions[$i]->getIdQuestionType() == 1){
-
-                    $jsonQuestionAlternatives[$i] = array_map(function ($qa) {
-                        return [
-    
-                                'idQuestionAlternative' => $qa->getIdQuestionAlternative(),
-                                'text' => $qa->getText(),
-                                'isCorrect' => $qa->getIsCorrect()
-                        ];
-                    }, $questionAlternatives[$i]);
-                }else{
-
-                    $jsonQuestionsDiscursive[$i] =  [
-                        'idQuestionDiscursive' => $questionsDiscursive[$i]->getIdQuestionDiscursive(),
-                        'baseResponse' => $questionsDiscursive[$i]->getbaseResponse()
-                    ];
-                }
- 
-            }
-
-            // Generate a json with the necessary properties to build a question on client side
-            for ($i = 0; $i < $numberOfQuestions; $i++) {
-
-                if($questions[$i]->getIdQuestionType() == 1){
-                    $jsonQuestions[$i] = array_merge(
-                    
-                        ['idQuestion' => $questions[$i]->getIdQuestion()],
-                        ['statement' => $questions[$i]->getStatement()],
-                        ['text' => $questionTexts[$i][0]->getText()],
-                        ['alternatives' => $jsonQuestionAlternatives[$i]]
-                    );
-                }else{
-                    $jsonQuestions[$i] = array_merge(
-                    
-                        ['idQuestion' => $questions[$i]->getIdQuestion()],
-                        ['statement' => $questions[$i]->getStatement()],
-                        ['text' => $questionTexts[$i][0]->getText()],
-                        ['baseResponse' => $jsonQuestionsDiscursive[$i]]
-                    );
-                }
-                
-            }
-
-            $this->practiceExamQuestionDAO->closeConnection();
-            $this->questionTextDAO->closeConnection();
-            $this->questionDAO->closeConnection();
-            $this->questionAlternativeDAO->closeConnection();
-            $this->questionDiscursiveDAO->closeConnection();
-
-            return  $jsonQuestions;
+            return $userPracticeExams;
         } catch (Exception $e) {
             throw $e;
-        }
+        };
     }
 
     /**
@@ -277,3 +174,6 @@ class UserPracticeExamService extends AbstractService
     }
 
 }
+
+    
+
