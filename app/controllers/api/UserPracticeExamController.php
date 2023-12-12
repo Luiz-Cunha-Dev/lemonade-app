@@ -36,13 +36,11 @@ class UserPracticeExamController{
      * @param Request $request
      * @return Response
      */
-    public static function getUserPracticeExamQuestions($request){
-
-        $jsonVars = $request->getJsonVars();
+    public static function getUserPracticeExamQuestions($idPracticeExam){
         
         $userPracticeExamService = new UserPracticeExamService;
 
-        $userPracticeExamQuestions = $userPracticeExamService->getUserPracticeExamQuestions($jsonVars['idPracticeExam']);
+        $userPracticeExamQuestions = $userPracticeExamService->getUserPracticeExamQuestions($idPracticeExam);
 
         if(!$userPracticeExamQuestions){
             return (new Response(400, 'application/json', ['message' => 'Não foi possível recuperar as questões', 'success' => false]))->sendResponse();
