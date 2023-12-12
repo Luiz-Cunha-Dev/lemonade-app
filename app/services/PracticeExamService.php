@@ -7,6 +7,7 @@ use app\daos\QuestionAlternativeDAO;
 use app\daos\QuestionDiscursiveDAO;
 use app\daos\QuestionTextDAO;
 use app\daos\PracticeExamQuestionDao;
+use app\daos\PracticeExamDao;
 
 use Exception;
 
@@ -46,10 +47,16 @@ class PracticeExamService extends AbstractService{
     private $questionTextDAO;
 
     /**
-     * Practice Exam question DAO
-     * @var practoceExamQuestionDAO $practoceExamQuestionDAO
+     * Practice exam question DAO
+     * @var practiceExamQuestionDAO $practoceExamQuestionDAO
      */
     private $practiceExamQuestionDAO;
+
+    /**
+     * Practice exam DAO
+     * @var practiceExamDAO $practoceExamDAO
+     */
+    private $practiceExamDAO;
 
 
     /**
@@ -65,11 +72,15 @@ class PracticeExamService extends AbstractService{
         $this->questionDiscursiveDAO = new QuestionDiscursiveDAO($this->conn->getConnection());
         $this->questionTextDAO = new QuestionTextDAO($this->conn->getConnection());
         $this->practiceExamQuestionDAO = new PracticeExamQuestionDAO($this->conn->getConnection());
+        $this->practiceExamDAO = new PracticeExamDao($this->conn->getConnection());
     }
 
     /**
      * Get and handle user practice exam questions
+     * 
      * @param integer idPracticeExam 
+     * 
+     * @return $jsonQuestions
      */
     public function getPracticeExamQuestions($idPracticeExam)
     {
@@ -160,4 +171,22 @@ class PracticeExamService extends AbstractService{
             throw $e;
         }
     }
+
+    /**
+     * Get and handle user practice exams
+     * 
+     * @return array $practiceExams
+     */
+    public function getAllPracticeExams(){
+
+        $practiceExams = $this->practiceExamDAO->getAllPracticeExams();
+
+        if(!$practiceExams){
+            return array();
+        }
+
+        return $practiceExams;
+    }
+
+
 }

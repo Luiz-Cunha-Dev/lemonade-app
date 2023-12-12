@@ -13,9 +13,9 @@ use app\routes\http\Response;
 class PracticeExamController{
 
     /**
-     * Get user practice exam questions
+     * Get practice exam questions
      * 
-     * @param Request $request
+     * @param $idPracticeExam
      * 
      * @return array $PracticeExamQuestions
      */
@@ -31,5 +31,24 @@ class PracticeExamController{
         }
         
         return $PracticeExamQuestions;
+    }
+
+    /**
+     * Get all practice exams
+     * 
+     * @return array $PracticeExams
+     */
+    public static function getAllPracticeExams(){
+
+        
+        $PracticeExamService = new PracticeExamService;
+
+        $PracticeExams = $PracticeExamService->getAllPracticeExams();
+
+        if(!$PracticeExams){
+            return (new Response(400, 'application/json', ['message' => 'Não foi possível recuperar as questões', 'success' => false]))->sendResponse();
+        }
+        
+        return $PracticeExams;
     }
 }
