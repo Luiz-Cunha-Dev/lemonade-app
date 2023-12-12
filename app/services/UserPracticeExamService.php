@@ -6,11 +6,13 @@ use app\daos\UserPracticeExamDAO;
 use app\daos\UserPracticeExamQuestionAlternativeDAO;
 use app\daos\QuestionDAO;
 use app\daos\QuestionAlternativeDAO;
+use app\daos\QuestionDiscursiveDAO;
 use app\daos\QuestionTextDAO;
 use app\daos\PracticeExamQuestionDao;
 
 use app\models\UserPracticeExamQuestionAlternativeModel;
 use app\models\UserPracticeExamModel;
+
 use Exception;
 
 define("NUMBER_OF_ALTERNATIVES", 5);
@@ -37,7 +39,7 @@ class UserPracticeExamService extends AbstractService
      * @var UserPracticeExamQuestionAlternativeDAO $userPracticeExamQuestionAlternativeDAO
      */
     private $userPracticeExamQuestionAlternativeDAO;
-
+    
     /**
      * Question DAO
      * @var questionDAO $questionDAO
@@ -49,6 +51,12 @@ class UserPracticeExamService extends AbstractService
      * @var questionAlternativeDAO $questionAlternativeDAO
      */
     private $questionAlternativeDAO;
+
+    /**
+     * Question discursive DAO
+     * @var questionDiscursiveDAO $questionDiscursiveDAO
+     */
+    private $questionDiscursiveDAO;
 
     /**
      * Question text DAO
@@ -75,6 +83,7 @@ class UserPracticeExamService extends AbstractService
         $this->userPracticeExamQuestionAlternativeDAO = new UserPracticeExamQuestionAlternativeDAO($this->conn->getConnection());
         $this->questionDAO = new QuestionDAO($this->conn->getConnection());
         $this->questionAlternativeDAO = new QuestionAlternativeDAO($this->conn->getConnection());
+        $this->questionDiscursiveDAO = new QuestionDiscursiveDAO($this->conn->getConnection());
         $this->questionTextDAO = new QuestionTextDAO($this->conn->getConnection());
         $this->practiceExamQuestionDAO = new PracticeExamQuestionDAO($this->conn->getConnection());
     }
@@ -105,41 +114,69 @@ class UserPracticeExamService extends AbstractService
                 // get questions
                 $questions[$i] = $this->questionDAO->getQuestionById($idQuestions[$i]);
 
-                // get questions alternatives 
-                $questionAlternatives[$i] = $this->questionAlternativeDAO->getQuestionAlternativesByIdQuestion($idQuestions[$i]);
-    
+                if($questions[$i]->getIdQuestionType() == 1){
+
+                    // get questions alternatives 
+                    $questionAlternatives[$i] = $this->questionAlternativeDAO->getQuestionAlternativesByIdQuestion($idQuestions[$i]);
+                }else{
+                    $questionsDiscursive[$i] = $this->questionDiscursiveDAO->getQuestionDiscursiveByIdQuestion($questions[$i]->getIdQuestion());
+                }
+                
             }
 
-            // Generate an array containing JSON representations of the properties for each question alternative
+            // Generate an array containing JSON representations of the properties for each question alternative or discursive question
             for ($i = 0; $i < $numberOfQuestions; $i++) {
-                $jsonQuestionAlternatives[$i] = array_map(function ($qa) {
-                    return [
 
-                            'idQuestionAlternative' => $qa->getIdQuestionAlternative(),
-                            'text' => $qa->getText(),
-                            'isCorrect' => $qa->getIsCorrect()
+                if($questions[$i]->getIdQuestionType() == 1){
+
+                    $jsonQuestionAlternatives[$i] = array_map(function ($qa) {
+                        return [
+    
+                                'idQuestionAlternative' => $qa->getIdQuestionAlternative(),
+                                'text' => $qa->getText(),
+                                'isCorrect' => $qa->getIsCorrect()
+                        ];
+                    }, $questionAlternatives[$i]);
+                }else{
+
+                    $jsonQuestionsDiscursive[$i] =  [
+                        'idQuestionDiscursive' => $questionsDiscursive[$i]->getIdQuestionDiscursive(),
+                        'baseResponse' => $questionsDiscursive[$i]->getbaseResponse()
                     ];
-                }, $questionAlternatives[$i]);
+                }
+ 
             }
 
             // Generate a json with the necessary properties to build a question on client side
             for ($i = 0; $i < $numberOfQuestions; $i++) {
 
-                $jsonQuestionsAndAlternatives[$i] = array_merge(
+                if($questions[$i]->getIdQuestionType() == 1){
+                    $jsonQuestions[$i] = array_merge(
                     
                         ['idQuestion' => $questions[$i]->getIdQuestion()],
                         ['statement' => $questions[$i]->getStatement()],
                         ['text' => $questionTexts[$i][0]->getText()],
                         ['alternatives' => $jsonQuestionAlternatives[$i]]
-                );
+                    );
+                }else{
+                    $jsonQuestions[$i] = array_merge(
+                    
+                        ['idQuestion' => $questions[$i]->getIdQuestion()],
+                        ['statement' => $questions[$i]->getStatement()],
+                        ['text' => $questionTexts[$i][0]->getText()],
+                        ['baseResponse' => $jsonQuestionsDiscursive[$i]]
+                    );
+                }
+                
             }
 
             $this->practiceExamQuestionDAO->closeConnection();
             $this->questionTextDAO->closeConnection();
             $this->questionDAO->closeConnection();
             $this->questionAlternativeDAO->closeConnection();
+            $this->questionDiscursiveDAO->closeConnection();
 
-            return  $jsonQuestionsAndAlternatives;
+            return  $jsonQuestions;
         } catch (Exception $e) {
             throw $e;
         }
