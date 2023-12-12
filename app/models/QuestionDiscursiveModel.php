@@ -1,5 +1,6 @@
 <?php
 
+namespace app\models;
 /**
  * Question discursive model
  * 
@@ -7,7 +8,7 @@
  * 
  * @package app\models
  */
-class QuesitonDiscursiveModel{
+class QuestionDiscursiveModel{
 
     /**
      * Question discursive id
