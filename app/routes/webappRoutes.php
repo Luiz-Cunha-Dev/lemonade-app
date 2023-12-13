@@ -2,6 +2,8 @@
 
 use app\controllers\webapp\QuestionController;
 use app\controllers\webapp\AppController;
+use app\controllers\webapp\CreateExamController;
+use app\controllers\webapp\CreateQuestionController;
 use app\controllers\webapp\EditAccountController;
 use app\controllers\webapp\ExamController;
 use app\controllers\webapp\FirstAccessController;
@@ -81,6 +83,30 @@ $router->get('/wapp/exam', [
         'IsSessionFirstAccess'
     ],
     fn() => new Response(200, 'text/html', ExamController::getExam())
+]);
+
+// Web app createQuestion page route
+
+$router->get('/wapp/createQuestion', [
+    'middlewares' => [
+        'RequireSessionLogin',
+        'IsSessionExpired',
+        'SessionRefresh',
+        'IsSessionFirstAccess'
+    ],
+    fn() => new Response(200, 'text/html', CreateQuestionController::getCreateQuestion())
+]);
+
+// Web app createExam page route
+
+$router->get('/wapp/createExam', [
+    'middlewares' => [
+        'RequireSessionLogin',
+        'IsSessionExpired',
+        'SessionRefresh',
+        'IsSessionFirstAccess'
+    ],
+    fn() => new Response(200, 'text/html', CreateExamController::getCreateExam())
 ]);
 
 // Web app editAccount page route

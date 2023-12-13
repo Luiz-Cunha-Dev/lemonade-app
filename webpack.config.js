@@ -16,7 +16,9 @@ const config = {
         ranking: './app/views/pages/js/ranking.js',
         users: './app/views/pages/js/users.js',
         train: './app/views/pages/js/train.js',
-        exam: './app/views/pages/js/exam.js'
+        exam: './app/views/pages/js/exam.js',
+        createQuestion: './app/views/pages/js/createQuestion.js',
+        createExam: './app/views/pages/js/createExam.js'
     },
     output: {
         path: path.resolve(__dirname, './app/views/pages/js/dist'),
