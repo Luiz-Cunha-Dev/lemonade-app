@@ -26,13 +26,36 @@ body {
 }
 
 .card {
+  position: relative;
+  padding: 20px;
   color: white;
-  width: 350px;
-  height: 225px;
+  width: 370px;
+  height: 350px;
   border-radius: 12px;
   background: #1a253c;
   .card-body {
     padding: 0px 16px 0px 16px;
+  }
+  .check{
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    width: 30px;
+    height: 30px;
+  }
+  .status{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    line-height: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    background: #0d1526;
+    border-radius: 10px;
+    padding: 10px;
+    padding-top: 20px;
   }
   button {
     margin-top: 20px;
