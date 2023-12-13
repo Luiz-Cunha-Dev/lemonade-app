@@ -1,0 +1,246 @@
+@import "variables";
+@import "wappNavbar";
+@import "wappFooter";
+
+
+body {
+  &.dark-mode {
+    background-color: $dark-background-color;
+    color: $dark-text-color;
+  }
+
+  &.light-mode {
+    background-color: $light-background-color;
+    color: $light-text-color;
+    .createExam{
+      color: white;
+    }
+  }
+
+  background-color: #0e141e;
+  color: white;
+  margin: 0;
+  padding: 0;
+  font-family: "Fredoka", sans-serif;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.selected{
+  border: 2px solid green;
+}
+
+
+.createExam {
+  width: 100%;
+  min-height: 800px;
+  max-height: 800px;
+  background-color: #151e30;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.75);
+  overflow: hidden;
+}
+
+.top{
+  display: flex;
+  height: 700px;
+}
+
+.down{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  button{
+    width: 100px;
+    height: 40px;
+  }
+}
+
+.scrollField{
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  gap: 20px; 
+}
+
+.question {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  width: 90%;
+  height: 200px;
+  border-radius: 20px;
+  background-color: #0c1425;
+  padding: 20px;
+  cursor: pointer;
+  p {
+    width: 90%;
+    height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.exam {
+  .title{
+    margin-bottom: 20px;
+  }
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  height: 700px;
+  padding: 20px;
+}
+
+.questions {
+  .title{
+    margin-bottom: 20px;
+  }
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  height: 700px;
+  padding: 20px;
+}
+
+.alert{
+  position: absolute;
+  top: 20%; 
+  right: 1%;
+  z-index: 101;
+}
+
+h1 {
+  font-size: 70px;
+  font-style: normal;
+  font-weight: 600;
+  text-align: center;
+}
+
+h2 {
+  font-size: 60px;
+  font-style: normal;
+  font-weight: 600;
+  text-align: center;
+}
+
+.pageTitle{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 12%;
+  top: 15%;
+  gap: 20px;
+  img{
+    height: 60px;
+  }
+}
+
+.container {
+  flex: 1;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: fit-content;
+  min-height: 90vh;
+  padding-top: 20vh;
+}
+
+@media (max-width: 1280px) {
+  .pageTitle {
+    top: 160px;
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 50px;
+  }
+  
+  h2 {
+    font-size: 40px;
+  }
+
+  .pageTitle {
+    img {
+      height: 45px;
+    }
+  }
+
+  .section {
+    padding-top: 15vh;
+  }
+
+
+  .top{
+    flex-direction: column;
+  }
+
+  .down{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+  }
+
+  .createExam {
+    position: relative;
+    min-height: 1100px;
+    max-height: 1100px;
+  }
+  
+  .scrollField{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    gap: 20px; 
+  }
+  
+  .question {
+    width: 95%;
+    height: 200px;
+    border-radius: 20px;
+    background-color: #0c1425;
+    padding: 20px;
+  }
+  
+  .exam {
+    .title{
+      margin-bottom: 20px;
+    }
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 600px;
+    padding: 20px;
+  }
+  
+  .questions {
+    .title{
+      margin-bottom: 20px;
+    }
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 400px;
+    padding: 20px;
+  }
+}
