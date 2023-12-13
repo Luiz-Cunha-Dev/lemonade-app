@@ -10,7 +10,7 @@ use app\daos\UserPracticeExamQuestionDiscursiveDAO;
 use app\models\UserPracticeExamQuestionAlternativeModel;
 use app\models\UserPracticeExamModel;
 use app\models\UserPracticeExamQuestionDiscursiveModel;
-
+               
 use Exception;
 
 define("NUMBER_OF_ALTERNATIVES", 5);
@@ -74,7 +74,8 @@ class UserPracticeExamService extends AbstractService
     public function getAllUserPracticeExamsByIdUser($idUser){
         try {
 
-            $userPracticeExams = $this->userPracticeExamDAO->getAllUserPracticeExamsByIdUser($idUser);
+            $userPracticeExams = $this->userPracticeExamDAO->getAllHigherGradeUserPracticeExamsByIdUser($idUser);
+            
             
             if (!$userPracticeExams) {
                 return array();
@@ -120,10 +121,12 @@ class UserPracticeExamService extends AbstractService
             $this->userPracticeExamDAO->commitTransaction();
 
             //get id user practice exam
-            $idUserPracticeExam = $this->userPracticeExamDAO->getUserPracticeExamsByIdUserAndIdUserPracticeExam(
+            $idUserPracticeExam = $this->userPracticeExamDAO->getIdUserPracticeExamByIdUserAndIdPracticeExam(
                 $userPracticeExamData['idUser'], 
                 $userPracticeExamData['idPracticeExam']
-            )->getIdUserPracticeExam();
+            );
+
+            $idUserPracticeExam = $idUserPracticeExam['idUserPracticeExam'];
             
             $this->userPracticeExamQuestionAlternativeDAO->beginTransaction();
             

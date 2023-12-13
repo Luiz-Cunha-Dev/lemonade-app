@@ -26,34 +26,35 @@ class UserPracticeExamDAO extends AbstractDAO
      * 
      * @return UserPracticeExamModel user practice exam
      */
-    public function getUserPracticeExamsByIdUserAndIdUserPracticeExam($idUser, $idUserPracticeExam)
-    {
+    public function getIdUserPracticeExamByIdUserAndIdPracticeExam($idUser, $idPracticeExam) {
 
         try {
 
-            $usersPracticeExam = parent::getElementByParameters('userPracticeExam', [
-                'idUser' => $idUser,
-                'idPracticeExam' => $idUserPracticeExam
-            ]);
+            $sql = 'SELECT idUserPracticeExam FROM userPracticeExam WHERE idUser = ? AND idPracticeExam = ? ORDER BY idUserPracticeExam DESC
+            LIMIT 1';
 
-            if (empty($usersPracticeExam)) {
-                return array();
+            $stmt = $this->conn->prepare($sql);
+
+            $stmt->bind_param('ii', $idUser, $idPracticeExam);
+
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $stmt->close();
+
+            if ($result) {
+                $element = $result->fetch_assoc();
+            } else {
+                $element = array();
             }
 
-            $usersPracticeExam = new UserPracticeExamModel(
-                $usersPracticeExam['idUserPracticeExam'],
-                $usersPracticeExam['startDate'],
-                $usersPracticeExam['endDate'],
-                $usersPracticeExam['grade'],
-                $usersPracticeExam['idUser'],
-                $usersPracticeExam['idPracticeExam']
-            );
+            $result->free();
 
-            return $usersPracticeExam;
+            return $element;
         } catch (Exception $e) {
-            throw new Exception();
+            throw $e;
         }
     }
+    
     /**
      * Get user practice exams by id user
      * 
@@ -68,6 +69,7 @@ class UserPracticeExamDAO extends AbstractDAO
         try {
 
             $userPracticeExams = parent::getElementsByParameter('userPracticeExam', 'idUser', $idUser);
+            
 
             if (empty($userPracticeExams)) {
                 return array();
@@ -76,6 +78,44 @@ class UserPracticeExamDAO extends AbstractDAO
             return $userPracticeExams;
         } catch (Exception $e) {
             throw new Exception();
+        }
+
+    }
+    public function getAllHigherGradeUserPracticeExamsByIdUser($idUser){
+
+        try {
+
+            $sql = 'SELECT *
+            FROM userPracticeExam
+            JOIN (
+                SELECT idUser, idPracticeExam, MAX(grade) AS maxGrade
+                FROM userPracticeExam
+                WHERE idUser = ?
+                GROUP BY idUser, idPracticeExam
+            ) maxGrades ON userPracticeExam.idUser = maxGrades.idUser
+                       AND userPracticeExam.idPracticeExam = maxGrades.idPracticeExam
+                       AND userPracticeExam.grade = maxGrades.maxGrade
+            WHERE userPracticeExam.idUser = ?
+            ORDER BY userPracticeExam.idUser, userPracticeExam.idPracticeExam, userPracticeExam.grade DESC, userPracticeExam.startDate DESC;';
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param('ii', $idUser, $idUser);
+
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $stmt->close();
+
+            if ($result) {
+                $userPracticeExams = $result->fetch_all(MYSQLI_ASSOC);
+            } else {
+                $userPracticeExams = array();
+            }
+
+            $result->free();
+            
+
+            return $userPracticeExams;
+        } catch (Exception $e) {
+            throw $e;
         }
 
     }
@@ -161,4 +201,6 @@ class UserPracticeExamDAO extends AbstractDAO
             throw new Exception();
         }
     }
+
+    
 }
