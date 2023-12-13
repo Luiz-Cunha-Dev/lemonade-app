@@ -13,8 +13,29 @@ use app\routes\http\Response;
 class UserPracticeExamController{
 
     /**
+     * Get all user practice exams
+     * 
+     * @param integer idUserPracticeExam
+     * 
+     * @return array $userPracticeExams
+     */
+    public static function getAllUserPracticeExamsByIdUser($idUser){
+
+        $userPracticeExamService = new UserPracticeExamService;
+
+        $userPracticeExams = $userPracticeExamService->getAllUserPracticeExamsByIdUser($idUser);
+
+        if(!$userPracticeExams){
+            return (new Response(404, 'application/json', ['message' => 'Não foi possível encontrar simulados do usuário', 'success' => false]))->sendResponse();
+        }
+        return $userPracticeExams;
+    }
+
+    /**
      * Finish user practice exam
+     * 
      * @param Request $request
+     * 
      * @return Response
      */
     public static function finishUserPracticeExam($request){

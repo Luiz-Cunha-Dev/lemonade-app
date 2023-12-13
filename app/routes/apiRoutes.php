@@ -5,6 +5,7 @@ use app\controllers\api\CityController;
 use app\controllers\api\StateController;
 use app\controllers\api\UserController;
 use app\controllers\api\UserPracticeExamController;
+use app\controllers\api\PracticeExamController;
 use app\controllers\api\RandomQuestionController;
 
 // Cities api route
@@ -71,7 +72,14 @@ $router->delete('/api/user/delete/{id}', [
 
 // User Practice exam routes
 
-$router->post('/api/userPracticeExam/finish', [
+$router->get('/api/userPracticeExam/{idUser}', [
+    'middlewares' => [
+        'InternalApiToken'
+    ],
+    fn($idUser) => new Response(200, 'application/json', UserPracticeExamController::getAllUserPracticeExamsByIdUser($idUser))
+]);
+
+$router->post('/api/userPracticeExam', [
     'middlewares' => [
         'InternalApiToken'
     ],
@@ -85,6 +93,15 @@ $router->get('/api/userPracticeExam/questions/{idPracticeExam}',[
     fn($idPracticeExam) => new Response(200, 'application/json', UserPracticeExamController::getUserPracticeExamQuestions($idPracticeExam))
 ]);
 
+// Practice exam routes
+$router->get('/api/practiceExam',[
+    'middlewares' => [
+       'InternalApiToken'
+    ],
+    fn() => new Response(200, 'application/json', PracticeExamController::getAllPracticeExams())
+]);
+
+// Random question route
 $router->get('/api/randomQuestion',[
     'middlewares' => [
        'InternalApiToken'

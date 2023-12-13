@@ -70,7 +70,6 @@ use Exception;
             
             $questionAlternatives = new QuestionAlternativeModel(
                 $questionAlternatives['idQuestionAlternative'], 
-                $questionAlternatives['letter'], 
                 $questionAlternatives['text'], 
                 $questionAlternatives['isCorrect'], 
                 $questionAlternatives['idQuestion']

@@ -195,8 +195,8 @@ async function getAddressByZipCode(cep) {
   }
 }
 
-function validName(name) {
-  const nameRegex = /^[A-Za-z\s]+$/;
+function validName() {
+  const nameRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
 
   if (inputName.value === "") {
     inputName.classList.remove("is-valid");
@@ -204,7 +204,7 @@ function validName(name) {
     return;
   }
 
-  if (!nameRegex.test(inputName.value)) {
+  if (inputName.value <  !nameRegex.test(inputName.value)) {
     if (!inputName.classList.contains("is-invalid")) {
       inputName.classList.add("is-invalid");
     }
@@ -223,7 +223,7 @@ function validName(name) {
 }
 
 function validLastName() {
-  const lastNameRegex = /^[A-Za-z\s]+$/;
+  const lastNameRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
 
   if (inputLastName.value === "") {
     inputLastName.classList.remove("is-valid");
@@ -250,7 +250,7 @@ function validLastName() {
 }
 
 function validNickName() {
-  const nickNameRegex = /^[A-Za-z0-9\s]+$/;
+  const nickNameRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s]+$/;
 
   if (inputNickname.value === "") {
     inputNickname.classList.remove("is-valid");
@@ -277,7 +277,7 @@ function validNickName() {
 }
 
 function validStreet() {
-  const streetRegex = /^[A-Za-z0-9\s]+$/;
+  const streetRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s.,/-]+$/;
 
   if (inputStreet.value === "") {
     inputStreet.classList.remove("is-valid");
@@ -331,7 +331,7 @@ function validNumber() {
 }
 
 function validNeighborhood() {
-  const neighborhoodRegex = /^[A-Za-z0-9\s]+$/;
+  const neighborhoodRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s.,/-]+$/;
 
   if (inputNeighborhood.value === "") {
     inputNeighborhood.classList.remove("is-valid");
@@ -358,7 +358,7 @@ function validNeighborhood() {
 }
 
 function validComplement() {
-  const complementRegex = /^[A-Za-z0-9\s]+$/;
+  const complementRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s.,/-]+$/;
 
   if (inputComplement.value === "") {
     inputComplement.classList.remove("is-valid");

@@ -88,6 +88,9 @@ abstract class AbstractDAO {
             case 'double':
                 $parameterType = 'd';
                 break;
+            case 'boolean':
+                $parameterType = 'i';
+                break;
         }
 
         return $parameterType;

@@ -16,7 +16,7 @@ class UserPracticeExamDAO extends AbstractDAO
 {
 
     /**
-     * Get user practice exam by id user
+     * Get user practice exam by id user and id practice exam
      * 
      * @param integer id user 
      * 
@@ -54,8 +54,31 @@ class UserPracticeExamDAO extends AbstractDAO
             throw new Exception();
         }
     }
+    /**
+     * Get user practice exams by id user
+     * 
+     * @param integer id user 
+     * 
+     * If it is null, returns an empty array
+     * 
+     * @return array userPracticeExams
+     */
+    public function getAllUserPracticeExamsByIdUser($idUser){
 
+        try {
 
+            $userPracticeExams = parent::getElementsByParameter('userPracticeExam', 'idUser', $idUser);
+
+            if (empty($userPracticeExams)) {
+                return array();
+            }
+
+            return $userPracticeExams;
+        } catch (Exception $e) {
+            throw new Exception();
+        }
+
+    }
 
     /**
      * Get user practice exam by id
