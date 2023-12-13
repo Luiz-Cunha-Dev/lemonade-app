@@ -22,15 +22,15 @@ class PracticeExamController{
     public static function getPracticeExamQuestions($idPracticeExam){
 
         
-        $PracticeExamService = new PracticeExamService;
+        $practiceExamService = new PracticeExamService;
 
-        $PracticeExamQuestions = $PracticeExamService->getPracticeExamQuestions($idPracticeExam);
+        $practiceExamQuestions = $practiceExamService->getPracticeExamQuestions($idPracticeExam);
 
-        if(!$PracticeExamQuestions){
+        if(!$practiceExamQuestions){
             return (new Response(400, 'application/json', ['message' => 'Não foi possível recuperar as questões', 'success' => false]))->sendResponse();
         }
         
-        return $PracticeExamQuestions;
+        return $practiceExamQuestions;
     }
 
     /**
@@ -41,14 +41,14 @@ class PracticeExamController{
     public static function getAllPracticeExams(){
 
         
-        $PracticeExamService = new PracticeExamService;
+        $practiceExamService = new PracticeExamService;
 
-        $PracticeExams = $PracticeExamService->getAllPracticeExams();
+        $practiceExams = $practiceExamService->getAllPracticeExams();
 
-        if(!$PracticeExams){
+        if(!$practiceExams){
             return (new Response(400, 'application/json', ['message' => 'Não foi possível recuperar as questões', 'success' => false]))->sendResponse();
         }
         
-        return $PracticeExams;
+        return $practiceExams;
     }
 }
