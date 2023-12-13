@@ -17,6 +17,7 @@ const config = {
         users: './app/views/pages/js/users.js',
         train: './app/views/pages/js/train.js',
         exam: './app/views/pages/js/exam.js',
+        exams: './app/views/pages/js/exams.js',
         createQuestion: './app/views/pages/js/createQuestion.js',
         createExam: './app/views/pages/js/createExam.js'
     },

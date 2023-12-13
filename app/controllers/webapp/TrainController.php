@@ -26,7 +26,7 @@ class TrainController extends AbstractPageController {
         ]);
 
         $item2 = View::render('pages/components/sidebarItem', [
-            'itemUrl' => 'wapp/exam',
+            'itemUrl' => 'wapp/exams',
             'imageUrl' => './app/views/pages/assets/svgs/exam.svg',
             'itemName' => 'Simulados'
         ]);
@@ -49,7 +49,7 @@ class TrainController extends AbstractPageController {
         ]);
 
         $item2 = View::render('pages/components/sidebarItem', [
-            'itemUrl' => 'wapp/exam',
+            'itemUrl' => 'wapp/exams',
             'imageUrl' => './app/views/pages/assets/svgs/exam.svg',
             'itemName' => 'Simulados'
         ]);

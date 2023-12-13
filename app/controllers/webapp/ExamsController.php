@@ -7,15 +7,15 @@ use app\session\Session;
 use app\views\View;
 
 /**
- * Ranking controller
+ * Exam controller
  * 
- * HTML file: ./view/pages/webapp/ranking/main.html
- * CSS file: ./views/pages/style/ranking.css
- * JS file: ./views/pages/js/dist/ranking.js
+ * HTML file: ./view/pages/webapp/Exam/main.html
+ * CSS file: ./views/pages/style/Exam.css
+ * JS file: ./views/pages/js/dist/Exam.js
  * 
  * @package app\controllers\webapp
  */ 
-class RankingController extends AbstractPageController {
+class ExamsController extends AbstractPageController {
 
     private static function getStudentSidebarItems() {
 
@@ -70,23 +70,22 @@ class RankingController extends AbstractPageController {
     }
 
     /**
-     * Return the content of app ranking view
+     * Return the content of app exam view
      * 
-     * @return string app ranking rendered page
+     * @return string app exam rendered page
      */
-    public static function getRanking() {
+    public static function getExams() {
 
-        // App Ranking view
+        // App Exams view
 
         $header = View::render('pages/webapp/html/header', [
             'userName' => Session::getCurrentUserSessionData()['name'],
             'lastName' => Session::getCurrentUserSessionData()['lastName'],
             'sidebarItems' => Session::getCurrentUserSessionData()['userType'] == 1 ? self::getStudentSidebarItems() : self::getAdminSidebarItems(),
-            'profilePicture' => Session::getCurrentUserSessionData()['profilePicture'],
-            'userId' => Session::getCurrentUserSessionData()['id'],
+            'profilePicture' => Session::getCurrentUserSessionData()['profilePicture']
         ]);
 
-        $main = View::render('pages/webapp/html/ranking/main', [
+        $main = View::render('pages/webapp/html/exams/main', [
             'nickname' => Session::getCurrentUserSessionData()['nickname'],
         ]);
 
@@ -95,7 +94,7 @@ class RankingController extends AbstractPageController {
         // Return page view
 
         return parent::getPage('App', $header, $main, $footer, 
-        ['css' => './app/views/pages/style/ranking.css', 'js' => './app/views/pages/js/dist/ranking.js']);
+        ['css' => './app/views/pages/style/exams.css', 'js' => './app/views/pages/js/dist/exams.js']);
     }
 
 }
