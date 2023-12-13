@@ -9,7 +9,7 @@ namespace app\models;
  * 
  * @package app\models
  */
-class UserPracticeExamQuestionAlternativeModel{
+class UserPracticeExamQuestionDiscursiveModel{
 
     /**
      * Id User Practice Exam id (fk)

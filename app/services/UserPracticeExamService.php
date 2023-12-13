@@ -5,9 +5,11 @@ namespace app\services;
 use app\daos\UserPracticeExamDAO;
 use app\daos\UserPracticeExamQuestionAlternativeDAO;
 use app\daos\QuestionAlternativeDAO;
+use app\daos\UserPracticeExamQuestionDiscursiveDAO;
 
 use app\models\UserPracticeExamQuestionAlternativeModel;
 use app\models\UserPracticeExamModel;
+use app\models\UserPracticeExamQuestionDiscursiveModel;
 
 use Exception;
 
@@ -43,6 +45,12 @@ class UserPracticeExamService extends AbstractService
     private $questionAlternativeDAO;
 
     /**
+     * User practice exam Question discursive DAO
+     * @var userPracticeExamQuestionDiscursiveDAO $userPracticeExamQuestionDiscursiveDAO
+     */
+    private $userPracticeExamQuestionDiscursiveDAO;
+
+    /**
      * Class constructor
      * 
      * Return a new UserPracticeExam instance
@@ -53,6 +61,7 @@ class UserPracticeExamService extends AbstractService
         $this->userPracticeExamDAO = new UserPracticeExamDAO($this->conn->getConnection());
         $this->userPracticeExamQuestionAlternativeDAO = new UserPracticeExamQuestionAlternativeDAO($this->conn->getConnection());
         $this->questionAlternativeDAO = new QuestionAlternativeDAO($this->conn->getConnection());
+        $this->userPracticeExamQuestionDiscursiveDAO = new UserPracticeExamQuestionDiscursiveDAO($this->conn->getConnection());
     }
 
     /**
@@ -117,7 +126,7 @@ class UserPracticeExamService extends AbstractService
             )->getIdUserPracticeExam();
             
             $this->userPracticeExamQuestionAlternativeDAO->beginTransaction();
-
+            
             //Create user practice exam question alternative model and insert in to database
             for($i = 0; $i < count($userPracticeExamData['alternatives']); $i++){
 
@@ -129,14 +138,31 @@ class UserPracticeExamService extends AbstractService
             }
             
             $this->userPracticeExamQuestionAlternativeDAO->commitTransaction();
+            
+            $this->userPracticeExamQuestionDiscursiveDAO->beginTransaction();
 
-            //Calculate grade
+
+            //Create user practice exam question discursive model and insert in to database and start calculate grade
             $grade = 0;
+            for($i = 0; $i < count($userPracticeExamData['discursive']); $i++){
 
+                $userPracticeExamQuestionDiscursive = new UserPracticeExamQuestionDiscursiveModel($idUserPracticeExam, ...$userPracticeExamData['discursive'][$i]);
+                $insert = $this->userPracticeExamQuestionDiscursiveDAO->insertUserPracticeExamQuestionDiscursive($userPracticeExamQuestionDiscursive->toArray());
+                if(!$insert){
+                    return $insert;
+                }
+                if($userPracticeExamQuestionDiscursive->getIsCorrect()){
+                    $grade ++ ;
+                }
+            }
+
+            $this->userPracticeExamQuestionDiscursiveDAO->commitTransaction();
+
+            //Calculate grade of alternative questions
             foreach ($userPracticeExamData['alternatives'] as $ic){
                 $ic = $this->questionAlternativeDAO->getQuestionAlternativeByIdQuestionAlternative($ic)->getIsCorrect();
                 if($ic){
-                    $grade += 1;
+                    $grade++ ;
                 }
             }
 
@@ -164,6 +190,7 @@ class UserPracticeExamService extends AbstractService
 
             $this->userPracticeExamDAO->closeConnection();
             $this->userPracticeExamQuestionAlternativeDAO->closeConnection();
+            $this->userPracticeExamQuestionDiscursiveDAO->closeConnection();
 
             return true;
 
