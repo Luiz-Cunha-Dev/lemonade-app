@@ -86,11 +86,12 @@ $router->post('/api/userPracticeExam', [
     fn($request) => new Response(200, 'application/json', UserPracticeExamController::finishUserPracticeExam($request))
 ]);
 
-$router->get('/api/userPracticeExam/questions/{idPracticeExam}',[
+// Practice exam routes
+$router->get('/api/practiceExam/{idPracticeExam}',[
     'middlewares' => [
        'InternalApiToken'
     ],
-    fn($idPracticeExam) => new Response(200, 'application/json', UserPracticeExamController::getUserPracticeExamQuestions($idPracticeExam))
+    fn($idPracticeExam) => new Response(200, 'application/json', PracticeExamController::getPracticeExamQuestions($idPracticeExam))
 ]);
 
 // Practice exam routes
