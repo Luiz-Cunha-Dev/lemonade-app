@@ -50,13 +50,13 @@ class PracticeExamService extends AbstractService
 
     /**
      * Practice exam question DAO
-     * @var practiceExamQuestionDAO $practoceExamQuestionDAO
+     * @var practiceExamQuestionDAO $practiceExamQuestionDAO
      */
     private $practiceExamQuestionDAO;
 
     /**
      * Practice exam DAO
-     * @var practiceExamDAO $practoceExamDAO
+     * @var practiceExamDAO $practiceExamDAO
      */
     private $practiceExamDAO;
 

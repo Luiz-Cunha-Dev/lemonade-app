@@ -223,7 +223,7 @@ class UserPracticeExamDAO extends AbstractDAO
                 FROM userPracticeExam 
                 GROUP BY idUser, idPracticeExam
                 ORDER BY idUser, idPracticeExam) 
-                SELECT CONCAT(user.name, " ", user.lastName) AS "fullName", city.uf, SUM(tableaux.grade) AS "score"
+                SELECT user."profilePicture", CONCAT(user.name, " ", user.lastName) AS "fullName", city.uf, SUM(tableaux.grade) AS "score"
                 FROM tableaux 
                 INNER JOIN user ON tableaux.idUser = user.idUser
                 INNER JOIN city ON user.idCity = city.idCity

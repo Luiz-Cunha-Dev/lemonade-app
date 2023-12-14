@@ -39,8 +39,8 @@ class PracticeExamDao extends AbstractDAO{
             
             return $practiceExam;
 
-        } catch (\Throwable $e) {
-            throw new Exception();
+        } catch (Exception $e) {
+            throw $e;
         }
         
     }
