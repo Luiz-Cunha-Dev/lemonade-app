@@ -10,7 +10,7 @@ use app\daos\UserPracticeExamQuestionDiscursiveDAO;
 use app\models\UserPracticeExamQuestionAlternativeModel;
 use app\models\UserPracticeExamModel;
 use app\models\UserPracticeExamQuestionDiscursiveModel;
-
+               
 use Exception;
 
 define("NUMBER_OF_ALTERNATIVES", 5);
@@ -74,7 +74,8 @@ class UserPracticeExamService extends AbstractService
     public function getAllUserPracticeExamsByIdUser($idUser){
         try {
 
-            $userPracticeExams = $this->userPracticeExamDAO->getAllUserPracticeExamsByIdUser($idUser);
+            $userPracticeExams = $this->userPracticeExamDAO->getAllHigherGradeUserPracticeExamsByIdUser($idUser);
+            
             
             if (!$userPracticeExams) {
                 return array();
@@ -120,10 +121,12 @@ class UserPracticeExamService extends AbstractService
             $this->userPracticeExamDAO->commitTransaction();
 
             //get id user practice exam
-            $idUserPracticeExam = $this->userPracticeExamDAO->getUserPracticeExamsByIdUserAndIdUserPracticeExam(
+            $idUserPracticeExam = $this->userPracticeExamDAO->getIdUserPracticeExamByIdUserAndIdPracticeExam(
                 $userPracticeExamData['idUser'], 
                 $userPracticeExamData['idPracticeExam']
-            )->getIdUserPracticeExam();
+            );
+
+            $idUserPracticeExam = $idUserPracticeExam['idUserPracticeExam'];
             
             $this->userPracticeExamQuestionAlternativeDAO->beginTransaction();
             
@@ -198,6 +201,26 @@ class UserPracticeExamService extends AbstractService
             $this->userPracticeExamDAO->rollbackTransaction();
             throw $e;
         }
+    }
+
+    /**
+     * Get users ranked and paginated
+     * @param integer $offset offset
+     * @param integer $limit limit
+     * @return array $ranking
+     */
+    public function getUsersRanking($offset=0, $limit=10) {
+
+        $offset = $offset ? $offset : 0;
+
+        $limit = $limit ? $limit : 10;
+        
+        $ranking = $this->userPracticeExamDAO->getUserRankingWithPagination($offset, $limit);
+
+        $this->userPracticeExamDAO->closeConnection();
+
+        return $ranking;
+    
     }
 
 }

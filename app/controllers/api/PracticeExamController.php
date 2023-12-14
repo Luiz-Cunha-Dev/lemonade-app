@@ -45,10 +45,31 @@ class PracticeExamController{
 
         $practiceExams = $practiceExamService->getAllPracticeExams();
 
-        if(!$practiceExams){
+        if(empty($practiceExams)){
             return (new Response(400, 'application/json', ['message' => 'Não foi possível recuperar as questões', 'success' => false]))->sendResponse();
         }
         
         return $practiceExams;
+    }
+
+    /**
+     * Get all practice exams
+     * 
+     * @return array $PracticeExams
+     */
+    public static function insertUserCreatedPracticeExam($request){
+
+        $practiceExamService = new PracticeExamService;
+
+        $jsonVars = $request->getJsonVars();
+
+        $insertUserCreatedPracticeExam = $practiceExamService->insertUserCreatedPracticeExam($jsonVars);
+        //print_r()
+        if(!$insertUserCreatedPracticeExam){
+
+            return (new Response(400, 'application/json', ['message' => 'Não foi possível criar a prova', 'success' => false]))->sendResponse();
+        }
+
+        return (new Response(201, 'application/json', ['message' => 'Prova criada com sucesso!', 'success' => true]))->sendResponse();
     }
 }

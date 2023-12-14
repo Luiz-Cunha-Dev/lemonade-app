@@ -163,12 +163,11 @@ CREATE TABLE IF NOT EXISTS userCreatedQuestion(
 CREATE TABLE IF NOT EXISTS userPracticeExam(
 	idUserPracticeExam INT NOT NULL AUTO_INCREMENT,
     startDate DATETIME NOT NULL,
-    endDate DATE,
+    endDate DATETIME,
     grade INT,
 	idUser INT NOT NULL,
     idPracticeExam INT NOT NULL,
 	CONSTRAINT userPracticeExamPk PRIMARY KEY (idUserPracticeExam),
-    CONSTRAINT userPracticeExamUnique_idUser_idPracticeExam UNIQUE (idUser, idPracticeExam),
     CONSTRAINT userPracticeExam_UserFk FOREIGN KEY (idUser) REFERENCES `user`(idUser),
     CONSTRAINT userPracticeExam_PracticeExamFk FOREIGN KEY (idPracticeExam) REFERENCES practiceExam(idPracticeExam)
 );

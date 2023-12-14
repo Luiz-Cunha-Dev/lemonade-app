@@ -89,5 +89,14 @@ class PracticeExamQuestionDao extends AbstractDAO
 
     }
 
+    public function insertPracticeExamQuestion($practiceExamQuestionData){
+
+        try {
+            return parent::insertElement('practiceExamQuestion', $practiceExamQuestionData);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
     
 }

@@ -26,34 +26,36 @@ class UserPracticeExamDAO extends AbstractDAO
      * 
      * @return UserPracticeExamModel user practice exam
      */
-    public function getUserPracticeExamsByIdUserAndIdUserPracticeExam($idUser, $idUserPracticeExam)
+    public function getIdUserPracticeExamByIdUserAndIdPracticeExam($idUser, $idPracticeExam)
     {
 
         try {
 
-            $usersPracticeExam = parent::getElementByParameters('userPracticeExam', [
-                'idUser' => $idUser,
-                'idPracticeExam' => $idUserPracticeExam
-            ]);
+            $sql = 'SELECT idUserPracticeExam FROM userPracticeExam WHERE idUser = ? AND idPracticeExam = ? ORDER BY idUserPracticeExam DESC
+            LIMIT 1';
 
-            if (empty($usersPracticeExam)) {
-                return array();
+            $stmt = $this->conn->prepare($sql);
+
+            $stmt->bind_param('ii', $idUser, $idPracticeExam);
+
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $stmt->close();
+
+            if ($result) {
+                $element = $result->fetch_assoc();
+            } else {
+                $element = array();
             }
 
-            $usersPracticeExam = new UserPracticeExamModel(
-                $usersPracticeExam['idUserPracticeExam'],
-                $usersPracticeExam['startDate'],
-                $usersPracticeExam['endDate'],
-                $usersPracticeExam['grade'],
-                $usersPracticeExam['idUser'],
-                $usersPracticeExam['idPracticeExam']
-            );
+            $result->free();
 
-            return $usersPracticeExam;
+            return $element;
         } catch (Exception $e) {
-            throw new Exception();
+            throw $e;
         }
     }
+
     /**
      * Get user practice exams by id user
      * 
@@ -63,11 +65,13 @@ class UserPracticeExamDAO extends AbstractDAO
      * 
      * @return array userPracticeExams
      */
-    public function getAllUserPracticeExamsByIdUser($idUser){
+    public function getAllUserPracticeExamsByIdUser($idUser)
+    {
 
         try {
 
             $userPracticeExams = parent::getElementsByParameter('userPracticeExam', 'idUser', $idUser);
+
 
             if (empty($userPracticeExams)) {
                 return array();
@@ -77,7 +81,45 @@ class UserPracticeExamDAO extends AbstractDAO
         } catch (Exception $e) {
             throw new Exception();
         }
+    }
+    
+    public function getAllHigherGradeUserPracticeExamsByIdUser($idUser)
+    {
 
+        try {
+
+            $sql = 'SELECT  userPracticeExam.*
+            FROM userPracticeExam
+            JOIN (
+                SELECT idUser, idPracticeExam, MAX(grade) AS maxGrade
+                FROM userPracticeExam
+                WHERE idUser = ?
+                GROUP BY idUser, idPracticeExam
+            ) maxGrades ON userPracticeExam.idUser = maxGrades.idUser
+                       AND userPracticeExam.idPracticeExam = maxGrades.idPracticeExam
+                       AND userPracticeExam.grade = maxGrades.maxGrade
+            WHERE userPracticeExam.idUser = ?
+            ORDER BY userPracticeExam.idUser, userPracticeExam.idPracticeExam, userPracticeExam.grade DESC, userPracticeExam.startDate DESC;';
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param('ii', $idUser, $idUser);
+
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $stmt->close();
+
+            if ($result) {
+                $userPracticeExams = $result->fetch_all(MYSQLI_ASSOC);
+            } else {
+                $userPracticeExams = array();
+            }
+
+            $result->free();
+
+
+            return $userPracticeExams;
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 
     /**
@@ -159,6 +201,50 @@ class UserPracticeExamDAO extends AbstractDAO
             return parent::deleteElementByParameter('userPracticeExam', 'idUserPracticeExam', $idUserPracticeExam);
         } catch (Exception $e) {
             throw new Exception();
+        }
+    }
+
+    /**
+     * Get user ranking
+     * 
+     * @param integer offset
+     * 
+     * @param integer limit
+     *
+     * @return array usersRanking
+     */
+    public function getUserRankingWithPagination($offset, $limit)
+    {
+
+        try {
+
+            $sql = 'WITH tableaux AS (
+                SELECT idUser, idPracticeExam, MAX(grade) AS grade, ROW_NUMBER() OVER () AS rowNumber 
+                FROM userPracticeExam 
+                GROUP BY idUser, idPracticeExam
+                ORDER BY idUser, idPracticeExam) 
+                SELECT CONCAT(user.name, " ", user.lastName) AS "fullName", city.uf, SUM(tableaux.grade) AS "score"
+                FROM tableaux 
+                INNER JOIN user ON tableaux.idUser = user.idUser
+                INNER JOIN city ON user.idCity = city.idCity
+                WHERE rowNumber > ' . $offset .
+                ' AND rowNumber <= ' . $offset . ' + ' . $limit .
+                ' GROUP BY tableaux.idUser, "fullName", uf
+                ORDER BY score DESC;';
+
+            $result = $this->conn->query($sql);
+
+            if ($result) {
+                $elements = $result->fetch_all(MYSQLI_ASSOC);
+            } else {
+                $elements = array();
+            }
+
+            $result->free();
+
+            return $elements;
+        } catch (Exception $e) {
+            throw $e;
         }
     }
 }
