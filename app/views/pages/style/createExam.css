@@ -240,6 +240,7 @@ body.light-mode .createExam {
 .top {
   display: flex;
   height: 700px;
+  width: 100%;
 }
 
 .down {
@@ -283,8 +284,8 @@ body.light-mode .createExam {
   cursor: pointer;
 }
 .question p {
-  width: 90%;
-  height: 100px;
+  text-wrap: wrap;
+  min-height: 100px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -293,6 +294,7 @@ body.light-mode .createExam {
   display: flex;
   flex-direction: column;
   width: 60%;
+  min-width: 60%;
   height: 700px;
   padding: 20px;
 }
