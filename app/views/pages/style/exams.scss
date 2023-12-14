@@ -85,7 +85,7 @@ h2 {
   align-items: center;
   position: absolute;
   left: 12%;
-  top: 15%;
+  top: 180px;
   gap: 20px;
   img {
     height: 60px;
@@ -107,6 +107,12 @@ h2 {
 }
 
 @media (max-width: 1280px) {
+  .pageTitle{
+    top: 160px;
+  }
+  .section {
+    padding-top: 15vh;
+  }
 }
 
 @media (max-width: 768px) {

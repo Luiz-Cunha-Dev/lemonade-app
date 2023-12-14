@@ -26,7 +26,7 @@ class CreateQuestionController extends AbstractPageController {
         ]);
 
         $item2 = View::render('pages/components/sidebarItem', [
-            'itemUrl' => 'wapp/exam',
+            'itemUrl' => 'wapp/exams',
             'imageUrl' => './app/views/pages/assets/svgs/exam.svg',
             'itemName' => 'Simulados'
         ]);
@@ -49,7 +49,7 @@ class CreateQuestionController extends AbstractPageController {
         ]);
 
         $item2 = View::render('pages/components/sidebarItem', [
-            'itemUrl' => 'wapp/exam',
+            'itemUrl' => 'wapp/createExam',
             'imageUrl' => './app/views/pages/assets/svgs/exam.svg',
             'itemName' => 'Simulados'
         ]);
@@ -61,7 +61,7 @@ class CreateQuestionController extends AbstractPageController {
         ]);
 
         $item4 = View::render('pages/components/sidebarItem', [
-            'itemUrl' => 'wapp/questions',
+            'itemUrl' => 'wapp/createQuestion',
             'imageUrl' => './app/views/pages/assets/svgs/book.svg',
             'itemName' => 'Questões'
         ]);

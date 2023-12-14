@@ -266,6 +266,10 @@ body.light-mode .rankingTable tbody td {
   justify-content: center;
 }
 
+.page-link {
+  cursor: pointer !important;
+}
+
 h1 {
   font-size: 70px;
   font-style: normal;

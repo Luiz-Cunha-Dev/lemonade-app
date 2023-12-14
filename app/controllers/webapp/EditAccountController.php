@@ -49,7 +49,7 @@ class EditAccountController extends AbstractPageController {
         ]);
 
         $item2 = View::render('pages/components/sidebarItem', [
-            'itemUrl' => 'wapp/exams',
+            'itemUrl' => 'wapp/createExam',
             'imageUrl' => './app/views/pages/assets/svgs/exam.svg',
             'itemName' => 'Simulados'
         ]);
@@ -61,7 +61,7 @@ class EditAccountController extends AbstractPageController {
         ]);
 
         $item4 = View::render('pages/components/sidebarItem', [
-            'itemUrl' => 'wapp/questions',
+            'itemUrl' => 'wapp/createQuestion',
             'imageUrl' => './app/views/pages/assets/svgs/book.svg',
             'itemName' => 'Questões'
         ]);
