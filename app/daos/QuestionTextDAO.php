@@ -45,5 +45,21 @@ class QuestionTextDAO extends AbstractDAO {
             throw $e;
         }
     }
+
+    /**
+     * Insert question text
+     * 
+     * @param $questionTextData
+     * 
+     * @return boolean
+     */
+    public function insertQuestionText($questionTextData){
+
+        try {
+            return parent::insertElement('questionText', $questionTextData);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
     
 }

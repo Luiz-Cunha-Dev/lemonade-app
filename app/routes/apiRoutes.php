@@ -6,6 +6,7 @@ use app\controllers\api\StateController;
 use app\controllers\api\UserController;
 use app\controllers\api\UserPracticeExamController;
 use app\controllers\api\PracticeExamController;
+use app\controllers\api\QuestionController;
 use app\controllers\api\RandomQuestionController;
 
 // Cities api route
@@ -113,6 +114,21 @@ $router->post('/api/practiceExam',[
        'InternalApiToken'
     ],
     fn($request) => new Response(200, 'application/json', PracticeExamController::insertUserCreatedPracticeExam($request))
+]);
+
+//Question route
+$router->post('/api/question',[
+    'middlewares' => [
+       'InternalApiToken'
+    ],
+    fn($request) => new Response(200, 'application/json', QuestionController::insertUserCreatedQuestion($request))
+]);
+
+$router->get('/api/question',[
+    'middlewares' => [
+       'InternalApiToken'
+    ],
+    fn() => new Response(200, 'application/json', QuestionController::getAllQuestions())
 ]);
 
 // Random question route
