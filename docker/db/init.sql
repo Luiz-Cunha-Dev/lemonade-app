@@ -163,7 +163,7 @@ CREATE TABLE IF NOT EXISTS userCreatedQuestion(
 CREATE TABLE IF NOT EXISTS userPracticeExam(
 	idUserPracticeExam INT NOT NULL AUTO_INCREMENT,
     startDate DATETIME NOT NULL,
-    endDate DATE,
+    endDate DATETIME,
     grade INT,
 	idUser INT NOT NULL,
     idPracticeExam INT NOT NULL,

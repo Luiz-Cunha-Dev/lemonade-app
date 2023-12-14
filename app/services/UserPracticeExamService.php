@@ -203,6 +203,26 @@ class UserPracticeExamService extends AbstractService
         }
     }
 
+    /**
+     * Get users ranked and paginated
+     * @param integer $offset offset
+     * @param integer $limit limit
+     * @return array $ranking
+     */
+    public function getUsersRanking($offset=0, $limit=10) {
+
+        $offset = $offset ? $offset : 0;
+
+        $limit = $limit ? $limit : 10;
+        
+        $ranking = $this->userPracticeExamDAO->getUserRankingWithPagination($offset, $limit);
+
+        $this->userPracticeExamDAO->closeConnection();
+
+        return $ranking;
+    
+    }
+
 }
 
     
