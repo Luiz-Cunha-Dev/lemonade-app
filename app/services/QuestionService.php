@@ -136,9 +136,11 @@ class QuestionService extends AbstractService
 
                 $this->questionDiscursiveDAO->beginTransaction();
 
+                print_r($questionDiscursiveDataToInsert);
+
                 $insertQuestionDiscursive = $this->questionDiscursiveDAO->insertQuestionDiscursive($questionDiscursiveDataToInsert);
 
-                if($insertQuestionDiscursive){
+                if(!$insertQuestionDiscursive){
                     return false;
                 }
 

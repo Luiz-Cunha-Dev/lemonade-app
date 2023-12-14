@@ -55,7 +55,9 @@ class QuestionDiscursiveDAO extends AbstractDAO{
     public function insertQuestionDiscursive($questionDiscursiveData){
 
         try {
-            return parent::insertElement('questionDiscursive', $questionDiscursiveData);
+            $insert = parent::insertElement('questionDiscursive', $questionDiscursiveData);
+            print_r($insert);
+            return $insert;
         } catch (Exception $e) {
             throw $e;
         }
