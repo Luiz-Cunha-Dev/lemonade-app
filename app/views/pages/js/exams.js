@@ -17,7 +17,6 @@ function formatDate(stringDate){
 function insertCard(exams){
     exams.forEach((exam) => {
         const userExams = userExamsResponse.filter(userExam => userExam.idPracticeExam == exam.idPracticeExam);
-        console.log(userExams);
         const newCard = document.createElement("div");
         newCard.classList.add("card");
         newCard.id = exam.idPracticeExam;

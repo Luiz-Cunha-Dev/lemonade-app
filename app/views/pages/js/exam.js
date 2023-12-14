@@ -258,7 +258,7 @@ async function evaluateAnswer(question, answer, baseResponse) {
       {
         headers: {
           Authorization:
-            "Bearer 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",
+            "Bearer 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",
           "Content-Type": "application/json",
         },
       }
@@ -312,7 +312,7 @@ async function sendExam() {
           question.text,
           textarea.value,
           question.baseResponse.baseResponse
-        );
+        ) || "0";
         discursiveAnswers.push(answer);
         if (answer.isCorrect) {
           correctAnswers++;
