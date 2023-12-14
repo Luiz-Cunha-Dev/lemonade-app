@@ -90,7 +90,7 @@ class TrainController extends AbstractPageController {
             'nickname' => Session::getCurrentUserSessionData()['nickname'],
         ]);
 
-        $footer = View::render('pages/webapp/html/footer');
+        $footer = '';
 
         // Return page view
 
