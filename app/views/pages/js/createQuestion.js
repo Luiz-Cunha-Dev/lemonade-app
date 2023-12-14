@@ -164,11 +164,20 @@ async function createQuestion() {
       alertWindow.classList.remove("text-bg-danger", "text-bg-success");
       alertWindow.classList.add("show", "text-bg-danger");
       sendButton.innerHTML = "Enviar";
+      sendButton.disabled = false;
       message.textContent = response.data.message;
       await sleep(5000);
       alertWindow.classList.remove("show", "text-bg-danger");
     }
   } catch (error) {
     console.log(error);
+    const message = alertWindow.querySelector(".toast-body");
+    alertWindow.classList.remove("text-bg-danger", "text-bg-success");
+    alertWindow.classList.add("show", "text-bg-danger");
+    sendButton.innerHTML = "Enviar";
+    sendButton.disabled = false;
+    message.textContent = error.response.data.message;
+    await sleep(5000);
+    alertWindow.classList.remove("show", "text-bg-danger");
   }
 }
