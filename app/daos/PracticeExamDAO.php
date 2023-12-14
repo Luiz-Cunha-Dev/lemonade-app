@@ -64,8 +64,54 @@ class PracticeExamDao extends AbstractDAO{
             
             return $practiceExams;
 
-        } catch (\Throwable $e) {
-            throw new Exception();
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * insert practice exam 
+     * 
+     * @return boolean
+     */
+    public function insertPracticeExam($practiceExamData){
+
+        try {
+            $insertPracticeExam = parent::insertElement('practiceExam', $practiceExamData);
+            return $insertPracticeExam;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Get id practice exam of last inserted practice exam
+     * 
+     * 
+     */
+    public function getMostRecentIdPracticeExam(){
+
+        try {
+
+            $sql = 'SELECT idPracticeExam FROM practiceExam ORDER BY idPracticeExam DESC LIMIT 1';
+
+            $stmt = $this->conn->prepare($sql);
+
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $stmt->close();
+
+            if ($result) {
+                $element = $result->fetch_assoc();
+            } else {
+                $element = array();
+            }
+
+            $result->free();
+
+            return $element;
+        } catch (Exception $e) {
+            throw $e;
         }
     }
 }

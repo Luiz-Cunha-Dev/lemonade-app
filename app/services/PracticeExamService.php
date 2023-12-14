@@ -10,6 +10,7 @@ use app\daos\PracticeExamQuestionDao;
 use app\daos\PracticeExamDao;
 
 use Exception;
+use mysqli_sql_exception;
 
 define("NUMBER_OF_ALTERNATIVES", 5);
 
@@ -190,5 +191,58 @@ class PracticeExamService extends AbstractService
         } catch (Exception $e) {
             throw $e;
         };
+    }
+
+    /**
+     * Insert user practice exam
+     * 
+     * @param array $practiceExamData
+     * 
+     * @return boolean
+     */
+    public function insertUserCreatedPracticeExam($practiceExamData){
+
+        try {
+
+
+            $practiceExamDataToInsert = [
+                'idPracticeExam' => null,
+                'name' => $practiceExamData['name'],
+                'description' => $practiceExamData['description']
+            ];
+
+            $this->practiceExamDAO->beginTransaction();
+
+            $insertUserCreatedPracticeExam = $this->practiceExamDAO->insertPracticeExam($practiceExamDataToInsert);
+
+            if(!$insertUserCreatedPracticeExam){
+                return false;
+            } 
+            
+            $this->practiceExamDAO->commitTransaction();
+
+            $idPracticeExam = $this->practiceExamDAO->getMostRecentIdPracticeExam();
+            
+            $idPracticeExam = $idPracticeExam['idPracticeExam'];
+
+            $this->practiceExamQuestionDAO->beginTransaction();
+
+            for($i = 0; $i < count($practiceExamData['questions']); $i++){
+
+                $this->practiceExamQuestionDAO->insertPracticeExamQuestion([
+                    'idPracticeExam' => $idPracticeExam,
+                    'idQuestion' => $practiceExamData['questions'][$i]
+                ]);
+            }
+
+            $this->practiceExamQuestionDAO->commitTransaction();
+            
+            $this->practiceExamDAO->closeConnection();
+            $this->practiceExamQuestionDAO->closeConnection();
+            return true;
+        } catch (Exception$e) {
+            throw $e;
+            
+        }
     }
 }

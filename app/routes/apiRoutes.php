@@ -72,6 +72,13 @@ $router->delete('/api/user/delete/{id}', [
 
 // User Practice exam routes
 
+$router->get('/api/userPracticeExam/ranking', [
+    'middlewares' => [
+        'InternalApiToken'
+    ],
+    fn($request) => new Response(200, 'application/json', UserPracticeExamController::getUsersRanking($request))
+]);
+
 $router->get('/api/userPracticeExam/{idUser}', [
     'middlewares' => [
         'InternalApiToken'
@@ -94,12 +101,18 @@ $router->get('/api/practiceExam/{idPracticeExam}',[
     fn($idPracticeExam) => new Response(200, 'application/json', PracticeExamController::getPracticeExamQuestions($idPracticeExam))
 ]);
 
-// Practice exam routes
 $router->get('/api/practiceExam',[
     'middlewares' => [
        'InternalApiToken'
     ],
     fn() => new Response(200, 'application/json', PracticeExamController::getAllPracticeExams())
+]);
+
+$router->post('/api/practiceExam',[
+    'middlewares' => [
+       'InternalApiToken'
+    ],
+    fn($request) => new Response(200, 'application/json', PracticeExamController::insertUserCreatedPracticeExam($request))
 ]);
 
 // Random question route
