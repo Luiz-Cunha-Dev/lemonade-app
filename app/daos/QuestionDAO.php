@@ -68,4 +68,45 @@ class QuestionDAO extends AbstractDAO {
         
     }
 
+    /**
+     * Insert question
+     * 
+     * @param $questionData
+     * 
+     * @return boolean
+     */
+    public function insertQuestion($questionData){
+
+        try {
+            return parent::insertElement('question', $questionData);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function getMostRecentIdQuestion(){
+
+        try {
+
+            $sql = 'SELECT idQuestion FROM question ORDER BY idQuestion DESC LIMIT 1';
+
+            $stmt = $this->conn->prepare($sql);
+
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $stmt->close();
+
+            if ($result) {
+                $element = $result->fetch_assoc();
+            } else {
+                $element = array();
+            }
+
+            $result->free();
+
+            return $element;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
 }

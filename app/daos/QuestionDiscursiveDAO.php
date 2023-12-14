@@ -45,4 +45,20 @@ class QuestionDiscursiveDAO extends AbstractDAO{
         
     }
 
+    /**
+     * Insert question discursive 
+     * 
+     * @param $questionDiscursiveData
+     * 
+     * @return boolean
+     */
+    public function insertQuestionDiscursive($questionDiscursiveData){
+
+        try {
+            return parent::insertElement('questionDiscursive', $questionDiscursiveData);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
 } 

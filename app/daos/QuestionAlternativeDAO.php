@@ -82,5 +82,21 @@ use Exception;
         }
 
     }
+
+    /**
+     * Insert question alternative
+     * 
+     * @param $questionAlternativeData
+     * 
+     * @return boolean
+     */
+    public function insertQuestionAlternative($questionAlternativeData){
+
+        try {
+            return parent::insertElement('questionAlternative', $questionAlternativeData);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
     
  }

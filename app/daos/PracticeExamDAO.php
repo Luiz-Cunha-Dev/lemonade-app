@@ -87,7 +87,7 @@ class PracticeExamDao extends AbstractDAO{
     /**
      * Get id practice exam of last inserted practice exam
      * 
-     * 
+     * @param return array $element
      */
     public function getMostRecentIdPracticeExam(){
 

@@ -53,9 +53,9 @@ class PracticeExamController{
     }
 
     /**
-     * Get all practice exams
+     * Insert user practice exam
      * 
-     * @return array $PracticeExams
+     * @return boolean
      */
     public static function insertUserCreatedPracticeExam($request){
 
