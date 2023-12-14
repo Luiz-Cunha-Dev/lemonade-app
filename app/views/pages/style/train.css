@@ -214,6 +214,83 @@ body.light-mode {
   color: #333;
 }
 
+pre {
+  text-wrap: wrap;
+}
+
+.correct {
+  color: #00ff00;
+}
+
+.incorrect {
+  color: #ff0000;
+}
+
+.questionCenter {
+  right: 0;
+  left: 15%;
+}
+
+.questionLeft {
+  right: 0;
+  left: -70%;
+}
+
+.questionRight {
+  left: 100%;
+  right: -70%;
+}
+
+.question {
+  position: absolute;
+  margin-top: 30px;
+  margin-bottom: 150px;
+  padding: 50px;
+  padding-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  min-width: 70%;
+  gap: 30px;
+  min-height: 718px;
+  border-radius: 20px;
+  background: #192236;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  color: #fff;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+  transition: left 0.6s ease-in-out;
+}
+.question form {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  gap: 30px;
+  color: #fff;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+}
+.question .backArrow {
+  cursor: pointer;
+  position: absolute;
+  left: 50px;
+  bottom: 30px;
+  width: 150px;
+  height: 40px;
+}
+.question .nextArrow {
+  cursor: pointer;
+  position: absolute;
+  right: 50px;
+  bottom: 30px;
+  width: 120px;
+  height: 40px;
+}
+
 h1 {
   font-size: 70px;
   font-style: normal;
@@ -251,10 +328,50 @@ h2 {
   align-items: center;
   height: -moz-fit-content;
   height: fit-content;
-  min-height: 90vh;
+  min-height: 120vh;
   padding-top: 20vh;
 }
 
+@media (max-width: 1280px) {
+  .questionCenter {
+    right: 0;
+    left: 5%;
+  }
+  .questionLeft {
+    right: 0;
+    left: -90%;
+  }
+  .questionRight {
+    left: 100%;
+    right: -90%;
+  }
+  .question {
+    margin-top: 30px;
+    margin-bottom: 100px;
+    width: 90%;
+    min-width: 70%;
+    gap: 30px;
+    min-height: 718px;
+    border-radius: 20px;
+    font-size: 18px;
+    line-height: 28px;
+  }
+  .question form {
+    gap: 30px;
+    font-size: 18px;
+    line-height: 28px;
+  }
+  .question .backArrow {
+    left: 50px;
+    bottom: 30px;
+    height: 40px;
+  }
+  .question .nextArrow {
+    right: 50px;
+    bottom: 30px;
+    height: 40px;
+  }
+}
 @media (max-width: 768px) {
   h1 {
     font-size: 50px;
@@ -267,5 +384,45 @@ h2 {
   }
   .section {
     padding-top: 15vh;
+  }
+  .questionCenter {
+    right: 0;
+    left: 2.5%;
+  }
+  .questionLeft {
+    right: 0;
+    left: -95%;
+  }
+  .questionRight {
+    left: 100%;
+    right: -95%;
+  }
+  .question {
+    margin-top: 50px;
+    margin-bottom: 100px;
+    width: 95%;
+    min-width: 70%;
+    gap: 30px;
+    min-height: 718px;
+    height: -moz-fit-content;
+    height: fit-content;
+    border-radius: 20px;
+    font-size: 18px;
+    line-height: 28px;
+  }
+  .question form {
+    gap: 30px;
+    font-size: 18px;
+    line-height: 28px;
+  }
+  .question .backArrow {
+    left: 50px;
+    bottom: 30px;
+    height: 40px;
+  }
+  .question .nextArrow {
+    right: 50px;
+    bottom: 30px;
+    height: 40px;
   }
 }/*# sourceMappingURL=train.css.map */

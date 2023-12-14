@@ -47,7 +47,7 @@ a {
   bottom: 0;
   width: 400px;
   height: 100%;
-  z-index: 5;
+  z-index: 1000;
   background-color: #151e30;
   transition: all 0.5s ease;
   display: flex;
@@ -94,7 +94,7 @@ a {
 }
 
 #fade {
-  z-index: 2;
+  z-index: 999;
   width: 100vw;
   height: 100%;
   position: absolute;
@@ -224,7 +224,6 @@ body.light-mode .createExam {
 .createExam {
   width: 100%;
   min-height: 800px;
-  max-height: 800px;
   background-color: #151e30;
   border-radius: 20px;
   padding: 20px;
@@ -241,17 +240,27 @@ body.light-mode .createExam {
 .top {
   display: flex;
   height: 700px;
+  width: 100%;
 }
 
 .down {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100px;
+  height: 500px;
 }
 .down button {
   width: 100px;
   height: 40px;
+}
+.down .row {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
 }
 
 .scrollField {
@@ -275,8 +284,8 @@ body.light-mode .createExam {
   cursor: pointer;
 }
 .question p {
-  width: 90%;
-  height: 100px;
+  text-wrap: wrap;
+  min-height: 100px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -285,6 +294,7 @@ body.light-mode .createExam {
   display: flex;
   flex-direction: column;
   width: 60%;
+  min-width: 60%;
   height: 700px;
   padding: 20px;
 }
@@ -330,7 +340,7 @@ h2 {
   align-items: center;
   position: absolute;
   left: 12%;
-  top: 15%;
+  top: 10%;
   gap: 20px;
 }
 .pageTitle img {
@@ -374,14 +384,17 @@ h2 {
   }
   .down {
     position: absolute;
-    left: 0;
+    min-height: 450px;
+    max-height: 450px;
     bottom: 0;
+    left: 0;
     width: 100%;
   }
   .createExam {
+    width: 95%;
     position: relative;
-    min-height: 1100px;
-    max-height: 1100px;
+    min-height: 1500px;
+    max-height: 1500px;
   }
   .scrollField {
     width: 100%;
@@ -401,7 +414,8 @@ h2 {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 600px;
+    height: 500px;
+    min-height: 500px;
     padding: 20px;
   }
   .exam .title {
@@ -411,7 +425,9 @@ h2 {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 400px;
+    height: 500px;
+    max-height: 500px;
+    min-height: 500px;
     padding: 20px;
   }
   .questions .title {

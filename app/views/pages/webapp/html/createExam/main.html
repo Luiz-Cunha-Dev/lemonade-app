@@ -3,7 +3,7 @@
     <img src="./app/views/pages/assets/svgs/tools.svg" alt="icone da pagina 2">
     <h2>Criar Simulado</h2>
 </div>
-<div class="section">
+<div class="section row">
 
     <div class="createExam">
         <div class="top">
@@ -17,51 +17,25 @@
             <div class="questions">
                 <div class="title"><h3>Questões Disponiveis</h3></div>
                 <div class="scrollField">
-                    <div id="1" class="question">
-                        <h3>Questão 1</h3>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed non similique vero, iure eum eos, ut enim deleniti reiciendis vitae aliquam dolor error. Iste dolore placeat minus delectus cumque numquam.</p>
-                    </div>
-                    <div id="2" class="question">
-                        <h3>Questão 2</h3>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed non similique vero, iure eum eos, ut enim deleniti reiciendis vitae aliquam dolor error. Iste dolore placeat minus delectus cumque numquam.</p>
-                    </div>
-                    <div id="3" class="question">
-                        <h3>Questão 3</h3>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed non similique vero, iure eum eos, ut enim deleniti reiciendis vitae aliquam dolor error. Iste dolore placeat minus delectus cumque numquam.</p>
-                    </div>
-                    <div id="4" class="question">
-                        <h3>Questão 4</h3>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed non similique vero, iure eum eos, ut enim deleniti reiciendis vitae aliquam dolor error. Iste dolore placeat minus delectus cumque numquam.</p>
-                    </div>
-                    <div id="5" class="question">
-                        <h3>Questão 5</h3>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed non similique vero, iure eum eos, ut enim deleniti reiciendis vitae aliquam dolor error. Iste dolore placeat minus delectus cumque numquam.</p>
-                    </div>
-                    <div id="6" class="question">
-                        <h3>Questão 6</h3>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed non similique vero, iure eum eos, ut enim deleniti reiciendis vitae aliquam dolor error. Iste dolore placeat minus delectus cumque numquam.</p>
-                    </div>
-                    <div id="7" class="question">
-                        <h3>Questão 7</h3>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed non similique vero, iure eum eos, ut enim deleniti reiciendis vitae aliquam dolor error. Iste dolore placeat minus delectus cumque numquam.</p>
-                    </div>
-                    <div id="8" class="question">
-                        <h3>Questão 8</h3>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed non similique vero, iure eum eos, ut enim deleniti reiciendis vitae aliquam dolor error. Iste dolore placeat minus delectus cumque numquam.</p>
-                    </div>
-                    <div id="9" class="question">
-                        <h3>Questão 9</h3>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed non similique vero, iure eum eos, ut enim deleniti reiciendis vitae aliquam dolor error. Iste dolore placeat minus delectus cumque numquam.</p>
-                    </div>
-                    <div id="10" class="question">
-                        <h3>Questão 10</h3>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed non similique vero, iure eum eos, ut enim deleniti reiciendis vitae aliquam dolor error. Iste dolore placeat minus delectus cumque numquam.</p>
-                    </div>
                 </div>
             </div>
         </div>
         <div class="down">
-            <button disabled id="sendButton" class="btn btn-success">Salvar</button>
+            <div class="row">
+                <div class="col">
+                  <label for="inputName" class="form-label">Nome</label>
+                  <div class="input-group">
+                    <input name="firstName" type="text" class="form-control" placeholder="Digite o nome do simulado" id="inputName" aria-label="Nome">
+                  </div>
+                </div>
+                <div class="col">
+                  <label for="inputDescription" class="form-label">Descrição</label>
+                  <div class="input-group">
+                    <textarea rows="8" type="text" class="form-control" placeholder="Digite a descrição do simulado" id="inputDescription" aria-label="Descrição"></textarea>
+                  </div>
+                </div>
+                <button disabled id="sendButton" class="btn btn-success">Salvar</button>
+              </div>
         </div>
     </div>
 

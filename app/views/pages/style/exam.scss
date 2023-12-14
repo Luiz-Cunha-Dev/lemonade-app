@@ -26,12 +26,17 @@ body {
   margin-bottom: 250px;
 }
 
+pre{
+  text-wrap: wrap;
+}
+
 textarea{
   resize: none;
 }
 
 label{
   margin-bottom: 15px;
+  max-width: 100%;
 }
 
 h1 {

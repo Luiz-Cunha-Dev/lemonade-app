@@ -49,7 +49,7 @@ class ExamController extends AbstractPageController {
         ]);
 
         $item2 = View::render('pages/components/sidebarItem', [
-            'itemUrl' => 'wapp/exams',
+            'itemUrl' => 'wapp/createExam',
             'imageUrl' => './app/views/pages/assets/svgs/exam.svg',
             'itemName' => 'Simulados'
         ]);
@@ -61,7 +61,7 @@ class ExamController extends AbstractPageController {
         ]);
 
         $item4 = View::render('pages/components/sidebarItem', [
-            'itemUrl' => 'wapp/questions',
+            'itemUrl' => 'wapp/createQuestion',
             'imageUrl' => './app/views/pages/assets/svgs/book.svg',
             'itemName' => 'Questões'
         ]);
@@ -81,6 +81,7 @@ class ExamController extends AbstractPageController {
         $header = View::render('pages/webapp/html/header', [
             'userName' => Session::getCurrentUserSessionData()['name'],
             'lastName' => Session::getCurrentUserSessionData()['lastName'],
+            'userId' => Session::getCurrentUserSessionData()['id'],
             'sidebarItems' => Session::getCurrentUserSessionData()['userType'] == 1 ? self::getStudentSidebarItems() : self::getAdminSidebarItems(),
             'profilePicture' => Session::getCurrentUserSessionData()['profilePicture']
         ]);
