@@ -33,4 +33,22 @@ class QuestionController {
         return (new Response(201, 'application/json', ['message' => 'Questão criada com sucesso!', 'success' => true]))->sendResponse();
     }
 
+    /**
+     * Get all questions
+     * 
+     */
+    public static function getAllQuestions(){
+
+        $questionService = new QuestionService;
+
+        $questions = $questionService->getAllQuestions();
+        
+        if(empty($questions)){
+
+            return (new Response(404, 'application/json', ['message' => 'Não foi possível localizar as questões', 'success' => false]))->sendResponse();
+        }
+
+        return $questions;
+    }
+
 }

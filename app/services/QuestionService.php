@@ -141,7 +141,7 @@ class QuestionService extends AbstractService
                 if($insertQuestionDiscursive){
                     return false;
                 }
-                
+
                 $this->questionDiscursiveDAO->commitTransaction();
 
                 
@@ -155,6 +155,32 @@ class QuestionService extends AbstractService
             return true;
         } catch (Exception $e) {
 
+            throw $e;
+        }
+    }
+
+    /**
+     * Get all questions 
+     * 
+     * @return array $questions
+     */
+    public function getAllQuestions(){
+
+        try {
+            
+            $questions = $this->questionDAO->getAllQuestions();
+
+            $questions = array_map(function($q){
+
+                return [
+                   'idQuestion' => $q->getIdQuestion(),
+                   'text' => $this->questionTextDAO->getQuestionTextsByIdQuestion($q->getIdQuestion())[0]->getText() 
+                ] ;
+
+            }, $questions);
+
+            return $questions;
+        } catch (Exception $e) {
             throw $e;
         }
     }
