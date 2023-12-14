@@ -11,13 +11,13 @@
   <form>
 
     <div class="form-group">
-      <label for="text1">Texto 1</label>
-      <textarea rows="5" type="text" class="form-control" id="texto1" name="texto1" required></textarea>
+      <label for="text1">Texto</label>
+      <textarea rows="5" type="text" class="form-control" id="text1" name="texto1" required></textarea>
     </div>
 
     <div class="form-group">
-      <label for="text2">Texto 2</label>
-      <textarea rows="5" type="text" class="form-control" id="texto2" name="texto2" required></textarea>
+      <label for="text2">Pergunta</label>
+      <textarea rows="5" type="text" class="form-control" id="text2" name="texto2" required></textarea>
     </div>
 
     <div class="form-group">
@@ -28,6 +28,18 @@
         <option value="dissertativa">Dissertativa</option>
       </select>
     </div>
+
+    <div class="form-group alternative hidden">
+      <label for="respostaCorreta">Alternativa Correta</label>
+      <select class="form-control" id="correctAnswer" name="respostaCorreta">
+          <option value="1">Alternativa 1</option>
+          <option value="2">Alternativa 2</option>
+          <option value="3">Alternativa 3</option>
+          <option value="4">Alternativa 4</option>
+          <option value="5">Alternativa 5</option>
+      </select>
+  </div>
+  
 
     <div class="form-group alternative hidden">
       <label for="alternativa1">Alternativa 1</label>
@@ -59,7 +71,7 @@
       <textarea rows="6" id="answer" type="text" class="form-control" name="resposta" required></textarea>
     </div>
 
-    <button type="submit" class="btn btn-success">Salvar</button>
+    <button id="sendButton" class="btn btn-success" disabled>Salvar</button>
 
   </form>
 

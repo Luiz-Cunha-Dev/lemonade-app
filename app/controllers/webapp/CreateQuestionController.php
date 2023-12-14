@@ -81,6 +81,7 @@ class CreateQuestionController extends AbstractPageController {
         $header = View::render('pages/webapp/html/header', [
             'userName' => Session::getCurrentUserSessionData()['name'],
             'lastName' => Session::getCurrentUserSessionData()['lastName'],
+            'userId' => Session::getCurrentUserSessionData()['id'],
             'sidebarItems' => Session::getCurrentUserSessionData()['userType'] == 1 ? self::getStudentSidebarItems() : self::getAdminSidebarItems(),
             'profilePicture' => Session::getCurrentUserSessionData()['profilePicture']
         ]);
