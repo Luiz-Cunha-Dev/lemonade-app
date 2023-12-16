@@ -258,7 +258,7 @@ async function evaluateAnswer(question, answer, baseResponse) {
       {
         headers: {
           Authorization:
-            "Bearer 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",
+            "Bearer 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",
           "Content-Type": "application/json",
         },
       }
@@ -312,7 +312,7 @@ async function sendExam() {
           question.text,
           textarea.value,
           question.baseResponse.baseResponse
-        ) || "0";
+        ) || false;
         discursiveAnswers.push(answer);
         if (answer.isCorrect) {
           correctAnswers++;
@@ -342,6 +342,8 @@ async function sendExam() {
         };
       }),
     };
+
+    console.log(body);
 
     const response = await axios.post(
       `http://localhost/lemonade/api/userPracticeExam`, body,

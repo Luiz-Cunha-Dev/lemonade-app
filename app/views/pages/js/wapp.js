@@ -8,20 +8,20 @@ const top3 = document.querySelector(".top3");
 
 function insertRanking(ranking) {
   top1.querySelector("h3").textContent = ranking[0] ? ranking[0].fullName : "---------";
-  top2.querySelector("h3").textContent = ranking[1] ? ranking[1].fullName : "---------";
-  top3.querySelector("h3").textContent = ranking[2] ? ranking[2].fullName : "---------";
-  if (ranking[0] && ranking[0].userPicture) {
-    top1.querySelector("img").src = ranking[0].userPicture;
+  top2.querySelector("h3").textContent = ranking[1]?.fullName ?? "---------";
+  top3.querySelector("h3").textContent = ranking[2]?.fullName ?? "---------";
+  if (ranking[0]?.profilePicture) {
+    top1.querySelector("img").src = ranking[0].profilePicture;
   }
-  if (ranking[1] && ranking[1].userPicture) {
-    top2.querySelector("img").src = ranking[1].userPicture;
+  if (ranking[1]?.profilePicture) {
+    top2.querySelector("img").src = ranking[1].profilePicture;
   }
-  if (ranking[2] && ranking[2].userPicture) {
-    top3.querySelector("img").src = ranking[2].userPicture;
+  if (ranking[2]?.profilePicture) {
+    top3.querySelector("img").src = ranking[2].profilePicture;
   }
 }
 
-async function getRanking(page) {
+async function getRanking() {
   try {
     const response = await axios.get(
       `http://localhost/lemonade/api/userPracticeExam/ranking?limit=3`,

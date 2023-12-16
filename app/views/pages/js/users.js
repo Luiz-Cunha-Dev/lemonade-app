@@ -34,6 +34,12 @@ const editCEP = document.getElementById("editCEP");
 const editNumber = document.getElementById("editNumber");
 const editComplement = document.getElementById("editComplement");
 const userPhoto = document.getElementById("userPhoto");
+const buttonSeachUsers = document.getElementById('buttonSeachUsers');
+
+
+buttonSeachUsers.addEventListener('click', async () => {
+ await searchUserByName();
+})
 
 editName.addEventListener("click", () => {
   editField("inputName");
@@ -65,6 +71,80 @@ editNumber.addEventListener("click", () => {
 editComplement.addEventListener("click", () => {
   editField("inputComplement");
 });
+
+async function searchUserByName() {
+  try {
+    const inputSearch = document.getElementById("inputSeachUsers");
+    const users = document.querySelectorAll("div.users > div.user");
+
+    if (users) {
+      users.forEach((user) => user.remove());
+    }
+
+    const loadingUsers = document.querySelector(".loading-users");
+
+    if (loadingUsers.classList.contains("hidden")) {
+      loadingUsers.classList.remove("hidden");
+    }
+
+    const response = await axios.get(`http://localhost/lemonade/api/users?userFullName=${inputSearch.value}&limit=9&offset=0`,
+    {
+      headers: {
+        ltoken: "b3050e0156cc3d05ddb7bbd9",
+      },
+    })
+
+    await getPagination();
+
+    response.data.forEach((user) => {
+      const userCard = document.createElement("div");
+      userCard.classList.add("user");
+      userCard.innerHTML = `
+            <img src="${
+              user.profilePicture ||
+              "./app/views/pages/assets/imgs/wapp/user.png"
+            }" alt="foto de usuario">
+            <span>${user.name} ${user.lastName}</span>
+        `;
+      userCard.addEventListener("click", () => {
+        const [userCity] = cities.filter((city) => {
+          return city.idCity == user.idCity;
+        });
+        userPhoto.src =
+          user.profilePicture || "./app/views/pages/assets/imgs/wapp/user.png";
+        inputName.value = user.name;
+        inputLastName.value = user.lastName;
+        inputEmail.value = user.email;
+        inputNickname.value = user.nickname;
+        inputPhone.value = `(${user.phone.slice(0, 2)}) ${user.phone.slice(
+          2,
+          7
+        )}-${user.phone.slice(7)}`;
+        inputBirthDate.value = user.birthDate;
+        inputCep.value = `${user.postalCode.slice(
+          0,
+          5
+        )}-${user.postalCode.slice(5)}`;
+        inputStreet.value = user.street;
+        inputNumber.value = user.streetNumber;
+        inputNeighborhood.value = user.district;
+        inputComplement.value = user.complement;
+        inputCity.value = `${user.idCity}`;
+        inputState.value = `${userCity.idState}`;
+        popup.id = user.idUser;
+        popup.classList.remove("hidden");
+      });
+      const usersDiv = document.querySelector(".users");
+      usersDiv.append(userCard);
+    });
+
+    if (!loadingUsers.classList.contains("hidden")) {
+      loadingUsers.classList.add("hidden");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 function getBodyByInputType(inputId, inputValue) {
   switch (inputId) {
