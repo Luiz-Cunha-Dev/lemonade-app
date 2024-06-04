@@ -1,4 +1,4 @@
-# Lemonade
+# Lemonade ![Lemonade](app/views/pages/assets/imgs/home/initial.png){width=100px height=100px}
 
 Lemonade is a powerful web application designed for efficient ENADE (National Student Performance Exam) preparation. With Lemonade, you can challenge yourself, enhance your knowledge, and climb to the top of the ranking. Preparing for the ENADE has never been so refreshing!
 
